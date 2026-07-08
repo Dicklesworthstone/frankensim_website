@@ -370,3 +370,23 @@ input:focus-visible,
   opacity: 0.3;
   pointer-events: none;
 }
+
+/* --------------------------------------------------------------------------
+   9. Scroll-jank guard — suppress backdrop-filter during active scrolling
+   --------------------------------------------------------------------------
+   A `backdrop-filter: blur(...)` surface must be re-rasterized by the compositor
+   on every frame it (or the content behind it) moves. The Lab stacks ~28 glass
+   surfaces — the fixed header + every demo's live-HUD chips — so during a scroll
+   that is ~28 full re-rasterizations per frame, a dominant source of dropped
+   frames. While the page is *actively* scrolling we drop the blur; every one of
+   these surfaces already carries its own translucent dark fill, so over the
+   near-black canvas the in-motion appearance is indistinguishable. The blur is
+   restored the instant scrolling stops (the `is-scrolling` class is removed on a
+   ~140ms debounce), so the at-rest look — and every at-rest screenshot — is
+   byte-for-byte unchanged. Only two style recalcs happen per scroll gesture
+   (class add at start, remove at idle), never per frame. */
+html.is-scrolling .glass-modern,
+html.is-scrolling [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}

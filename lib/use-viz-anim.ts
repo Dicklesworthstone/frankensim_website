@@ -105,3 +105,43 @@ export function useEasedText<T extends Element = HTMLSpanElement>(
 
   return ref;
 }
+
+/**
+ * Toggles an `is-scrolling` class on <html> while the page is actively scrolling
+ * (removed on a debounce ~`idleMs` after the last scroll event). Paired with the
+ * globals.css rule that drops `backdrop-filter` while that class is present, this
+ * removes the per-frame re-rasterization of every glass surface during scroll —
+ * with zero at-rest change, since the blur is restored the moment scrolling
+ * stops. The listener is `{ passive: true }`, reads no layout, and only mutates a
+ * class (idempotently), so it costs at most two style recalcs per scroll gesture.
+ *
+ * Mount once near the root of a heavy page (e.g. the Lab); it is a no-op on the
+ * server and harmless if mounted more than once.
+ */
+export function useScrollIdleClass(idleMs = 140): void {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const root = document.documentElement;
+    let scrolling = false;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const clear = () => {
+      scrolling = false;
+      timer = null;
+      root.classList.remove("is-scrolling");
+    };
+    const onScroll = () => {
+      if (!scrolling) {
+        scrolling = true;
+        root.classList.add("is-scrolling");
+      }
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(clear, idleMs);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (timer) clearTimeout(timer);
+      root.classList.remove("is-scrolling");
+    };
+  }, [idleMs]);
+}

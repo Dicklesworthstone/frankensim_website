@@ -5,6 +5,7 @@ import { Cpu, Zap } from "lucide-react";
 import GlitchText from "@/components/glitch-text";
 import LazyViz from "@/components/lazy-viz";
 import { useFsWasm } from "@/lib/use-fs-wasm";
+import { useScrollIdleClass } from "@/lib/use-viz-anim";
 
 // ── Tier I · Foundations ──────────────────────────────────────────────────
 import HeatPde from "@/components/wasm/heat-pde";
@@ -83,6 +84,11 @@ function TierHeader({
 
 export default function WasmLab() {
   const { ready, engine } = useFsWasm();
+
+  // Drop backdrop-filter blur on all glass surfaces while actively scrolling
+  // (restored on scroll-idle) — kills ~28 per-frame compositor re-rasterizations
+  // with no change to the at-rest look. See globals.css `.is-scrolling`.
+  useScrollIdleClass();
 
   return (
     <main id="main-content">
