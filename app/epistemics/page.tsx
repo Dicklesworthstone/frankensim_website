@@ -16,6 +16,10 @@ import EvidenceValueViz from "@/components/viz/evidence-value-viz";
 import CertifiedSpeculationViz from "@/components/viz/certified-speculation-viz";
 import GauntletViz from "@/components/viz/gauntlet-viz";
 import SheafWatertightnessViz from "@/components/viz/sheaf-watertightness-viz";
+import EpistemicEngineViz from "@/components/viz/epistemic-engine-viz";
+import GluingH0Viz from "@/components/viz/gluing-h0-viz";
+import ObstructionH1Viz from "@/components/viz/obstruction-h1-viz";
+import ConfidenceSequenceViz from "@/components/viz/confidence-sequence-viz";
 import { principles, fiveExplicits, codeExampleEvidence, codeExampleError } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -150,6 +154,34 @@ export default function EpistemicsPage() {
           </blockquote>
         </div>
       </section>
+
+      {/* ================================================================
+          THE ENGINE, END TO END
+          ================================================================ */}
+      <SectionShell
+        id="engine"
+        icon="activity"
+        eyebrow="The Whole Machine"
+        title="How a Claim Is Made"
+        kicker="Before the parts, the whole. A physical question enters on the left and a certified claim leaves on the right. Cheap proposers guess, one certified test decides, the survivor accretes its evidence, claims compose, and local certificates glue into a global one. Watch a single claim run from question to proof."
+      >
+        <div className="space-y-8">
+          <SyncContainer withPulse={true} accentColor={VERIFIED} className="p-1 md:p-2 bg-black/40">
+            <EpistemicEngineViz />
+          </SyncContainer>
+          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+            <p className="text-lg md:text-xl font-black text-white leading-snug mb-4">
+              The expensive step runs <span className="text-cyan-400">once</span>, on the one candidate that earned it.
+            </p>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Most proposals are screened for pennies and discarded. Only a candidate that passes the certified
+              accept test pays for the confirmation solve, so the engine spends its budget where belief is
+              actually being bought. Every stage downstream inherits the color it earned upstream: an estimate
+              that was never certified cannot leave the machine wearing a badge.
+            </p>
+          </div>
+        </div>
+      </SectionShell>
 
       {/* ================================================================
           THE THREE COLORS
@@ -351,6 +383,49 @@ export default function EpistemicsPage() {
       </SectionShell>
 
       {/* ================================================================
+          ANYTIME-VALID STATISTICS
+          ================================================================ */}
+      <SectionShell
+        id="anytime-valid"
+        icon="lineChart"
+        eyebrow="Peek-Safe Statistics"
+        title="Stop the Instant It's Decisive"
+        kicker="The statistical slice of every Evidence<T> is an anytime-valid confidence sequence, not a one-shot interval. You may look after every sample and stop the moment the band clears the threshold, and the coverage guarantee still holds. That is what lets the e-process racer cancel its losers mid-solve without ever p-hacking the result."
+      >
+        <div className="space-y-8">
+          <SyncContainer withPulse={true} accentColor={VERIFIED} className="p-1 md:p-2 bg-black/40">
+            <ConfidenceSequenceViz />
+          </SyncContainer>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Sigma className="h-4 w-4 text-cyan-400" />
+                <h3 className="text-sm font-black text-white">Valid at every n, not one</h3>
+              </div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                A classical confidence interval is only honest at the single sample size you committed to in
+                advance. Peek repeatedly and stop when it looks good, and its true error rate balloons. A
+                confidence sequence is a band valid simultaneously at all sample sizes, so continuous monitoring
+                is free. The estimate can be watched, not just reported.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Gauge className="h-4 w-4 text-lime-300" />
+                <h3 className="text-sm font-black text-white">Racing without regret</h3>
+              </div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Candidate designs each accumulate an e-value, a betting martingale. Because e-processes are
+                anytime-valid, a leader can be declared and the losers cancelled the instant the evidence is
+                decisive, saving core-hours at identical statistical guarantees. Optional stopping stops being a
+                sin and becomes the whole point.
+              </p>
+            </div>
+          </div>
+        </div>
+      </SectionShell>
+
+      {/* ================================================================
           THE GAUNTLET
           ================================================================ */}
       <SectionShell
@@ -413,14 +488,77 @@ export default function EpistemicsPage() {
         id="watertight"
         icon="gitMerge"
         eyebrow="The Sheaf View"
-        title="Watertight by Cohomology"
-        kicker="Geometry gluing is not eyeballed. Watertightness is defined as an algebraic fact, the vanishing of an interface cocycle. A surface either provably seals or names exactly why it cannot."
+        title="Local Truth, Glued"
+        kicker="A global certified claim is stitched from local ones. The language for when local pieces agree, when they glue into a whole, and when they cannot, is sheaf cohomology. H⁰ is the global consensus that survives; H¹ is the obstruction that names exactly why a seam leaks. Watertightness stops being something you eyeball and becomes an algebraic fact you can check."
       >
-        <div className="space-y-8">
-          <SyncContainer withPulse={true} accentColor={VALIDATED} className="p-1 md:p-2 bg-black/40">
-            <SheafWatertightnessViz />
-          </SyncContainer>
+        <div className="space-y-14">
+          {/* H0 — gluing */}
+          <div className="space-y-5">
+            <div>
+              <span className="font-mono text-xs font-black uppercase tracking-[0.2em] text-cyan-400">
+                H⁰ · the global section
+              </span>
+              <h3 className="mt-2 text-xl md:text-2xl font-black text-white">
+                Local claims glue when they agree on every overlap
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm text-slate-400 leading-relaxed">
+                Cover a region with overlapping charts, each carrying its own local certified value. Together
+                they form a presheaf. They glue into a single global section, an element of H⁰, exactly when
+                every pair agrees on the overlap they share. Nudge one chart out of agreement and the global
+                section ceases to exist: the seam leaks. The color of the whole is the meet of the parts, so a
+                global certificate is only ever as strong as its weakest chart.
+              </p>
+            </div>
+            <SyncContainer withPulse={true} accentColor={VERIFIED} className="p-1 md:p-2 bg-black/40">
+              <GluingH0Viz />
+            </SyncContainer>
+          </div>
 
+          {/* H1 — obstruction */}
+          <div className="space-y-5">
+            <div>
+              <span className="font-mono text-xs font-black uppercase tracking-[0.2em] text-amber-300">
+                H¹ · the obstruction
+              </span>
+              <h3 className="mt-2 text-xl md:text-2xl font-black text-white">
+                When pairwise agreement still isn&apos;t enough
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm text-slate-400 leading-relaxed">
+                Sometimes every pair of charts is locally consistent and the pieces still refuse to glue.
+                Transport a value around a loop of overlapping patches and it can return changed; the leftover
+                is a cocycle, a class in H¹. Some obstructions are coboundaries, artifacts of how the patches
+                were labelled, which a re-gauge drains to zero: pure bookkeeping, mechanically auto-fixable.
+                Others are harmonic, a genuine topological disagreement whose holonomy is invariant no matter
+                how you relabel. The math sorts the fixable from the fundamental for you.
+              </p>
+            </div>
+            <SyncContainer withPulse={true} accentColor={ESTIMATED} className="p-1 md:p-2 bg-black/40">
+              <ObstructionH1Viz />
+            </SyncContainer>
+          </div>
+
+          {/* Concrete — watertight surface */}
+          <div className="space-y-5">
+            <div>
+              <span className="font-mono text-xs font-black uppercase tracking-[0.2em] text-lime-300">
+                The concrete case
+              </span>
+              <h3 className="mt-2 text-xl md:text-2xl font-black text-white">
+                A surface that seals is a theorem, not a render
+              </h3>
+              <p className="mt-2 max-w-3xl text-sm text-slate-400 leading-relaxed">
+                Take the same machinery to geometry. Model a surface as a cellular sheaf: each patch holds
+                local data, each shared edge holds a compatibility constraint. Watertightness is precisely the
+                vanishing of the interface cocycle. A seal becomes something you prove, and a leak names its own
+                location.
+              </p>
+            </div>
+            <SyncContainer withPulse={true} accentColor={VALIDATED} className="p-1 md:p-2 bg-black/40">
+              <SheafWatertightnessViz />
+            </SyncContainer>
+          </div>
+
+          {/* payoff cards */}
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
               <div className="flex items-center gap-2 mb-3">
@@ -430,10 +568,8 @@ export default function EpistemicsPage() {
                 </h3>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Model the surface as a cellular sheaf: each patch carries local data, each shared edge
-                carries a compatibility constraint. Watertightness is precisely the vanishing of the
-                first cohomology; the interface cocycle is zero. No gaps, no double walls, no self-lies.
-                A seal is now a theorem you can check, not a rendering you squint at.
+                Watertightness is the vanishing of the first cohomology; the interface cocycle is zero. No gaps,
+                no double walls, no self-lies. A seal is a theorem you check, not a rendering you squint at.
               </p>
             </div>
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
@@ -442,11 +578,10 @@ export default function EpistemicsPage() {
                 <h3 className="text-sm font-black text-white">Conflicts classify themselves</h3>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed">
-                When a merge fails, the cocycle tells you <span className="text-white font-semibold">which kind</span> of
-                failure it is. A <span className="text-lime-300">coboundary</span> conflict is a bookkeeping
-                mismatch, mechanically auto-fixable. A <span className="text-amber-300">harmonic</span> conflict
-                is structural: a genuine topological disagreement no amount of retopo can paper over. The math
-                sorts the fixable from the fundamental for you.
+                When a merge fails, the cocycle tells you which kind of failure it is. A{" "}
+                <span className="text-lime-300">coboundary</span> conflict is a bookkeeping mismatch,
+                mechanically auto-fixable. A <span className="text-amber-300">harmonic</span> conflict is
+                structural: a topological disagreement no retopo can paper over.
               </p>
             </div>
           </div>
