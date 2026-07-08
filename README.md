@@ -1,331 +1,188 @@
-# Asupersync Website
-
 <div align="center">
-  <img src="asupersync_website_illustration.webp" alt="Asupersync Website - Interactive runtime documentation and visual demos">
+  <img src="public/frankensim_illustration.webp" alt="FrankenSim" width="720">
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2.4-149ECA)](https://react.dev/)
-[![Bun](https://img.shields.io/badge/Bun-1.3.3-F9F1E1)](https://bun.sh/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# FrankenSim Website
+
+[![Live](https://img.shields.io/badge/live-frankensim.org-06b6d4)](https://frankensim.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-149ECA)](https://react.dev/)
+[![Bun](https://img.shields.io/badge/Bun-1.3-F9F1E1)](https://bun.sh/)
+[![WASM](https://img.shields.io/badge/lab-20%20live%20Rust%20kernels-654FF0)](https://frankensim.org/lab)
+[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](#license)
+
+**The marketing and documentation site for [FrankenSim](https://github.com/Dicklesworthstone/frankensim), a certified simulation and design kernel for Rust. Live at [frankensim.org](https://frankensim.org).**
 
 </div>
 
-This is the Next.js 16 website for the Asupersync runtime. It includes interactive concurrency demos, architecture documentation, glossary content, and searchable spec docs.
-
-## Quick Setup (One-Liner)
-
 ```bash
-git clone <your-repo-url> asupersync_website && cd asupersync_website && bun install && bun dev
+git clone https://github.com/Dicklesworthstone/frankensim_website.git && cd frankensim_website && bun install && bun dev
 ```
 
 ## TL;DR
 
-**The Problem**: Most runtime project websites are static marketing pages that do not teach the underlying system, so readers leave without understanding how the runtime works.
+**The problem:** most project sites for deep systems are static marketing pages. They *claim* the system is fast, correct, and novel, but a reader leaves without ever seeing it do anything, and the impressive parts stay abstract.
 
-**The Solution**: The site explains runtime behavior through interactive visualizations and structured docs, so readers can inspect protocol behavior directly.
+**The solution:** this site *shows* FrankenSim instead of describing it. Twenty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser; the ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
 
-### Why Use This Project?
+### Why this site is different
 
-| Capability | What You Get |
+| Capability | What you get |
 |---|---|
-| **Interactive demos** | 20+ client-side visualizations across cancellation, scheduler behavior, semantics, and security models |
-| **Spec Explorer** | Built-in document browser for 26 markdown spec files under `public/spec-docs/` |
-| **Structured content model** | Centralized content in `lib/content.ts` and `lib/spec-docs.ts` for maintainable updates |
-| **Modern frontend stack** | Next.js 16 App Router + React 19 + strict TypeScript + Tailwind 4 + framer-motion |
-| **Performance-aware UX** | Dynamic imports for heavy visualizations, reduced-motion support, and virtualized large lists |
-| **Developer discipline** | Bun-only workflows, lint/type gates, beads_rust issue tracking (`br`), and UBS scanning |
+| **Live WASM kernels** | Twenty of FrankenSim's actual Rust kernels ([`/lab`](https://frankensim.org/lab)) compiled to WebAssembly and computing in your browser: a topology optimizer, a raymarched signed-distance surface, spectral waves, a Lorenz attractor, an interval-certified Mandelbrot, randomized SVD, Orr–Sommerfeld stability, and more. No mocks; the same bytes the native build runs. |
+| **Interactive concept viz** | Twenty-plus bespoke visualizations for the hard ideas: Region/Chart routing, the three epistemic colors, `Evidence<T>`, sheaf gluing (H⁰) and obstruction (H¹), the two-lane executor, certified speculation, the Gauntlet. |
+| **Real 3D** | Six of the Lab demos render in WebGL through Three.js with custom GLSL. |
+| **Self-maintaining stats** | The crate count, line count, and test totals are computed from the FrankenSim source, not hand-typed. |
+| **Native project graph** | The FrankenSim issue and dependency viewer is integrated on-brand at [`/beads`](https://frankensim.org/beads). |
+| **Modern stack** | Next.js 16 (App Router, Turbopack), React 19, strict TypeScript, Tailwind v4, framer-motion, Three.js, Bun. |
 
-## Quick Example
+## What FrankenSim is
+
+[FrankenSim](https://github.com/Dicklesworthstone/frankensim) is a single, memory-safe Rust continuum for computational geometry, physics, optimization, and rendering. Most simulation stacks split physical units, numerical error, geometry validity, provenance, and reproducibility across incompatible tools; FrankenSim builds those concerns into one workspace, so derivatives, error bounds, budgets, provenance, and cancellation ride *inside* the values. Where it matters, it returns proofs, not just numbers.
+
+- **104 `fs-*` crates** in one acyclic workspace across seven layers (L0 Substrate through L6 Helm).
+- Deterministic numerics, certified intervals, exact geometric predicates, CutFEM-on-SDF, adjoint-native optimization, spectral path tracing, and a FrankenSQLite-backed design ledger.
+- An epistemic type system: every value is verified, validated, or estimated, and composition is type-checked so an estimate can never launder into a certificate.
+
+This repository is the **website** for that project, not the kernel itself.
+
+## Quick example
 
 ```bash
-# 1) Install dependencies
-bun install
-
-# 2) Start local development server
-bun dev
-
-# 3) Open key pages
-#    /showcase       -> interactive demos
-#    /architecture   -> architecture deep-dive
-#    /spec-explorer  -> searchable spec docs
-#    /glossary       -> term explorer
-
-# 4) Run quality checks
-bun tsc --noEmit
-bun lint
-
-# 5) Build production bundle
-bun run build
+bun install                              # install deps (Bun only)
+bun dev                                  # dev server at http://localhost:3000
+open http://localhost:3000/lab           # the 20 live WASM kernels
+open http://localhost:3000/epistemics    # the sheaf-cohomology story, visualized
+bunx tsc --noEmit                        # strict typecheck
+bun run build                            # production build
 ```
 
-## Design Philosophy
+## Design philosophy
 
-1. **Show, don’t claim**
-   The site prioritizes visualized behavior over static prose. If a runtime guarantee is central, it should be demonstrable.
-
-2. **Single-source content**
-   Most site data lives in `lib/content.ts` and `lib/spec-docs.ts` to keep edits deterministic and reviewable.
-
-3. **Performance over novelty**
-   Heavy components are loaded dynamically and interactive sections respect reduced-motion and practical rendering constraints.
-
-4. **Explicit engineering constraints**
-   Bun is required, strict TypeScript is enabled, and checks are expected before release.
-
-5. **Operational clarity**
-   Build/test/deploy conventions are straightforward: local verify first, then Vercel deploy flow.
+1. **Show, do not claim.** If a FrankenSim capability is central, it should run in the browser or be visualized, not merely asserted. The Lab compiles real kernels to WASM precisely so the demos cannot be faked.
+2. **One source of truth.** All content lives in `lib/content.ts`; the hero stats and the crate atlas are computed from the Rust source by `scripts/compute-stats.mjs` and `scripts/generate-atlas.mjs`, so the site cannot drift from reality.
+3. **Performance is a feature.** Heavy visualizations lazy-mount and pause off-screen; animations respect `prefers-reduced-motion`; the page stays smooth under twenty live demos.
+4. **The brand is an instrument panel.** A near-black-teal canvas, cyan and violet accents, glass surfaces, and micro-labels: a laboratory of certified monsters, not a blog.
 
 ## Comparison
 
-| Dimension | This Project | Typical Marketing Microsite | Plain Markdown Docs |
+| Dimension | This site | Typical project microsite | Plain docs |
 |---|---|---|---|
-| Runtime concept visualizations | ✅ 20+ interactive demos | ⚠️ Usually minimal | ❌ None |
-| Searchable in-site spec docs | ✅ Integrated explorer | ❌ Rare | ⚠️ Search depends on host |
-| Typed, centralized content model | ✅ Structured TS data | ⚠️ Mixed patterns | ⚠️ Unstructured text files |
-| Animation + motion accessibility | ✅ Present | ⚠️ Inconsistent | ❌ N/A |
-| Developer quality gates | ✅ Lint + typecheck + UBS workflow | ⚠️ Variable | ⚠️ Variable |
-
-## Installation
-
-### 1) Local Development (Recommended)
-
-```bash
-git clone <your-repo-url> asupersync_website
-cd asupersync_website
-bun install
-bun dev
-```
-
-### 2) Download + Run (No Git Clone)
-
-```bash
-# Replace URL with your repository archive URL
-curl -L <repo-archive-url>.tar.gz -o site.tar.gz
-tar -xzf site.tar.gz
-cd <extracted-directory>
-bun install
-bun dev
-```
-
-### 3) Deploy on Vercel
-
-1. Import the repository in Vercel.
-2. Use:
-   - Install command: `bun install`
-   - Build command: `bun run build`
-   - Output directory: `.next`
-3. Deploy.
-
-## Quick Start
-
-1. **Install Bun 1.3+**
-   Verify with `bun --version`.
-2. **Install dependencies**
-   Run `bun install` in repo root.
-3. **Run the app**
-   Start with `bun dev` and open `http://localhost:3000`.
-4. **Validate before shipping**
-   Run `bun tsc --noEmit` and `bun lint`.
-5. **Create production build**
-   Run `bun run build`, then `bun start` for local prod smoke testing.
-
-## Command Reference
-
-### Core Scripts (`package.json`)
-
-| Command | Purpose | Example |
-|---|---|---|
-| `bun dev` | Start Next.js dev server (Turbopack) | `bun dev` |
-| `bun run build` | Build production bundle | `bun run build` |
-| `bun start` | Run production server | `bun start` |
-| `bun lint` | Run ESLint checks | `bun lint` |
-
-### Type Safety + Testing
-
-| Command | Purpose | Example |
-|---|---|---|
-| `bun tsc --noEmit` | Full TS typecheck without output | `bun tsc --noEmit` |
-| `bunx playwright test` | Run E2E tests (if configured) | `bunx playwright test` |
-| `bunx playwright install` | Install Playwright browsers | `bunx playwright install` |
-
-### Issue Tracking (`br` / beads_rust)
-
-| Command | Purpose | Example |
-|---|---|---|
-| `br ready --json` | Show ready/unblocked work | `br ready --json` |
-| `br create ... --json` | Create issue | `br create "Improve glossary UX" -t feature -p 1 --json` |
-| `br update <id> --status in_progress --json` | Claim work | `br update bd-123 --status in_progress --json` |
-| `br close <id> --reason ... --json` | Close work item | `br close bd-123 --reason "Done" --json` |
-| `br sync --flush-only` | Export beads state to JSONL | `br sync --flush-only` |
-
-### UBS
-
-| Command | Purpose | Example |
-|---|---|---|
-| `ubs <path>` | Bug scan specific scope | `ubs . --only=js` |
-
-## Configuration
-
-### `next.config.ts`
-
-```ts
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  images: {
-    formats: ["image/webp"], // prefer modern image format
-  },
-  compress: true,             // gzip/brotli compression
-  poweredByHeader: false,     // remove x-powered-by header
-  reactStrictMode: true,      // stricter runtime checks in development
-};
-
-export default nextConfig;
-```
-
-### Content Configuration (`lib/content.ts`)
-
-```ts
-export const siteConfig = {
-  name: "Asupersync",
-  title: "Asupersync - The Cancel-Correct Async Runtime for Rust",
-  description: "...",
-  url: "https://asupersync.com",
-  github: "https://github.com/Dicklesworthstone/asupersync",
-};
-
-export const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/showcase", label: "Interactive Demos" },
-  { href: "/architecture", label: "Architecture" },
-  { href: "/spec-explorer", label: "Spec Docs" },
-  { href: "/getting-started", label: "Get Started" },
-  { href: "/glossary", label: "Glossary" },
-];
-```
-
-### Environment Variables
-
-The site is mostly static and does not require complex env setup. If needed, place local-only values in `.env.local`.
+| Runs the real system in-browser | ✅ 20 Rust kernels via WASM | ❌ Screenshots or video | ❌ None |
+| Interactive concept teaching | ✅ 20+ bespoke visualizations | ⚠️ Occasional | ❌ Prose only |
+| Real-time 3D (WebGL) | ✅ 6 Three.js demos | ⚠️ Rare | ❌ None |
+| Numbers verified from source | ✅ Computed by script | ⚠️ Hand-typed, drifts | ⚠️ Hand-typed |
+| Motion accessibility | ✅ reduced-motion throughout | ⚠️ Inconsistent | n/a |
 
 ## Architecture
 
 ```text
-┌───────────────────────────────────────────────────────────────────────┐
-│                              Content Layer                             │
-│  lib/content.ts   lib/spec-docs.ts   public/spec-docs/*.md            │
-└───────────────────────────────┬───────────────────────────────────────┘
-                                │
-                                ▼
-┌───────────────────────────────────────────────────────────────────────┐
-│                         Next.js App Router                             │
-│  app/page.tsx  app/showcase/page.tsx  app/architecture/page.tsx       │
-│  app/spec-explorer/page.tsx  app/glossary/page.tsx                    │
-└───────────────────────────────┬───────────────────────────────────────┘
-                                │
-                                ▼
-┌───────────────────────────────────────────────────────────────────────┐
-│                         Component Runtime                               │
-│  components/viz/* (dynamic imports)   framer-motion                    │
-│  TanStack Query (doc loading/cache)   Table/Form/Virtual integrations  │
-└───────────────────────────────┬───────────────────────────────────────┘
-                                │
-                                ▼
-┌───────────────────────────────────────────────────────────────────────┐
-│                            Delivery Layer                               │
-│  bun dev / bun build / bun start      Vercel deployment                │
-└───────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  Content     lib/content.ts   (single source of truth)        │
+│              scripts/compute-stats.mjs · scripts/generate-atlas.mjs
+└───────────────┬──────────────────────────────────────────────┘
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Next.js 16 App Router                                        │
+│  app/{page,architecture,kernel,flagships,lab,epistemics,     │
+│       roadmap,glossary,getting-started}/page.tsx             │
+└───────────────┬──────────────────────────────────────────────┘
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Components                                                   │
+│  components/viz/*             16 SVG/canvas concept viz       │
+│  components/wasm/*            10 foundation Lab demos         │
+│  components/wasm/frontier/*   10 Three.js / WebGL demos       │
+│  lib/use-fs-wasm.ts          shared Web Worker → WASM kernels │
+└───────────────┬──────────────────────────────────────────────┘
+                ▼
+┌──────────────────────────────────────────────────────────────┐
+│  WASM engine   public/fs-wasm/   (fs_wasm_bg.wasm + glue)     │
+│  built from the fs-wasm crate in the FrankenSim workspace     │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-## Project Structure
+## Installation
 
-```text
-app/
-  page.tsx               Home
-  showcase/page.tsx      Interactive demos
-  architecture/page.tsx  Technical deep dive
-  spec-explorer/page.tsx Spec doc browser
-  glossary/page.tsx      Term glossary
-components/
-  spec-explorer/         Search + viewer
-  viz/                   Interactive runtime visualizations
-lib/
-  content.ts             Core site content model
-  spec-docs.ts           Spec document index metadata
-public/spec-docs/
-  *.md                   Source spec documents rendered by explorer
+### Local development (recommended)
+
+```bash
+git clone https://github.com/Dicklesworthstone/frankensim_website.git
+cd frankensim_website
+bun install
+bun dev
 ```
+
+### From an archive (no git clone)
+
+```bash
+curl -L https://github.com/Dicklesworthstone/frankensim_website/archive/refs/heads/main.tar.gz -o site.tar.gz
+tar -xzf site.tar.gz && cd frankensim_website-main
+bun install && bun dev
+```
+
+### Deploy (Vercel, prebuilt)
+
+```bash
+vercel build --prod && vercel deploy --prebuilt --prod
+```
+
+## Command reference
+
+| Command | Purpose |
+|---|---|
+| `bun dev` | Start the dev server (Turbopack) at `:3000` |
+| `bun run build` | Production build |
+| `bun start` | Serve the production build |
+| `bunx tsc --noEmit` | Strict typecheck |
+| `bun lint` | ESLint |
+| `bun scripts/compute-stats.mjs` | Recompute hero stats from the FrankenSim source (`FRANKENSIM_DIR`, default `~/projects/frankensim`) |
+| `bun scripts/generate-atlas.mjs` | Regenerate the crate atlas from workspace metadata |
+
+## Rebuilding the WASM engine
+
+The Lab's kernels come from the `fs-wasm` crate in the [FrankenSim workspace](https://github.com/Dicklesworthstone/frankensim) (`crates/fs-wasm`). To rebuild the browser bindings after changing the Rust:
+
+```bash
+cd ~/projects/frankensim/crates/fs-wasm
+cargo build --release --target wasm32-unknown-unknown
+wasm-bindgen <cargo-target>/wasm32-unknown-unknown/release/fs_wasm.wasm \
+  --target web --out-dir ~/projects/frankensim_website/public/fs-wasm --no-typescript
+```
+
+The worker at `public/fs-wasm/worker.js` hosts the module; an `import * as` auto-exposes every kernel, so new exports need no worker change.
 
 ## Troubleshooting
 
-### 1) `bun: command not found`
-
-Install Bun first, then verify:
-
-```bash
-bun --version
-```
-
-### 2) You used `npm`/`yarn`/`pnpm` and now lockfiles are inconsistent
-
-This project is Bun-only. Remove non-Bun lockfiles and reinstall with Bun.
-
-```bash
-# keep bun.lock, then reinstall
-bun install
-```
-
-### 3) Type errors after dependency updates
-
-Re-run a clean install and typecheck:
-
-```bash
-bun install
-bun tsc --noEmit
-```
-
-### 4) Spec Explorer shows fetch errors for docs
-
-Ensure `public/spec-docs/` exists with markdown files and that paths in `lib/spec-docs.ts` match filenames exactly.
-
-### 5) Animations feel heavy on low-end devices
-
-The app uses reduced-motion-aware patterns, but browser/device constraints still vary. Test with reduced motion enabled and validate on target hardware.
+| Symptom | Fix |
+|---|---|
+| `bun: command not found` | Install Bun (`curl -fsSL https://bun.sh/install \| bash`), then verify with `bun --version`. |
+| Used npm/yarn/pnpm and lockfiles conflict | This repo is Bun-only. Remove other lockfiles, keep `bun.lock`, and run `bun install`. |
+| Lab demos do not compute | They require a browser with WebAssembly and Web Workers (any modern browser); the 3D demos also need WebGL2. |
+| Type errors after a dependency bump | `bun install`, then `bunx tsc --noEmit`. |
+| Phantom Next.js type errors | `rm -r .next/cache` and rebuild. |
+| Hero stats look stale | Run `bun scripts/compute-stats.mjs` (needs a local FrankenSim checkout at `FRANKENSIM_DIR`). |
 
 ## Limitations
 
-- The site is intentionally static-first; it is not a backend/API product.
-- No built-in CMS admin UI. Content updates are code changes.
-- No official npm/yarn/pnpm workflow support.
-- Interactive demos prioritize educational clarity over benchmark-grade simulation fidelity.
-- E2E test setup depends on local/browser environment and may require Playwright bootstrap.
+- This is the **website**, not the FrankenSim kernel. For the Rust workspace, see [Dicklesworthstone/frankensim](https://github.com/Dicklesworthstone/frankensim).
+- The Lab runs a curated subset of kernels compiled to WASM; it is a live demonstration, not the full native workspace.
+- The stats and atlas scripts require a local FrankenSim checkout to refresh; they do not run at deploy time.
+- Content updates are code changes; there is no CMS.
+- Bun only. No npm/yarn/pnpm workflow.
 
 ## FAQ
 
-### Is this the runtime itself?
-No. This repository is the website and interactive documentation layer for the runtime.
+**Is this FrankenSim itself?** No. This is the website. The kernel is a separate Rust workspace.
 
-### Where do I edit homepage text and feature blocks?
-`lib/content.ts` is the main content source.
+**Are the Lab demos real or faked?** Real. Each is the actual `fs-*` Rust kernel compiled to WebAssembly (`crates/fs-wasm`) and run in a Web Worker, the same code the native build compiles.
 
-### Where do Spec Explorer documents come from?
-From markdown files in `public/spec-docs/`, indexed by `lib/spec-docs.ts`.
+**Where do I edit content?** `lib/content.ts` is the single source of truth for copy, navigation, the seven layers, the crate atlas, flagships, the comparison table, the glossary, and the FAQ.
 
-### Can I use npm instead of Bun?
-No. The project is intentionally Bun-only.
+**How are the crate, line, and test numbers kept accurate?** They are computed from the FrankenSim source by `scripts/compute-stats.mjs` and `scripts/generate-atlas.mjs`, not hand-typed.
 
-### How do I add a new top-level page?
-Create `app/<route>/page.tsx`, then add navigation/search links as needed.
+**Can I use npm?** No. The project is intentionally Bun-only.
 
-### How do I validate changes before deploy?
-Run:
-
-```bash
-bun tsc --noEmit
-bun lint
-bun run build
-```
+**How do I add a page?** Create `app/<route>/page.tsx` and add it to `navItems` in `lib/content.ts`.
 
 ## About Contributions
 
