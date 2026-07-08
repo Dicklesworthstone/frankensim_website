@@ -7,7 +7,6 @@ import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import ErrorBoundary from "@/components/error-boundary";
 import ScrollToTop from "@/components/scroll-to-top";
-import CustomCursor from "@/components/custom-cursor";
 import SpectralBackground from "@/components/spectral-background";
 import { SiteProvider } from "@/lib/site-state";
 
@@ -36,7 +35,6 @@ export default function ClientShell({ children }: { children: React.ReactNode })
         <SiteProvider>
           <div className="flex min-h-screen flex-col overflow-x-hidden relative">
             <SpectralBackground />
-            <CustomCursor />
 
             <SiteHeader />
 
