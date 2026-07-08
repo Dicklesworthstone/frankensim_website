@@ -72,7 +72,11 @@ export default function CustomCursor() {
   useEffect(() => {
     if (prefersReducedMotion) return undefined;
 
-    const media = window.matchMedia("(min-width: 768px)");
+    // Only a real mouse-like device: fine pointer + hover capability. This keeps
+    // the custom cursor off touch tablets/phones (which report coarse/no-hover)
+    // even when they are wide enough for the md breakpoint and synthesize mouse
+    // events from taps.
+    const media = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
     let enabled = false;
     let rafId: number | null = null;
     let last: { clientX: number; clientY: number; target: HTMLElement | null } | null = null;
@@ -318,7 +322,7 @@ export default function CustomCursor() {
       </div>
 
       <style jsx global>{`
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
           *, *::before, *::after {
             cursor: none !important;
           }

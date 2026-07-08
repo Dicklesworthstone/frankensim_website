@@ -227,8 +227,8 @@ export default function EvidenceValueViz() {
             fontSize={40}
             fontFamily="monospace"
             fontWeight={700}
-            initial={{ opacity: 0, y: reduced ? 104 : 112 }}
-            animate={{ opacity: 1, y: 104 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduced ? 0 : 0.3 }}
           >
