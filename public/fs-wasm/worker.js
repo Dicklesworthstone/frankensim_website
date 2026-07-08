@@ -7,7 +7,13 @@
 import init, * as mod from "./fs_wasm.js";
 
 const ready = init().then(() => (typeof mod.engine === "function" ? mod.engine() : "fs-wasm"));
-ready.then((e) => self.postMessage({ type: "ready", engine: e }));
+// Broadcast readiness. The `.catch` is required: if wasm init rejects, this
+// chain would otherwise be an unhandled promise rejection. Per-message calls
+// still surface the failure via `await ready` in onmessage below; the main
+// thread safely ignores this diagnostic message type.
+ready
+  .then((e) => self.postMessage({ type: "ready", engine: e }))
+  .catch((e) => self.postMessage({ type: "init-error", error: String(e && e.message ? e.message : e) }));
 
 self.onmessage = async (ev) => {
   const { id, fn, args } = ev.data || {};

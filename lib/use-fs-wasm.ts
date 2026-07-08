@@ -54,6 +54,13 @@ function ensureWorker(): Worker | null {
   worker.onerror = () => {
     pending.forEach((p) => p.reject(new Error("worker error")));
     pending.clear();
+    // Drop the reference to the dead worker so the next call rebuilds a fresh
+    // one. Without this, a crashed worker stays referenced and every later
+    // postMessage goes into a void that never replies — leaking those promises
+    // forever. (We still never proactively terminate a healthy worker.)
+    worker = null;
+    ready = false;
+    engineStr = "";
   };
   return worker;
 }

@@ -216,9 +216,12 @@ export default function OrrSommerfeld() {
     let ymin = Infinity;
     let ymax = -Infinity;
     for (let i = 0; i < curve.length; i++) {
-      ymin = Math.min(ymin, curve[i]);
-      ymax = Math.max(ymax, curve[i]);
+      const v = curve[i];
+      if (!Number.isFinite(v)) continue; // the kernel folds a failed eigensolve to NaN
+      ymin = Math.min(ymin, v);
+      ymax = Math.max(ymax, v);
     }
+    if (!Number.isFinite(ymin) || !Number.isFinite(ymax)) return null;
     ymin = Math.min(ymin, 0);
     ymax = Math.max(ymax, 0);
     const pad = (ymax - ymin) * 0.12 || 0.01;
@@ -256,15 +259,27 @@ export default function OrrSommerfeld() {
       unstable += `L ${positive[positive.length - 1].x} ${y0} Z`;
     }
 
-    const line = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ");
+    // Build the polyline, lifting the pen across any non-finite (failed) sample
+    // so a stray NaN never poisons the whole path.
+    let line = "";
+    let penDown = false;
+    for (const p of pts) {
+      if (!Number.isFinite(p.y)) {
+        penDown = false;
+        continue;
+      }
+      line += `${penDown ? "L" : "M"} ${p.x.toFixed(2)} ${p.y.toFixed(2)} `;
+      penDown = true;
+    }
+    line = line.trim();
 
     // marker keyframes: sweep the filament, settling on the neutral crossing.
     let frames: { x: number; y: number }[];
     if (critRe != null && critIdx != null) {
-      frames = pts.slice(0, critIdx).map((p) => ({ x: p.x, y: p.y }));
+      frames = pts.slice(0, critIdx).filter((p) => Number.isFinite(p.y)).map((p) => ({ x: p.x, y: p.y }));
       frames.push({ x: xOf(critRe), y: y0 });
     } else {
-      frames = pts.map((p) => ({ x: p.x, y: p.y }));
+      frames = pts.filter((p) => Number.isFinite(p.y)).map((p) => ({ x: p.x, y: p.y }));
     }
     if (frames.length < 2) frames = [frames[0] ?? { x: L, y: y0 }, { x: L + pw, y: y0 }];
     const cxs = frames.map((f) => f.x);

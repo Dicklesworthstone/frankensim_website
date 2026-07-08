@@ -12,7 +12,7 @@ import { phases, epics, beadsStats } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Roadmap",
   description:
-    "FrankenSim's Gauntlet-gated roadmap (PV → P6) and its 244-issue project graph: 17 workstreams across the seven-layer kernel, four programs, and six research bets.",
+    "FrankenSim's Gauntlet-gated roadmap (PV → P6) and its 248-issue project graph: 17 workstreams across the seven-layer kernel, four programs, and six research bets.",
 };
 
 const STATUS = {
@@ -103,8 +103,8 @@ export default function RoadmapPage() {
         id="graph"
         icon="gitCompare"
         eyebrow="The Project Graph"
-        title="244 Issues, One DAG"
-        kicker="The build is tracked as a dependency graph of beads. Roughly a third is already closed; the foundations are done, and the flywheel research bets are the frontier."
+        title="248 Issues, One DAG"
+        kicker="The build is tracked as a dependency graph of beads. Nearly half is already closed; the foundations are done, and the flywheel research bets are the frontier."
       >
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {[
