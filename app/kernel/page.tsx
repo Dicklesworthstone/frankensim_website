@@ -9,7 +9,7 @@ import { layers, crates, crossCuttingCrates } from "@/lib/content";
 export const metadata: Metadata = {
   title: "The Kernel — FrankenSim",
   description:
-    "The FrankenSim kernel: a hundred-plus pure-Rust crates in one acyclic workspace across seven layers, L0 Substrate → L6 Helm. A dense reference atlas of the kernel crates, each with its layer and responsibility, plus the repository policy that xtask enforces as code.",
+    "The FrankenSim kernel: a hundred-plus pure-Rust crates in one acyclic workspace across seven layers, L0 Substrate → L6 Helm. The complete crate atlas, every crate with its layer and responsibility, plus the repository policy that xtask enforces as code.",
   openGraph: {
     title: "The Kernel — FrankenSim",
     description:
@@ -28,7 +28,7 @@ const crossCutting = crates.filter((crate) => crate.layer === "UTIL");
 const CROSS_CUTTING_COLOR = "#22d3ee";
 
 const kernelStats = [
-  { value: "102", label: "Rust crates" },
+  { value: "104", label: "Rust crates" },
   { value: "7", label: "acyclic layers" },
   { value: "~160K", label: "lines of Rust" },
   { value: "1,300+", label: "inline tests" },
@@ -196,8 +196,8 @@ export default function KernelPage() {
                 <span className="text-[11px] tracking-[0.3em]">CROSS-CUTTING</span>
               </div>
               <div className="min-w-0">
-                <h3 className="text-lg font-black text-white leading-tight">Present at every layer</h3>
-                <p className="text-sm text-slate-400">Quantities, observability & evidence</p>
+                <h3 className="text-lg font-black text-white leading-tight">Owned by no single layer</h3>
+                <p className="text-sm text-slate-400">Quantities, evidence, macros, governance &amp; benchmarks</p>
               </div>
               <span className="ml-auto text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">
                 {crossCutting.length} crates
@@ -230,13 +230,16 @@ export default function KernelPage() {
                 <code className="font-mono text-cyan-400">fs-qty</code>,{" "}
                 <code className="font-mono text-cyan-400">fs-obs</code>, and{" "}
                 <code className="font-mono text-cyan-400">fs-evidence</code> are the
-                only crates that do not belong to a single layer; they are threaded
-                through <span className="text-white">all seven</span>. Dimensional
-                quantities are compile-time typed everywhere, every operation emits
-                into one shared observability spine, and <span className="text-white">Evidence&lt;T&gt;</span>,{" "}
-                a value plus its four uncertainty slices, is the currency that
-                crosses every layer boundary. That is what keeps units, provenance,
-                and error bounds from being re-invented six incompatible times.
+                load-bearing three of this cross-cutting set: threaded through{" "}
+                <span className="text-white">all seven</span> layers rather than owned
+                by any single one. Dimensional quantities are compile-time typed
+                everywhere, every operation emits into one shared observability spine,
+                and <span className="text-white">Evidence&lt;T&gt;</span>, a value plus
+                its four uncertainty slices, is the currency that crosses every layer
+                boundary. The rest of the set carries the same discipline sideways: the
+                derive macros, the governance and benchmark corpus, the regulatory
+                crosswalk. That is what keeps units, provenance, and error bounds from
+                being re-invented six incompatible times.
               </p>
               <p className="mt-4 text-[13px] font-mono text-slate-500">
                 {crossCuttingCrates.join(" · ")}
