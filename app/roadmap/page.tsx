@@ -209,7 +209,7 @@ export default function RoadmapPage() {
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white">Read the kernel.</h2>
           </GlitchText>
           <p className="mx-auto mt-5 max-w-xl text-lg text-slate-400 font-medium">
-            The plan is enormous, but the spine is built. Browse all 93 crates, or trace a request through the seven layers.
+            The plan is enormous, but the spine is built. Browse all 100+ crates, or trace a request through the seven layers.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link href="/kernel" className="glow-cyan inline-flex items-center gap-2 rounded-2xl bg-cyan-500 px-6 py-3 text-sm font-black text-black transition-all hover:bg-cyan-400">

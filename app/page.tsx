@@ -212,7 +212,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-[10px] font-black uppercase tracking-[0.28em] sm:tracking-[0.3em] text-cyan-400 mb-7 md:mb-8 max-w-full"
               >
                 <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500 animate-ping" />
-                <span className="truncate">v0.0.1 · 93 crates · pure Rust</span>
+                <span className="truncate">v0.0.1 · 100+ crates · pure Rust</span>
               </motion.div>
 
               <motion.h1
@@ -450,7 +450,7 @@ export default function HomePage() {
           </GlitchText>
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-400 md:text-xl font-medium">
-            FrankenSim is a large, working Rust workspace: 93 crates, ~150K lines, 1,300+ tests.
+            FrankenSim is a large, working Rust workspace: 100+ crates, 160K+ lines, 1,300+ tests.
             There is no crates.io release yet; build it from source and read the plan.
           </p>
 

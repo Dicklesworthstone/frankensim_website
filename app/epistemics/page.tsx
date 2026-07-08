@@ -207,7 +207,7 @@ export default function EpistemicsPage() {
             <p className="text-sm text-slate-400 leading-relaxed mb-6">
               Color composes like a lattice meet. Feed an estimate into a proof and you
               get an estimate, never the reverse. There is no operator anywhere in the
-              93 crates that returns a color stronger than its weakest input. That is how
+              100+ crates that returns a color stronger than its weakest input. That is how
               FrankenSim makes <span className="text-white font-semibold">laundering an estimate into a
               certificate</span> a type error rather than a temptation.
             </p>

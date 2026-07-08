@@ -9,11 +9,11 @@ import { layers, crates, crossCuttingCrates } from "@/lib/content";
 export const metadata: Metadata = {
   title: "The Kernel — FrankenSim",
   description:
-    "The FrankenSim kernel: ninety-three pure-Rust crates in one acyclic workspace across seven layers, L0 Substrate → L6 Helm. A dense reference atlas of every crate, its layer, and its responsibility, plus the repository policy that xtask enforces as code.",
+    "The FrankenSim kernel: a hundred-plus pure-Rust crates in one acyclic workspace across seven layers, L0 Substrate → L6 Helm. A dense reference atlas of the kernel crates, each with its layer and responsibility, plus the repository policy that xtask enforces as code.",
   openGraph: {
     title: "The Kernel — FrankenSim",
     description:
-      "Ninety-three crates, one acyclic Rust workspace. The complete FrankenSim crate atlas across seven layers.",
+      "A hundred-plus crates, one acyclic Rust workspace. The FrankenSim crate atlas across seven layers.",
   },
 };
 
@@ -28,9 +28,9 @@ const crossCutting = crates.filter((crate) => crate.layer === "UTIL");
 const CROSS_CUTTING_COLOR = "#22d3ee";
 
 const kernelStats = [
-  { value: "93", label: "Rust crates" },
+  { value: "102", label: "Rust crates" },
   { value: "7", label: "acyclic layers" },
-  { value: "~150K", label: "lines of Rust" },
+  { value: "~160K", label: "lines of Rust" },
   { value: "1,300+", label: "inline tests" },
   { value: "52", label: "CONTRACT.md contracts" },
   { value: "0", label: "non-Franken runtime deps" },
@@ -59,13 +59,13 @@ export default function KernelPage() {
 
           <GlitchText trigger="hover" intensity="medium">
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white mb-6">
-              Ninety-three crates,{" "}
+              A hundred-plus crates,{" "}
               <span className="text-cyan-400">one workspace</span>.
             </h1>
           </GlitchText>
 
           <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
-            One acyclic Rust workspace, roughly 150K lines, depending on the
+            One acyclic Rust workspace, roughly 160K lines, depending on the
             Franken constellation and nothing else. Every layer points strictly
             downward, and <span className="text-white">unsafe</span> is confined
             to audited leaf capsules under 300 lines, each sealed behind a safe
@@ -312,8 +312,8 @@ export default function KernelPage() {
           <p className="text-sm text-slate-500 leading-relaxed">
             The same discipline the Gauntlet applies to numerics, <code className="font-mono text-slate-400">xtask</code>{" "}
             applies to structure: the shape of the workspace is a checkable
-            proposition, so the ninety-three crates stay one continuum instead of
-            drifting into ninety-three projects.
+            proposition, so the hundred-plus crates stay one continuum instead of
+            drifting into a hundred-plus projects.
           </p>
         </div>
       </SectionShell>

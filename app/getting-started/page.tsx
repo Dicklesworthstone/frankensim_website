@@ -14,7 +14,7 @@ import { faq, codeExample, codeExampleStudy, fiveExplicits, siteConfig } from "@
 export const metadata: Metadata = {
   title: "Get Started",
   description:
-    "FrankenSim is a large, working Rust workspace: 93 crates, ~150K lines, 1,300+ tests, though not yet a packaged simulator. No stable public API, no CLI, no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.",
+    "FrankenSim is a large, working Rust workspace: 100+ crates, 160K+ lines, 1,300+ tests, though not yet a packaged simulator. No stable public API, no CLI, no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const PREREQS: { title: string; detail: string }[] = [
   {
     title: "Rust 2024 edition",
-    detail: "The workspace targets the 2024 edition across all 93 crates.",
+    detail: "The workspace targets the 2024 edition across all 100+ crates.",
   },
   {
     title: "A pinned nightly toolchain",
@@ -120,15 +120,15 @@ export default function GettingStartedPage() {
 
           <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-slate-400">
             An honest status: FrankenSim is a large, working Rust workspace of{" "}
-            <span className="text-slate-200">93 crates, ~150K lines, 1,300+ tests</span>, but it is not yet a
+            <span className="text-slate-200">100+ crates, 160K+ lines, 1,300+ tests</span>, but it is not yet a
             packaged simulator. There is no stable public API, no CLI, and no crates.io release. You build it
             from source and read the plan.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             {[
-              { label: "93 crates" },
-              { label: "~150K lines of Rust" },
+              { label: "100+ crates" },
+              { label: "160K+ lines of Rust" },
               { label: "1,300+ inline tests" },
               { label: "Pure, memory-safe Rust" },
             ].map((chip) => (

@@ -88,9 +88,9 @@ export interface Flagship {
 
 export const heroStats: Stat[] = [
   { label: "Kernel Layers", value: "7", helper: "L0 Substrate → L6 Helm" },
-  { label: "Rust Crates", value: "93", helper: "one acyclic workspace" },
-  { label: "Lines of Rust", value: "152K", helper: "pure, memory-safe, Franken-only deps" },
-  { label: "Inline Tests", value: "1302", helper: "+ 153 conformance suites" },
+  { label: "Rust Crates", value: "102", helper: "one acyclic workspace" },
+  { label: "Lines of Rust", value: "160K", helper: "pure, memory-safe, Franken-only deps" },
+  { label: "Inline Tests", value: "1375", helper: "+ 163 conformance suites" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -500,7 +500,7 @@ export const faq: FaqItem[] = [
   { question: "Why Rust, and why memory-safe?", answer: "Rust is the only mainstream substrate strong enough to hold the typed continuum together without a garbage collector or a C ABI in the hot path. The Decalogue's first principle is pure, memory-safe Rust: unsafe exists only in audited leaf capsules under 300 lines, each behind a safe façade, and each registered with the policy checker." },
   { question: "How does an agent actually talk to it?", answer: "Through FrankenScript, a typed, versioned IR with isomorphic s-expression and JSON syntaxes. A program states its seed, versions, and budgets inline; the lowering trace is inspectable; and when a request is infeasible the error is structured and carries ranked fixes with estimated impact. A refusal that teaches is worth ten silent successes." },
   { question: "What are the flagship demos?", answer: "Three forcing functions: an ornithoid multi-inlet aircraft that delivers a certified Pareto atlas with Lyapunov region-of-attraction proofs; a seismic-minimal building frame with a certified fragility curve and anytime-valid stopping; and a laminar-pour vessel (the spout that never dribbles) where the marketing shot and the physics are literally the same bytes. Plus the P2 marquee: topology optimization on a raw SDF with no mesh in the loop." },
-  { question: "Can I use it today?", answer: "FrankenSim is a large, working Rust workspace (93 crates, ~150K lines, 1,300+ inline tests) implementing a substantial spine of the plan. It is not yet a packaged end-user simulator: there is no stable public API, no CLI, and no crates.io release yet. If you need a ready-made production physics solver or GUI today, the incumbents still win; if you want a deterministic, evidence-oriented Rust substrate to build on, this is it." },
+  { question: "Can I use it today?", answer: "FrankenSim is a large, working Rust workspace (100+ crates, 160K+ lines, 1,300+ inline tests) implementing a substantial spine of the plan. It is not yet a packaged end-user simulator: there is no stable public API, no CLI, and no crates.io release yet. If you need a ready-made production physics solver or GUI today, the incumbents still win; if you want a deterministic, evidence-oriented Rust substrate to build on, this is it." },
   { question: "How was it built?", answer: "Through an AI engineering flywheel, a coordinated swarm of specialized coding agents orchestrated with tmux, guarded by command-safety layers, tracked in a beads issue graph, and given persistent memory and session search. The same toolchain that built FrankenTUI and asupersync built FrankenSim." },
 ];
 
@@ -528,7 +528,7 @@ export const flywheelDescription = {
   title: "The AI Flywheel",
   subtitle: "A high-velocity AI engineering ecosystem that built FrankenSim.",
   description:
-    "FrankenSim's 93 crates weren't written by hand. They were architected and implemented through a recursive feedback loop of specialized AI agents: orchestrated in parallel, guarded against destructive commands, coordinated through a shared task graph, and given persistent memory across sessions.",
+    "FrankenSim's 100+ crates weren't written by hand. They were architected and implemented through a recursive feedback loop of specialized AI agents: orchestrated in parallel, guarded against destructive commands, coordinated through a shared task graph, and given persistent memory across sessions.",
 };
 
 export const flywheelTools: FlywheelTool[] = [

@@ -532,7 +532,7 @@ export default function ArchitecturePage() {
 
           <GlitchText trigger="hover" intensity="medium">
             <h2 className="text-4xl font-black tracking-tight text-white md:text-6xl">
-              Seven layers. <span className="text-cyan-400">93 crates</span>.
+              Seven layers. <span className="text-cyan-400">100+ crates</span>.
             </h2>
           </GlitchText>
 
@@ -547,7 +547,7 @@ export default function ArchitecturePage() {
               className="glow-cyan group inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-cyan-600 to-cyan-500 px-8 py-4 text-base font-black text-black shadow-lg shadow-cyan-900/30 transition-all hover:from-cyan-400 hover:to-cyan-300 active:scale-95"
             >
               <Package className="h-5 w-5" />
-              Browse all 93 crates
+              Browse all 100+ crates
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
