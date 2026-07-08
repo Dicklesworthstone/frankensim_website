@@ -3,10 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm, useStore } from "@tanstack/react-form";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { Search, X } from "lucide-react";
+import { Search, X, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlitchText from "@/components/glitch-text";
-import { SyncContainer } from "@/components/sync-elements";
 import { glossaryTerms } from "@/lib/content";
 
 type GlossaryRow =
@@ -103,24 +102,30 @@ export default function GlossaryPage() {
       <div className="mx-auto max-w-4xl px-6 pb-32">
         {/* Search */}
         <div className="sticky top-24 z-30 mb-12">
-          <SyncContainer withNodes={false} withLines={false} className="glass-modern p-2">
-            <div className="flex items-center gap-3 px-4">
-              <Search className="h-5 w-5 text-slate-500 shrink-0" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => searchForm.setFieldValue("query", e.target.value)}
-                placeholder="Search terms..."
-                aria-label="Search glossary terms"
-                className="flex-1 bg-transparent text-white placeholder:text-slate-600 text-sm font-medium py-3 outline-none"
-              />
-              {search && (
-                <button onClick={() => searchForm.setFieldValue("query", "")} aria-label="Clear search" className="text-slate-500 hover:text-white transition-colors">
-                  <X className="h-4 w-4" />
-                </button>
-              )}
-            </div>
-          </SyncContainer>
+          <div className="field group flex items-center gap-3 rounded-2xl border border-white/10 bg-[#08131a]/80 px-4 shadow-[0_4px_24px_-1px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.05)] backdrop-blur-xl">
+            <Search className="h-5 w-5 shrink-0 text-slate-500 transition-colors group-focus-within:text-cyan-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => searchForm.setFieldValue("query", e.target.value)}
+              placeholder="Search terms, definitions…"
+              aria-label="Search glossary terms"
+              className="min-w-0 flex-1 bg-transparent py-4 text-sm font-medium text-white outline-none placeholder:text-slate-500"
+            />
+            {search ? (
+              <button
+                onClick={() => searchForm.setFieldValue("query", "")}
+                aria-label="Clear search"
+                className="shrink-0 rounded-lg p-1 text-slate-500 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            ) : (
+              <span className="hidden shrink-0 items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-600 sm:flex">
+                {filtered.length} terms
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Terms */}
@@ -143,23 +148,42 @@ export default function GlossaryPage() {
                       style={{ transform: `translateY(${virtualItem.start}px)` }}
                     >
                       {row.type === "heading" ? (
-                        <h2 className="text-sm font-black text-cyan-500/60 uppercase tracking-[0.4em] pb-3 pt-5">
-                          {row.letter}
-                        </h2>
+                        <div className="flex items-center gap-4 pb-3 pt-6">
+                          <span className="text-gradient-sync text-2xl font-black leading-none tabular-nums">
+                            {row.letter}
+                          </span>
+                          <span className="hairline flex-1" aria-hidden="true" />
+                        </div>
                       ) : (
-                        <motion.button
+                        <button
                           onClick={() => setSelected(selected === row.term.term ? null : row.term.term)}
-                          whileHover={{ x: 4 }}
                           aria-expanded={selected === row.term.term}
-                          className="w-full text-left rounded-xl border border-white/5 bg-white/[0.02] p-6 hover:border-cyan-500/20 hover:bg-white/[0.04] transition-all mb-3"
+                          className="card card-hover group/term mb-3 w-full rounded-2xl p-5 text-left md:p-6"
                         >
-                          <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-black text-white">{row.term.term}</h3>
-                            <span aria-hidden="true" className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
-                              {selected === row.term.term ? "▼" : "▶"}
-                            </span>
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex min-w-0 items-start gap-3">
+                              <span
+                                aria-hidden="true"
+                                className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/[0.06] font-mono text-xs font-black text-cyan-400 transition-colors group-hover/term:border-cyan-500/40 group-hover/term:text-cyan-300"
+                              >
+                                {row.term.term[0].toUpperCase()}
+                              </span>
+                              <div className="min-w-0">
+                                <h3 className="text-lg font-black leading-tight text-white transition-colors group-hover/term:text-cyan-300">
+                                  {row.term.term}
+                                </h3>
+                                <p className="mt-1 text-sm leading-relaxed text-slate-400">{row.term.short}</p>
+                              </div>
+                            </div>
+                            <ChevronRight
+                              aria-hidden="true"
+                              className={`mt-1 h-4 w-4 shrink-0 transition-all duration-300 ${
+                                selected === row.term.term
+                                  ? "rotate-90 text-cyan-400"
+                                  : "text-slate-600 group-hover/term:translate-x-0.5 group-hover/term:text-cyan-400"
+                              }`}
+                            />
                           </div>
-                          <p className="text-sm text-slate-400 mt-1">{row.term.short}</p>
 
                           <AnimatePresence>
                             {selected === row.term.term && (
@@ -169,13 +193,13 @@ export default function GlossaryPage() {
                                 exit={{ height: 0, opacity: 0 }}
                                 className="overflow-hidden"
                               >
-                                <p className="text-sm text-slate-300 mt-4 pt-4 border-t border-white/5 leading-relaxed">
+                                <p className="mt-4 border-t border-cyan-500/10 pt-4 pl-10 text-sm leading-relaxed text-slate-300">
                                   {row.term.long}
                                 </p>
                               </motion.div>
                             )}
                           </AnimatePresence>
-                        </motion.button>
+                        </button>
                       )}
                     </div>
                   );

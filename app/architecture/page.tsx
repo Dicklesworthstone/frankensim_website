@@ -149,7 +149,7 @@ export default function ArchitecturePage() {
                   </div>
                 )}
                 <div
-                  className="flex items-center gap-4 overflow-hidden rounded-xl border bg-white/[0.02] p-3.5"
+                  className="card card-hover flex items-center gap-4 overflow-hidden rounded-xl p-3.5"
                   style={{ borderColor: `${stage.color}33` }}
                 >
                   <div
@@ -235,7 +235,7 @@ export default function ArchitecturePage() {
           {layers.map((layer) => (
             <div
               key={layer.id}
-              className="kinetic-card group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02]"
+              className="card kinetic-card group relative overflow-hidden rounded-2xl"
               style={{ borderLeft: `3px solid ${layer.color}` }}
             >
               <div
@@ -352,7 +352,7 @@ export default function ArchitecturePage() {
             {machines.map((m, i) => (
               <div
                 key={m.name}
-                className="rounded-2xl border border-white/5 bg-white/[0.02] p-6"
+                className="card card-hover rounded-2xl p-6"
                 style={{ borderTop: `2px solid ${i === 0 ? "#06b6d4" : "#a855f7"}` }}
               >
                 <div className="text-base font-bold text-slate-100">{m.name}</div>
@@ -451,7 +451,7 @@ export default function ArchitecturePage() {
           {principles.map((p) => (
             <div
               key={p.id}
-              className="kinetic-card group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] p-6"
+              className="card kinetic-card group relative overflow-hidden rounded-2xl p-6"
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="flex items-start gap-4">
@@ -501,7 +501,7 @@ export default function ArchitecturePage() {
             return (
               <div
                 key={e.key}
-                className="kinetic-card group flex flex-col rounded-2xl border border-white/5 bg-white/[0.02] p-6"
+                className="card kinetic-card group flex flex-col rounded-2xl p-6"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 transition-colors group-hover:border-cyan-500/40">
                   <Icon className="h-5 w-5" />
@@ -552,7 +552,7 @@ export default function ArchitecturePage() {
             </Link>
             <Link
               href="/roadmap"
-              className="group inline-flex items-center gap-2.5 rounded-2xl border border-cyan-500/20 bg-white/5 px-8 py-4 text-base font-black text-white transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95"
+              className="btn-secondary group inline-flex items-center gap-2.5 rounded-2xl border border-cyan-500/20 bg-white/5 px-8 py-4 text-base font-black text-white transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 active:scale-95"
             >
               <LineChart className="h-5 w-5 text-cyan-400" />
               See the roadmap

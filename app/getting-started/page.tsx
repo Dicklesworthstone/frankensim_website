@@ -157,7 +157,7 @@ export default function GettingStartedPage() {
           {PREREQS.map((p) => (
             <div
               key={p.title}
-              className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-6"
+              className="card card-hover flex items-start gap-4 rounded-2xl p-6"
             >
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
               <div>
@@ -197,7 +197,7 @@ export default function GettingStartedPage() {
             return (
               <div
                 key={s.n}
-                className="grid items-center gap-6 rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:grid-cols-[1fr_1.15fr] md:p-8"
+                className="card card-hover grid items-center gap-6 rounded-2xl p-6 md:grid-cols-[1fr_1.15fr] md:p-8"
               >
                 {/* Description */}
                 <div className="flex items-start gap-4">
@@ -271,13 +271,13 @@ export default function GettingStartedPage() {
           </div>
 
           {/* The Five Explicits */}
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+          <div className="card rounded-2xl p-6 md:p-8">
             <div className="mb-5 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/80">
               The Five Explicits: never implicit, ever
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {fiveExplicits.map((e) => (
-                <div key={e.key} className="rounded-xl border border-white/5 bg-black/30 p-4">
+                <div key={e.key} className="card-hover rounded-xl border border-white/5 bg-black/30 p-4">
                   <div className="mb-1.5 font-black text-cyan-300">{e.key}</div>
                   <p className="text-xs leading-relaxed text-slate-400">{e.body}</p>
                 </div>
@@ -314,7 +314,7 @@ export default function GettingStartedPage() {
           {faq.map((item) => (
             <details
               key={item.question}
-              className="group overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02]"
+              className="card group overflow-hidden rounded-2xl"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 font-bold text-white transition-colors hover:text-cyan-400 md:px-8">
                 <span>{item.question}</span>
@@ -359,7 +359,7 @@ export default function GettingStartedPage() {
             </a>
             <Link
               href="/architecture"
-              className="group inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:text-white"
+              className="btn-secondary group inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:text-white"
             >
               <BookOpen className="h-4 w-4 text-cyan-400" />
               Read the Architecture
@@ -367,7 +367,7 @@ export default function GettingStartedPage() {
             </Link>
             <Link
               href="/flagships"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+              className="btn-secondary group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
             >
               <Boxes className="h-4 w-4" />
               See the Flagships

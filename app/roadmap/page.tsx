@@ -77,7 +77,7 @@ export default function RoadmapPage() {
                   <S className="h-4 w-4" style={{ color: s.color }} />
                 </span>
                 <div
-                  className="kinetic-card rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 md:p-6"
+                  className="card kinetic-card rounded-2xl p-5 md:p-6"
                   style={p.status === "active" ? { borderColor: `${s.color}44`, boxShadow: `0 0 30px -12px ${s.color}` } : undefined}
                 >
                   <div className="flex flex-wrap items-center gap-3">
@@ -115,7 +115,7 @@ export default function RoadmapPage() {
             { v: beadsStats.epics, l: "Epics / workstreams" },
             { v: beadsStats.milestones, l: "Milestones (PV → P6)" },
           ].map((s) => (
-            <div key={s.l} className="glass-modern rounded-2xl p-5 text-left">
+            <div key={s.l} className="card-hover glass-modern rounded-2xl p-5 text-left">
               <div className="text-3xl md:text-4xl font-black tracking-tighter text-cyan-400 tabular-nums">{s.v}</div>
               <div className="mt-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">{s.l}</div>
             </div>
@@ -215,7 +215,7 @@ export default function RoadmapPage() {
             <Link href="/kernel" className="glow-cyan inline-flex items-center gap-2 rounded-2xl bg-cyan-500 px-6 py-3 text-sm font-black text-black transition-all hover:bg-cyan-400">
               <Boxes className="h-4 w-4" /> The Kernel
             </Link>
-            <Link href="/architecture" className="inline-flex items-center gap-2 rounded-2xl border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-black text-white transition-all hover:bg-cyan-500/10">
+            <Link href="/architecture" className="btn-secondary inline-flex items-center gap-2 rounded-2xl border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-black text-white transition-all hover:bg-cyan-500/10">
               <GitBranch className="h-4 w-4 text-cyan-400" /> Architecture
               <ArrowRight className="h-4 w-4" />
             </Link>

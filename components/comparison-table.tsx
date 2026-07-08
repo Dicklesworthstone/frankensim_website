@@ -39,7 +39,7 @@ export default function ComparisonTable() {
         {comparisonData.map((row) => (
           <div
             key={row.feature}
-            className="rounded-2xl border border-white/5 bg-white/[0.015] p-4"
+            className="card rounded-2xl p-4"
           >
             <div className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-slate-500">
               {row.feature}

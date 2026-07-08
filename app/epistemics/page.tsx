@@ -169,7 +169,7 @@ export default function EpistemicsPage() {
           <SyncContainer withPulse={true} accentColor={VERIFIED} className="p-1 md:p-2 bg-black/40">
             <EpistemicEngineViz />
           </SyncContainer>
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+          <div className="card rounded-2xl p-6 md:p-8">
             <p className="text-lg md:text-xl font-black text-white leading-snug mb-4">
               The expensive step runs <span className="text-cyan-400">once</span>, on the one candidate that earned it.
             </p>
@@ -203,7 +203,7 @@ export default function EpistemicsPage() {
             {COLOR_CARDS.map((card) => (
               <div
                 key={card.name}
-                className="relative rounded-2xl border bg-white/[0.02] p-6 overflow-hidden"
+                className="card card-hover relative rounded-2xl p-6 overflow-hidden"
                 style={{ borderColor: `${card.color}33` }}
               >
                 <div
@@ -232,7 +232,7 @@ export default function EpistemicsPage() {
           </div>
 
           {/* The composition rule — weakest wins */}
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+          <div className="card rounded-2xl p-6 md:p-8">
             <h3 className="text-base font-black text-white mb-2">
               The composition rule: <span className="text-cyan-400">the weakest link wins</span>.
             </h3>
@@ -295,7 +295,7 @@ export default function EpistemicsPage() {
             {EVIDENCE_SLICES.map((slice) => (
               <div
                 key={slice.name}
-                className="rounded-2xl border border-white/5 bg-white/[0.02] p-5"
+                className="card card-hover rounded-2xl p-5"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: slice.color }} />
@@ -307,7 +307,7 @@ export default function EpistemicsPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-5 py-4">
+            <div className="flex items-start gap-3 card card-hover rounded-xl px-5 py-4">
               <Fingerprint className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
               <div>
                 <div className="text-sm font-bold text-white">Provenance hash</div>
@@ -317,7 +317,7 @@ export default function EpistemicsPage() {
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-5 py-4">
+            <div className="flex items-start gap-3 card card-hover rounded-xl px-5 py-4">
               <Sigma className="mt-0.5 h-5 w-5 shrink-0 text-violet-400" />
               <div>
                 <div className="text-sm font-bold text-white">Adjoint hook</div>
@@ -350,7 +350,7 @@ export default function EpistemicsPage() {
             <CertifiedSpeculationViz />
           </SyncContainer>
 
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+          <div className="card rounded-2xl p-6 md:p-8">
             <p className="text-lg md:text-xl font-black text-white leading-snug mb-4">
               Machine learning proposes; <span className="text-lime-300">certified numerics disposes</span>.
             </p>
@@ -397,7 +397,7 @@ export default function EpistemicsPage() {
             <ConfidenceSequenceViz />
           </SyncContainer>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <div className="card card-hover rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <Sigma className="h-4 w-4 text-cyan-400" />
                 <h3 className="text-sm font-black text-white">Valid at every n, not one</h3>
@@ -409,7 +409,7 @@ export default function EpistemicsPage() {
                 is free. The estimate can be watched, not just reported.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <div className="card card-hover rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <Gauge className="h-4 w-4 text-lime-300" />
                 <h3 className="text-sm font-black text-white">Racing without regret</h3>
@@ -444,7 +444,7 @@ export default function EpistemicsPage() {
             {GAUNTLET_TIERS.map((tier) => (
               <div
                 key={tier.id}
-                className="flex items-start gap-4 rounded-2xl border bg-white/[0.02] p-5"
+                className="card card-hover flex items-start gap-4 rounded-2xl p-5"
                 style={{ borderColor: tier.flagship ? `${tier.color}44` : "rgba(255,255,255,0.05)" }}
               >
                 <span
@@ -560,7 +560,7 @@ export default function EpistemicsPage() {
 
           {/* payoff cards */}
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <div className="card card-hover rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <Waypoints className="h-4 w-4 text-cyan-400" />
                 <h3 className="text-sm font-black text-white">
@@ -572,7 +572,7 @@ export default function EpistemicsPage() {
                 no double walls, no self-lies. A seal is a theorem you check, not a rendering you squint at.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+            <div className="card card-hover rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <GitMerge className="h-4 w-4 text-lime-300" />
                 <h3 className="text-sm font-black text-white">Conflicts classify themselves</h3>
@@ -603,7 +603,7 @@ export default function EpistemicsPage() {
             <RustCodeBlock code={codeExampleError} title="refusal.json" />
           </SyncContainer>
 
-          <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6 md:p-8">
+          <div className="card rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-4">
               <FileWarning className="h-5 w-5 text-amber-300" />
               <p className="text-lg md:text-xl font-black text-white leading-snug">
@@ -644,7 +644,7 @@ export default function EpistemicsPage() {
               {principles.map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-start gap-4 rounded-xl border border-white/5 bg-white/[0.02] p-4"
+                  className="flex items-start gap-4 card card-hover rounded-xl p-4"
                 >
                   <span className="mt-0.5 shrink-0 font-mono text-sm font-black text-cyan-500/70">
                     {p.id}
@@ -672,7 +672,7 @@ export default function EpistemicsPage() {
                 return (
                   <div
                     key={ex.key}
-                    className="rounded-xl border border-white/5 bg-white/[0.02] p-4"
+                    className="card card-hover rounded-xl p-4"
                   >
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300 mb-3">
                       <Icon className="h-4 w-4" />
@@ -727,7 +727,7 @@ export default function EpistemicsPage() {
           </Link>
           <Link
             href="/flagships"
-            className="group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 hover:border-cyan-500/30 hover:text-white transition-all"
+            className="btn-secondary group inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 hover:border-cyan-500/30 hover:text-white transition-all"
           >
             <Sparkles className="h-4 w-4" />
             See the Flagships

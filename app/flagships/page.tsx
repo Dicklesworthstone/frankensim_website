@@ -146,7 +146,7 @@ export default function FlagshipsPage() {
                 <a
                   key={f.id}
                   href={`#${f.id}`}
-                  className="group flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition-all hover:bg-white/[0.04]"
+                  className="card card-hover group flex items-start gap-4 rounded-2xl p-5"
                   style={{ borderColor: `${f.color}22` }}
                 >
                   <div
@@ -446,7 +446,7 @@ export default function FlagshipsPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/architecture"
-              className="group inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:text-white"
+              className="btn-secondary group inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-white/5 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:text-white"
             >
               <Boxes className="h-4 w-4 text-cyan-400" />
               Explore the Architecture
@@ -464,7 +464,7 @@ export default function FlagshipsPage() {
               href={siteConfig.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
+              className="btn-secondary group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white"
             >
               <Github className="h-4 w-4" />
               Source

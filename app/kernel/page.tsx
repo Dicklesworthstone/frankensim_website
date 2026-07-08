@@ -162,7 +162,7 @@ export default function KernelPage() {
                 {group.members.map((crate) => (
                   <div
                     key={crate.name}
-                    className="kinetic-card group/crate rounded-2xl border border-white/5 bg-white/[0.02] p-5"
+                    className="card kinetic-card group/crate rounded-2xl p-5"
                     style={{ borderLeft: `2px solid ${group.color}40` }}
                   >
                     <div className="flex items-center gap-2 mb-2.5">
@@ -208,7 +208,7 @@ export default function KernelPage() {
               {crossCutting.map((crate) => (
                 <div
                   key={crate.name}
-                  className="kinetic-card rounded-2xl border border-white/5 bg-white/[0.02] p-5"
+                  className="card kinetic-card rounded-2xl p-5"
                   style={{ borderLeft: `2px solid ${CROSS_CUTTING_COLOR}40` }}
                 >
                   <div className="flex items-center gap-2 mb-2.5">
@@ -295,7 +295,7 @@ export default function KernelPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl border border-white/5 bg-white/[0.02] p-6"
+                className="card card-hover rounded-2xl p-6"
               >
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-xl mb-4"
@@ -322,7 +322,7 @@ export default function KernelPage() {
       <div className="mx-auto max-w-7xl px-6 pb-24 flex flex-col sm:flex-row gap-4 justify-center">
         <Link
           href="/architecture"
-          className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 hover:border-cyan-500/30 hover:text-white transition-all"
+          className="btn-secondary group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-bold text-slate-300 hover:border-cyan-500/30 hover:text-white transition-all"
         >
           See the layers in motion
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
