@@ -253,7 +253,7 @@ export default function SensorForge() {
       // section label
       ctx.fillStyle = "rgba(148,163,184,0.75)";
       ctx.textBaseline = "top";
-      ctx.fillText("EVPI — value of the decision ↓", padL + 4, topT + 2);
+      ctx.fillText("EVPI · value of the decision ↓", padL + 4, topT + 2);
 
       // reveal clip (draw the descent left→right)
       const clipStep = reveal * S;
@@ -289,7 +289,7 @@ export default function SensorForge() {
         if (isLast && d.robust) {
           const pulse = rm ? 1 : 0.72 + 0.28 * Math.sin(time * 0.005);
           ctx.beginPath();
-          ctx.arc(mx, my, Math.max(5.5, W / 96) * pulse, 0, Math.PI * 2);
+          ctx.arc(mx, my, Math.max(0.1, Math.max(5.5, W / 96) * pulse), 0, Math.PI * 2);
           ctx.strokeStyle = EMERALD;
           ctx.lineWidth = Math.max(1.3, W / 320);
           ctx.shadowColor = EMERALD;
@@ -297,13 +297,20 @@ export default function SensorForge() {
           ctx.stroke();
           ctx.shadowBlur = 0;
         }
+        const mR = Math.max(0.1, Math.max(2.8, W / 150));
         ctx.beginPath();
-        ctx.arc(mx, my, Math.max(2.8, W / 150), 0, Math.PI * 2);
+        ctx.arc(mx, my, mR, 0, Math.PI * 2);
         ctx.fillStyle = belowStop && !isInit ? EMERALD : col;
         ctx.shadowColor = ctx.fillStyle;
         ctx.shadowBlur = isInit ? 4 : 8;
         ctx.fill();
         ctx.shadowBlur = 0;
+        // crisp rim: separate each marker from the descent line behind it
+        ctx.beginPath();
+        ctx.arc(mx, my, mR, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(4,9,13,0.85)";
+        ctx.lineWidth = Math.max(0.75, W / 660);
+        ctx.stroke();
         // small candidate letter above each placement marker
         if (!isInit && reveal > 0.02) {
           ctx.fillStyle = col;
@@ -400,7 +407,7 @@ export default function SensorForge() {
         ctx.lineWidth = Math.max(1.2, W / (isContender ? 340 : 460));
         if (isContender) {
           ctx.shadowColor = meta.color;
-          ctx.shadowBlur = 7;
+          ctx.shadowBlur = 11;
         }
         ctx.stroke(path);
         ctx.shadowBlur = 0;
@@ -424,10 +431,10 @@ export default function SensorForge() {
           const cy = botB - Math.min(plotH * 0.95, peak);
           const pulse = rm ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
           ctx.beginPath();
-          ctx.arc(mx, cy, Math.max(4, W / 150) * pulse, 0, Math.PI * 2);
+          ctx.arc(mx, cy, Math.max(0.1, Math.max(4, W / 150) * pulse), 0, Math.PI * 2);
           ctx.fillStyle = EMERALD;
           ctx.shadowColor = EMERALD;
-          ctx.shadowBlur = 12 * pulse;
+          ctx.shadowBlur = 16 * pulse;
           ctx.fill();
           ctx.shadowBlur = 0;
           ctx.fillStyle = EMERALD;
@@ -681,11 +688,11 @@ export default function SensorForge() {
         must ship the cheapest. Every sensor reading is fused by an <span style={{ color: EMERALD }}>exact scalar Kalman
         update</span> (<span className="text-cyan-300">fs-oed</span>) that shrinks that candidate&apos;s variance. At each step the{" "}
         <span style={{ color: VIOLET }}>value-of-information</span> rule places the next sensor on the candidate that most
-        sharpens the <span className="text-slate-200">decision</span> — not the most-uncertain one — and{" "}
+        sharpens the <span className="text-slate-200">decision</span>, not the most-uncertain one, and{" "}
         <span style={{ color: EMERALD }}>stops</span> the instant EVPI drops below θ. Watch the sensors land only on the
         decision-relevant contenders <span style={{ color: CYAN_GLOW }}>A</span> and <span style={{ color: AMBER }}>B</span>{" "}
         (they alternate; the dominated <span style={{ color: "#94a3b8" }}>C/D</span> are never touched), EVPI plunge to the
-        emerald stop line, and the two contender bells tower as their variance collapses — with true-best{" "}
+        emerald stop line, and the two contender bells tower as their variance collapses, with true-best{" "}
         <span style={{ color: EMERALD }}>A</span> crowned. Compiled Rust, certified live in your tab.
       </div>
     </SyncContainer>

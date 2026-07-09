@@ -2,7 +2,7 @@
 
 /**
  * Campaign 10 — flowcert(steps, tol)  ·  fs-flowcert-e2e
- * "It doesn't just answer — it tells you where to trust the answer."
+ * "It tells you where to trust the answer."
  *
  * A lattice-Boltzmann channel solver (D2Q9 BGK) is run across a sweep of Reynolds numbers
  * × grid resolutions. Each operating point is machine-checked against the analytic
@@ -14,7 +14,7 @@
  * verdict (fully-credible = emerald, accurate-but-unstable = amber, inaccurate = rose) with
  * its max error printed. Right: the two spotlight velocity profiles overlaid on the analytic
  * Poiseuille parabola — the credible one (Re=20) hugging the curve, the flagged one (Re=120)
- * visibly falling short. FrankenSim returns not an answer but a CERTIFIED answer.
+ * visibly falling short. Every answer comes with a certificate of where to trust it.
  *
  * NOTE: this kernel is heavy (~0.3–1 s); the sweep recomputes only when a slider is released.
  */
@@ -225,12 +225,15 @@ export default function FlowCert() {
       const h = ch - gap;
       const col0 = verdictColor(p);
       const [cr, cg, cb] = col0 === EMERALD ? [16, 185, 129] : col0 === AMBER ? [251, 191, 36] : [244, 63, 94];
-      const a = 0.14 + 0.16 * reveal;
+      const a = 0.16 + 0.2 * reveal;
       ctx.fillStyle = `rgba(${cr},${cg},${cb},${a})`;
       ctx.fillRect(x, y, w, h);
-      ctx.strokeStyle = `rgba(${cr},${cg},${cb},${0.55 * reveal})`;
+      ctx.strokeStyle = `rgba(${cr},${cg},${cb},${0.7 * reveal})`;
       ctx.lineWidth = Math.max(1, W / 320);
+      ctx.shadowColor = col0;
+      ctx.shadowBlur = (W / 150) * reveal;
       ctx.strokeRect(x, y, w, h);
+      ctx.shadowBlur = 0;
 
       // spotlight halo on the two profiled points (Re & ny both matched)
       const isSpot = d.spots.some((s) => s.re === p.re && s.ny === p.ny);
@@ -321,8 +324,8 @@ export default function FlowCert() {
         else ctx.lineTo(px, py);
       }
       ctx.setLineDash([Math.max(3, W / 90), Math.max(3, W / 120)]);
-      ctx.strokeStyle = "rgba(226,240,255,0.55)";
-      ctx.lineWidth = Math.max(1.2, W / 300);
+      ctx.strokeStyle = "rgba(233,244,255,0.72)";
+      ctx.lineWidth = Math.max(1.4, W / 260);
       ctx.stroke();
       ctx.setLineDash([]);
     }
@@ -348,14 +351,14 @@ export default function FlowCert() {
       ctx.strokeStyle = col;
       ctx.lineWidth = Math.max(1.8, W / 190);
       ctx.shadowColor = col;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 13;
       ctx.stroke();
       ctx.shadowBlur = 0;
       // markers
       for (let k = 0; k < ny; k += Math.max(1, Math.round(ny / 12))) {
         const t = (k + 0.5) / ny;
         ctx.beginPath();
-        ctx.arc(X(t), Y(s.uNum[k]), Math.max(1.6, W / 220), 0, Math.PI * 2);
+        ctx.arc(X(t), Y(s.uNum[k]), Math.max(0.1, Math.max(1.6, W / 220)), 0, Math.PI * 2);
         ctx.fillStyle = col;
         ctx.fill();
       }
@@ -499,7 +502,7 @@ export default function FlowCert() {
         <div className="space-y-2.5">
           <Eyebrow>Campaign 10 · fs-flowcert-e2e · credibility map</Eyebrow>
           <h3 className="text-xl font-black leading-tight tracking-tight text-white md:text-2xl">
-            It doesn&apos;t just answer — it tells you <span className="text-emerald-300">where to trust</span> it.
+            It tells you <span className="text-emerald-300">where to trust</span> the answer.
           </h3>
         </div>
         <LiveBadge computing={computing} />
@@ -611,8 +614,8 @@ export default function FlowCert() {
         <span style={{ color: EMERALD }}>Poiseuille</span> solution <span className="text-slate-200">and</span> a
         regime-stability criterion, producing a <span style={{ color: CYAN_GLOW }}>credibility map</span> that separates the
         trustworthy from the flagged. <span style={{ color: EMERALD }}>Re=20</span> is credible at every resolution (error
-        ~10⁻³); <span style={{ color: ROSE }}>Re=120</span> is flagged everywhere — the profile visibly falls short of the
-        parabola. The whole point: FrankenSim returns not an answer but a <span className="text-slate-200">certified</span>{" "}
+        ~10⁻³); <span style={{ color: ROSE }}>Re=120</span> is flagged everywhere; the profile visibly falls short of the
+        parabola. FrankenSim returns a <span className="text-slate-200">certified</span>{" "}
         answer, telling you exactly where to trust the CFD. Every solve, error and verdict is compiled Rust, run when you
         release the slider.
       </div>

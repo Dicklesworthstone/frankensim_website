@@ -82,10 +82,15 @@ function CampaignSection({ c, index }: { c: E2eCampaign; index: number }) {
           </div>
         </div>
 
-        {/* lede */}
-        <p className="mt-8 max-w-3xl text-[15px] leading-relaxed text-slate-300 md:text-lg md:leading-relaxed">
-          {c.lede}
-        </p>
+        {/* motivation: lede + pedagogical context */}
+        <div className="mt-8 max-w-3xl space-y-4">
+          <p className="text-[15px] leading-relaxed text-slate-300 md:text-lg md:leading-relaxed">
+            {c.lede}
+          </p>
+          <p className="text-[15px] leading-relaxed text-slate-400 md:text-base md:leading-relaxed">
+            {c.context}
+          </p>
+        </div>
 
         {/* composed-from pillars */}
         <div className="mt-10">
@@ -117,8 +122,15 @@ function CampaignSection({ c, index }: { c: E2eCampaign; index: number }) {
             <Sparkles className="h-3.5 w-3.5" /> Only in FrankenSim
           </div>
           <p className="text-[15px] leading-relaxed text-slate-200 md:text-base md:leading-relaxed">
-            {c.impossible}
+            {c.difference}
           </p>
+          <div className="mt-4 flex items-start gap-2.5 border-t pt-4" style={{ borderColor: `${accent}22` }}>
+            <ArrowRight className="mt-0.5 h-4 w-4 shrink-0" style={{ color: accent }} />
+            <p className="text-[14px] leading-relaxed text-slate-300 md:text-[15px]">
+              <span className="font-bold" style={{ color: accent }}>What it gives you: </span>
+              {c.payoff}
+            </p>
+          </div>
         </div>
 
         {/* the live demo */}
@@ -172,15 +184,15 @@ export default function E2eShowcase() {
           </div>
           <GlitchText trigger="hover" intensity="medium">
             <h1 className="text-[clamp(2.5rem,6.5vw,5rem)] font-black leading-[0.98] tracking-tight text-white">
-              Not an answer. An <span className="text-gradient-sync">illuminated</span> one.
+              Answers that carry their <span className="text-gradient-sync">evidence</span>.
             </h1>
           </GlitchText>
           <p className="mt-8 max-w-3xl text-lg font-medium leading-relaxed text-slate-300 md:text-xl md:leading-relaxed">
             The Lab shows FrankenSim&apos;s kernels one at a time. These are the campaigns: ten
-            end-to-end pipelines that wire crates which were never designed to meet into a single
-            certified result. Each returns a proof, a frontier, a stop rule, or a credibility map,
-            not a bare number, and each runs its whole pipeline live in your browser, compiled from
-            the same Rust the native workspace builds.
+            end-to-end pipelines that wire together crates which were never meant to meet, and
+            return a single result carrying its own evidence. Each hands back a proof, a frontier,
+            a stop rule, or a credibility map, and each runs its whole pipeline live in your
+            browser, compiled from the same Rust the native workspace builds.
           </p>
 
           <div

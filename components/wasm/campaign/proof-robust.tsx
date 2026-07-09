@@ -166,6 +166,12 @@ export default function ProofRobust() {
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = BG;
       ctx.fillRect(0, 0, W, H);
+      // deeper background: a subtle radial vignette (lifted teal core → black edges)
+      const vg = ctx.createRadialGradient(W * 0.5, H * 0.34, Math.max(0, 0), W * 0.5, H * 0.5, Math.max(0.1, Math.max(W, H) * 0.72));
+      vg.addColorStop(0, "rgba(10,26,34,0.6)");
+      vg.addColorStop(1, "rgba(0,0,0,0.55)");
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
 
       const padL = W * 0.11;
       const padR = W * 0.05;
@@ -244,10 +250,16 @@ export default function ProofRobust() {
           if (i === 0) ctx.moveTo(px, py);
           else ctx.lineTo(px, py);
         }
-        ctx.strokeStyle = f.rgba(0.9);
-        ctx.lineWidth = Math.max(1.5, W / 320);
+        // glowing stroke: a wide soft underglow beneath a bright core line
+        ctx.strokeStyle = f.rgba(0.16);
+        ctx.lineWidth = Math.max(4, W / 120);
         ctx.shadowColor = f.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 18;
+        ctx.stroke();
+        ctx.strokeStyle = f.rgba(0.95);
+        ctx.lineWidth = Math.max(1.6, W / 300);
+        ctx.shadowColor = f.color;
+        ctx.shadowBlur = 10;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
@@ -267,38 +279,120 @@ export default function ProofRobust() {
       }
       ctx.restore();
 
-      // proven minima markers (emerald ring = SOS-Verified) + labels
-      ctx.font = `${fs}px ui-monospace, monospace`;
+      // proven minima markers (emerald ring = SOS-Verified). Family names live in
+      // the corner legend now, so nothing is drawn on the crowded minima cluster.
       for (const f of d.fams) {
         const mx = X(f.xStar);
         const my = Y(f.nominal);
         if (mx > clipX) continue;
         const pulse = reduced ? 1 : 0.82 + 0.18 * Math.sin(time * 0.004);
-        ctx.beginPath();
-        ctx.arc(mx, my, Math.max(3, W / 150), 0, Math.PI * 2);
-        ctx.fillStyle = f.color;
-        ctx.shadowColor = f.color;
-        ctx.shadowBlur = 10 * pulse;
-        ctx.fill();
-        ctx.shadowBlur = 0;
+
+        // [lo, hi] certified enclosure bracket (emerald, drawn to scale) for verified minima
         if (f.verified) {
+          const yA = Y(Math.min(yMax, f.certHi));
+          const yB = Y(Math.min(yMax, f.certLo));
+          const serif = Math.max(3, W / 150);
+          ctx.strokeStyle = `${EMERALD}cc`;
+          ctx.lineWidth = Math.max(1, W / 520);
           ctx.beginPath();
-          ctx.arc(mx, my, Math.max(5.5, W / 90), 0, Math.PI * 2);
-          ctx.strokeStyle = EMERALD;
-          ctx.lineWidth = Math.max(1.2, W / 420);
+          ctx.moveTo(mx, yA);
+          ctx.lineTo(mx, yB);
+          ctx.moveTo(mx - serif, yA);
+          ctx.lineTo(mx + serif, yA);
+          ctx.moveTo(mx - serif, yB);
+          ctx.lineTo(mx + serif, yB);
           ctx.stroke();
         }
+
+        // soft radial halo behind the marker
+        const halo = ctx.createRadialGradient(mx, my, Math.max(0, 0), mx, my, Math.max(0.1, W / 42));
+        halo.addColorStop(0, f.rgba(0.5 * pulse));
+        halo.addColorStop(1, f.rgba(0));
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(mx, my, Math.max(0.1, W / 42), 0, Math.PI * 2);
+        ctx.fill();
+
+        // bright core + white-hot center
+        ctx.beginPath();
+        ctx.arc(mx, my, Math.max(0.1, Math.max(3.2, W / 140)), 0, Math.PI * 2);
         ctx.fillStyle = f.color;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "bottom";
-        ctx.fillText(f.name, mx, my - Math.max(9, W / 60));
+        ctx.shadowColor = f.color;
+        ctx.shadowBlur = 12 * pulse;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.arc(mx, my, Math.max(0.1, Math.max(1.1, W / 400)), 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.9)";
+        ctx.fill();
+
+        // SOS-Verified: a clean haloed double emerald ring
+        if (f.verified) {
+          ctx.beginPath();
+          ctx.arc(mx, my, Math.max(0.1, Math.max(5.5, W / 90)), 0, Math.PI * 2);
+          ctx.strokeStyle = EMERALD;
+          ctx.lineWidth = Math.max(1.4, W / 380);
+          ctx.shadowColor = EMERALD;
+          ctx.shadowBlur = 8 * pulse;
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+          ctx.beginPath();
+          ctx.arc(mx, my, Math.max(0.1, Math.max(7.5, W / 66)), 0, Math.PI * 2);
+          ctx.strokeStyle = `${EMERALD}55`;
+          ctx.lineWidth = Math.max(1, W / 520);
+          ctx.stroke();
+        }
       }
 
       // axis label
+      ctx.font = `${fs}px ui-monospace, monospace`;
       ctx.fillStyle = MUTED;
       ctx.textAlign = "center";
       ctx.textBaseline = "bottom";
       ctx.fillText("design parameter x  ·  cost ↑", padL + plotW / 2, H - padB * 0.18);
+
+      // color-keyed family legend (top-right) — replaces the old labels that piled
+      // up over the shared minima and rendered as garbled overlapping text.
+      const legFs = Math.max(8, W / 52);
+      ctx.font = `${legFs}px ui-monospace, monospace`;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "left";
+      const rowH = legFs * 1.55;
+      const swW = Math.max(14, W / 34);
+      let nameW = 0;
+      for (const f of d.fams) nameW = Math.max(nameW, ctx.measureText(f.name).width);
+      const legPad = legFs * 0.6;
+      const blockW = swW + legFs * 0.5 + nameW + legPad * 2;
+      const blockH = d.fams.length * rowH + legPad * 0.6;
+      const bx = W - padR - blockW;
+      const by = padT + legFs * 0.3;
+      ctx.fillStyle = "rgba(4,9,13,0.62)";
+      ctx.strokeStyle = "rgba(148,163,184,0.16)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.rect(bx, by, blockW, blockH);
+      ctx.fill();
+      ctx.stroke();
+      let ly = by + rowH * 0.5 + legPad * 0.3;
+      for (const f of d.fams) {
+        const lx = bx + legPad;
+        ctx.strokeStyle = f.rgba(0.95);
+        ctx.lineWidth = Math.max(2, W / 260);
+        ctx.shadowColor = f.color;
+        ctx.shadowBlur = 5;
+        ctx.beginPath();
+        ctx.moveTo(lx, ly);
+        ctx.lineTo(lx + swW, ly);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.arc(lx + swW / 2, ly, Math.max(0.1, Math.max(2, W / 220)), 0, Math.PI * 2);
+        ctx.fillStyle = f.color;
+        ctx.fill();
+        ctx.fillStyle = f.color;
+        ctx.fillText(f.name, lx + swW + legFs * 0.5, ly);
+        ly += rowH;
+      }
     },
     [reduced],
   );
@@ -316,6 +410,11 @@ export default function ProofRobust() {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = BG;
+      ctx.fillRect(0, 0, W, H);
+      const vg = ctx.createRadialGradient(W * 0.5, H * 0.4, Math.max(0, 0), W * 0.5, H * 0.5, Math.max(0.1, Math.max(W, H) * 0.72));
+      vg.addColorStop(0, "rgba(10,26,34,0.55)");
+      vg.addColorStop(1, "rgba(0,0,0,0.5)");
+      ctx.fillStyle = vg;
       ctx.fillRect(0, 0, W, H);
 
       const padT = H * 0.16;
@@ -380,10 +479,18 @@ export default function ProofRobust() {
 
       // endpoints + winner rings + value labels
       const drawNode = (x: number, y: number, f: Fam, winner: boolean, ringColor: string) => {
+        // soft radial halo
+        const halo = ctx.createRadialGradient(x, y, Math.max(0, 0), x, y, Math.max(0.1, W / 34));
+        halo.addColorStop(0, f.rgba(0.4));
+        halo.addColorStop(1, f.rgba(0));
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(0.1, W / 34), 0, Math.PI * 2);
+        ctx.fill();
         if (winner) {
           const pulse = reduced ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
           ctx.beginPath();
-          ctx.arc(x, y, Math.max(6, W / 60) * pulse, 0, Math.PI * 2);
+          ctx.arc(x, y, Math.max(0.1, Math.max(6, W / 60) * pulse), 0, Math.PI * 2);
           ctx.strokeStyle = ringColor;
           ctx.lineWidth = Math.max(1.4, W / 260);
           ctx.shadowColor = ringColor;
@@ -392,12 +499,16 @@ export default function ProofRobust() {
           ctx.shadowBlur = 0;
         }
         ctx.beginPath();
-        ctx.arc(x, y, Math.max(3.2, W / 120), 0, Math.PI * 2);
+        ctx.arc(x, y, Math.max(0.1, Math.max(3.4, W / 110)), 0, Math.PI * 2);
         ctx.fillStyle = f.color;
         ctx.shadowColor = f.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 9;
         ctx.fill();
         ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(0.1, Math.max(1.1, W / 360)), 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.fill();
       };
 
       ctx.font = `${Math.max(8, W / 40)}px ui-monospace, monospace`;
@@ -612,13 +723,13 @@ export default function ProofRobust() {
 
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
         Three design families, each a convex parabola whose global minimum is <span className="text-slate-200">proven</span> by an
-        executable <span style={{ color: EMERALD }}>sum-of-squares certificate</span> — the emerald ring is a real{" "}
+        executable <span style={{ color: EMERALD }}>sum-of-squares certificate</span>. The emerald ring is a real{" "}
         <span className="text-slate-200">[lo, hi]</span> enclosure of the optimum, not a guess. <span style={{ color: CYAN_GLOW }}>champion</span>{" "}
         has the lowest nominal cost but a steeper bowl; under a <span style={{ color: AMBER }}>±σ manufacturing tolerance</span> its
         cost balloons, and the flatter <span style={{ color: AMBER }}>flat</span> family wins the worst-case{" "}
-        <span className="text-slate-200">CVaR</span> ranking instead — watch the two winners&apos; lines cross as you open σ. The
-        honest part: the proofs stay <span style={{ color: EMERALD }}>Verified</span>, but the CVaR ranking is a sample statistic, so
-        the headline is only <span style={{ color: AMBER }}>Estimated</span>. Compiled Rust, certified live in your tab.
+        <span className="text-slate-200">CVaR</span> ranking instead. Watch the two winners&apos; lines cross as you open σ. The proofs
+        stay <span style={{ color: EMERALD }}>Verified</span>, but the CVaR ranking is a sample statistic, so the headline is only{" "}
+        <span style={{ color: AMBER }}>Estimated</span>. Compiled Rust, certified live in your tab.
       </div>
     </SyncContainer>
   );

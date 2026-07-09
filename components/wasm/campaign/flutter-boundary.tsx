@@ -232,22 +232,31 @@ export default function FlutterBoundary() {
         const px = X(s.mu);
         if (px > clipX + 2) continue;
         ctx.beginPath();
-        ctx.arc(px, AY(s.abscissa), Math.max(2, W / 260), 0, Math.PI * 2);
+        ctx.arc(px, AY(s.abscissa), Math.max(0.1, Math.max(2, W / 260)), 0, Math.PI * 2);
         ctx.fillStyle = s.lyapStable ? EMERALD : ROSE;
         ctx.fill();
       }
       ctx.restore();
 
-      // μ* divider (Lyapunov boundary) — bold
+      // μ* divider (Lyapunov boundary) — bold, with a soft glow
       if (X(muStar) <= clipX + 2) {
+        ctx.strokeStyle = `${CYAN_GLOW}22`;
+        ctx.lineWidth = Math.max(3, W / 150);
+        ctx.beginPath();
+        ctx.moveTo(sx, topT);
+        ctx.lineTo(sx, topB);
+        ctx.stroke();
         ctx.strokeStyle = BRIGHT;
         ctx.lineWidth = Math.max(1.4, W / 380);
         ctx.setLineDash([2, 3]);
+        ctx.shadowColor = CYAN_GLOW;
+        ctx.shadowBlur = 8;
         ctx.beginPath();
         ctx.moveTo(sx, topT);
         ctx.lineTo(sx, topB);
         ctx.stroke();
         ctx.setLineDash([]);
+        ctx.shadowBlur = 0;
         ctx.fillStyle = BRIGHT;
         ctx.textAlign = "center";
         ctx.textBaseline = "bottom";
@@ -268,29 +277,50 @@ export default function FlutterBoundary() {
           ctx.setLineDash([]);
           // the two needles meeting the zero line
           const pulse = reduced ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
+          const mc = d.agree ? EMERALD : AMBER;
+          const halo = ctx.createRadialGradient(spx, midY, Math.max(0, 0), spx, midY, Math.max(0.1, W / 60));
+          halo.addColorStop(0, `${mc}55`);
+          halo.addColorStop(1, `${mc}00`);
+          ctx.fillStyle = halo;
           ctx.beginPath();
-          ctx.arc(spx, midY, Math.max(4, W / 130) * pulse, 0, Math.PI * 2);
-          ctx.strokeStyle = d.agree ? EMERALD : AMBER;
+          ctx.arc(spx, midY, Math.max(0.1, W / 60), 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(spx, midY, Math.max(0.1, Math.max(4, W / 130) * pulse), 0, Math.PI * 2);
+          ctx.strokeStyle = mc;
           ctx.lineWidth = Math.max(1.4, W / 300);
-          ctx.shadowColor = d.agree ? EMERALD : AMBER;
-          ctx.shadowBlur = 12;
+          ctx.shadowColor = mc;
+          ctx.shadowBlur = 14;
           ctx.stroke();
           ctx.shadowBlur = 0;
+          ctx.beginPath();
+          ctx.arc(spx, midY, Math.max(0.1, Math.max(1.4, W / 300)), 0, Math.PI * 2);
+          ctx.fillStyle = mc;
+          ctx.fill();
         }
       }
 
-      // μ ticks
+      // μ ticks + axis marker. Reserve the right edge for the "μ →" marker and
+      // right-align the last tick so its number can never collide with the arrow.
       ctx.fillStyle = MUTED;
       ctx.font = `${Math.max(7, W / 70)}px ui-monospace, monospace`;
-      ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+      const axisMark = "μ →";
+      ctx.textAlign = "right";
+      ctx.fillText(axisMark, W - padR, axisY);
+      const markW = ctx.measureText(axisMark).width;
+      const tickGap = Math.max(6, W / 90);
       const ticks = 5;
       for (let i = 0; i <= ticks; i++) {
         const mu = muLo + (span * i) / ticks;
-        ctx.fillText(mu.toFixed(2), X(mu), axisY);
+        if (i === ticks) {
+          ctx.textAlign = "right";
+          ctx.fillText(mu.toFixed(2), W - padR - markW - tickGap, axisY);
+        } else {
+          ctx.textAlign = "center";
+          ctx.fillText(mu.toFixed(2), X(mu), axisY);
+        }
       }
-      ctx.textAlign = "left";
-      ctx.fillText("μ →", W - padR + 2, axisY);
 
       // reach lanes (naive vs Aitken)
       const drawLane = (y: number, label: string, boundary: number, color: string, key: (s: Sample) => boolean) => {
@@ -314,7 +344,7 @@ export default function FlutterBoundary() {
           ctx.shadowBlur = 0;
           if (X(boundary) <= clipX) {
             ctx.beginPath();
-            ctx.arc(X(boundary), y, Math.max(3, W / 170), 0, Math.PI * 2);
+            ctx.arc(X(boundary), y, Math.max(0.1, Math.max(3, W / 170)), 0, Math.PI * 2);
             ctx.fillStyle = color;
             ctx.fill();
           }
@@ -324,7 +354,7 @@ export default function FlutterBoundary() {
           const px = X(s.mu);
           if (px > clipX + 2) continue;
           ctx.beginPath();
-          ctx.arc(px, y, Math.max(1.4, W / 360), 0, Math.PI * 2);
+          ctx.arc(px, y, Math.max(0.1, Math.max(1.4, W / 360)), 0, Math.PI * 2);
           ctx.fillStyle = key(s) ? EMERALD : "rgba(244,63,94,0.55)";
           ctx.fill();
         }
@@ -533,7 +563,7 @@ export default function FlutterBoundary() {
 
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
         A 2-DOF <span className="text-slate-200">aeroelastic</span> operator is asymptotically stable exactly while the added-mass
-        parameter <span className="text-slate-200">μ &lt; 2</span> — the flutter boundary <span style={{ color: BRIGHT }}>μ* = 2</span>.
+        parameter <span className="text-slate-200">μ &lt; 2</span>. The flutter boundary sits at <span style={{ color: BRIGHT }}>μ* = 2</span>.
         FrankenSim certifies it two independent ways: a <span style={{ color: EMERALD }}>Lyapunov sum-of-squares</span> proof (the
         emerald/rose split) and the <span style={{ color: CYAN_GLOW }}>spectral abscissa</span> sweeping up through zero at the very
         same μ. When those two needles land on one line, the certifier has <span className="text-slate-200">cross-checked itself</span>.

@@ -272,7 +272,7 @@ export default function TrussPath() {
       ctx.strokeStyle = rgba(col, 0.9);
       ctx.lineWidth = wOf(m.force);
       ctx.shadowColor = col;
-      ctx.shadowBlur = W / 240;
+      ctx.shadowBlur = W / 200;
       ctx.stroke();
       ctx.shadowBlur = 0;
     }
@@ -299,7 +299,7 @@ export default function TrussPath() {
       ctx.strokeStyle = rgba(EMERALD, 0.96);
       ctx.lineWidth = wOf(m.force) + Math.max(1, W / 400);
       ctx.shadowColor = EMERALD;
-      ctx.shadowBlur = W / 70;
+      ctx.shadowBlur = W / 58;
       ctx.stroke();
       ctx.shadowBlur = 0;
 
@@ -309,7 +309,7 @@ export default function TrussPath() {
         const mx = (sx + ex) / 2;
         const my = (sy + ey) / 2;
         ctx.beginPath();
-        ctx.arc(mx, my, Math.max(6, W / 60) * pulse, 0, Math.PI * 2);
+        ctx.arc(mx, my, Math.max(0.1, Math.max(6, W / 60) * pulse), 0, Math.PI * 2);
         ctx.strokeStyle = rgba(EMERALD, 0.7);
         ctx.lineWidth = Math.max(1.2, W / 360);
         ctx.shadowColor = EMERALD;
@@ -333,7 +333,7 @@ export default function TrussPath() {
         const [sx, sy] = P(start);
         const [ex, ey] = P(end);
         ctx.beginPath();
-        ctx.arc(sx + (ex - sx) * localT, sy + (ey - sy) * localT, Math.max(2.5, W / 200), 0, Math.PI * 2);
+        ctx.arc(sx + (ex - sx) * localT, sy + (ey - sy) * localT, Math.max(0.1, Math.max(2.5, W / 200)), 0, Math.PI * 2);
         ctx.fillStyle = "rgba(209,250,229,0.95)";
         ctx.shadowColor = EMERALD;
         ctx.shadowBlur = W / 45;
@@ -346,7 +346,7 @@ export default function TrussPath() {
     for (let i = 0; i < d.nodes.length; i++) {
       const [x, y] = P(i);
       ctx.beginPath();
-      ctx.arc(x, y, Math.max(1.6, W / 360), 0, Math.PI * 2);
+      ctx.arc(x, y, Math.max(0.1, Math.max(1.6, W / 360)), 0, Math.PI * 2);
       ctx.fillStyle = "rgba(203,213,225,0.6)";
       ctx.fill();
     }
@@ -385,11 +385,11 @@ export default function TrussPath() {
       ctx.moveTo(lx, ly);
       ctx.lineTo(lx, tipY);
       ctx.strokeStyle = rgba(AMBER, 0.95);
-      ctx.lineWidth = Math.max(1.6, W / 300);
+      ctx.lineWidth = Math.max(1.8, W / 270);
       ctx.shadowColor = AMBER;
-      ctx.shadowBlur = W / 120;
+      ctx.shadowBlur = W / 130;
       ctx.stroke();
-      const ah = Math.max(5, W / 110);
+      const ah = Math.max(6, W / 100);
       ctx.beginPath();
       ctx.moveTo(lx, tipY + ah * 0.5);
       ctx.lineTo(lx - ah * 0.6, tipY - ah * 0.5);
@@ -643,13 +643,13 @@ export default function TrussPath() {
         Every faint line is a <span className="text-slate-200">candidate bar</span> in a Michell ground structure over the
         cantilever. A first-order <span style={{ color: VIOLET }}>PDHG linear program</span> (
         <span className="text-cyan-300">fs-truss</span>) sizes them to minimum material under equilibrium and emits a
-        machine-checkable relative <span style={{ color: EMERALD }}>duality gap</span> — the certificate that the answer is
+        machine-checkable relative <span style={{ color: EMERALD }}>duality gap</span>: the certificate that the answer is
         within that gap of optimal. Only a handful survive:{" "}
         <span style={{ color: CYAN_GLOW }}>tension</span> bars in cyan, <span style={{ color: ROSE }}>compression</span> in
         rose, width set by force. A max-plus <span style={{ color: EMERALD }}>tropical critical path</span> (
         <span className="text-cyan-300">fs-tropical</span>) then finds the single chain carrying the most material from the{" "}
         <span style={{ color: AMBER }}>loaded corner</span> down to the supports, and names its{" "}
-        <span style={{ color: EMERALD }}>bottleneck bar</span>. A real optimized truss, emerging from the noise — compiled
+        <span style={{ color: EMERALD }}>bottleneck bar</span>. A real optimized truss, emerging from the noise. Compiled
         Rust, live in your tab.
       </div>
     </SyncContainer>

@@ -355,13 +355,16 @@ export default function GrammarForge() {
         const isBest = idx === d.bestNiche;
         ctx.fillStyle = `rgb(${cr | 0},${cg | 0},${cb | 0})`;
         ctx.shadowColor = isBest ? EMERALD : CYAN_GLOW;
-        ctx.shadowBlur = (isBest ? W / 40 : W / 90) * (0.5 + 0.5 * shown) * (isBest ? pulse : 1);
+        ctx.shadowBlur = (isBest ? W / 30 : W / 90) * (0.5 + 0.5 * shown) * (isBest ? pulse : 1);
         ctx.fillRect(x, y, w, h);
         ctx.shadowBlur = 0;
         if (isBest) {
-          ctx.strokeStyle = `rgba(16,185,129,${0.7 + 0.3 * pulse})`;
-          ctx.lineWidth = Math.max(1.4, W / 260);
+          ctx.strokeStyle = `rgba(16,185,129,${0.78 + 0.22 * pulse})`;
+          ctx.lineWidth = Math.max(1.6, W / 230);
+          ctx.shadowColor = EMERALD;
+          ctx.shadowBlur = (W / 42) * pulse;
           ctx.strokeRect(x, y, w, h);
+          ctx.shadowBlur = 0;
         }
         if (reveal > 0.6 && w > 22) {
           ctx.fillStyle = shown > 0.55 ? "rgba(4,10,14,0.85)" : "rgba(226,240,255,0.8)";
@@ -415,7 +418,7 @@ export default function GrammarForge() {
     ctx.drawImage(buf, 0, 0, d.reprN, d.reprN, 0, 0, W, H);
 
     ctx.globalCompositeOperation = "lighter";
-    ctx.globalAlpha = 0.5 * reveal;
+    ctx.globalAlpha = 0.58 * reveal;
     ctx.filter = `blur(${Math.max(4, Math.round(W / 42))}px)`;
     ctx.drawImage(buf, 0, 0, d.reprN, d.reprN, 0, 0, W, H);
     ctx.filter = "none";
@@ -428,15 +431,20 @@ export default function GrammarForge() {
         ctx.moveTo(mx(s.x0), my(s.y0));
         ctx.lineTo(mx(s.x1), my(s.y1));
       }
-      ctx.strokeStyle = "rgba(198,255,224,0.95)";
-      ctx.lineWidth = Math.max(1.4, W / 260);
+      // soft emerald halo underneath
+      ctx.strokeStyle = "rgba(52,211,153,0.32)";
+      ctx.lineWidth = Math.max(2.4, W / 140);
       ctx.shadowColor = EMERALD;
-      ctx.shadowBlur = W / 80;
+      ctx.shadowBlur = W / 58;
       ctx.stroke();
+      // crisp bright core on top
+      ctx.strokeStyle = "rgba(210,255,232,0.98)";
+      ctx.lineWidth = Math.max(1.2, W / 300);
       ctx.shadowBlur = 0;
+      ctx.stroke();
     }
 
-    const vg = ctx.createRadialGradient(W / 2, H / 2, W * 0.26, W / 2, H / 2, W * 0.72);
+    const vg = ctx.createRadialGradient(W / 2, H / 2, Math.max(0, W * 0.26), W / 2, H / 2, Math.max(0.1, W * 0.72));
     vg.addColorStop(0, "rgba(0,0,0,0)");
     vg.addColorStop(1, "rgba(0,0,0,0.5)");
     ctx.fillStyle = vg;
@@ -534,7 +542,7 @@ export default function GrammarForge() {
         <div className="space-y-2.5">
           <Eyebrow>Campaign 08 · fs-grammar-e2e · MAP-Elites × CSG</Eyebrow>
           <h3 className="text-xl font-black leading-tight tracking-tight text-white md:text-2xl">
-            A design space, <span className="text-cyan-400">illuminated</span> — every rewrite re-proven.
+            A design space, <span className="text-cyan-400">illuminated</span>; every rewrite re-proven.
           </h3>
         </div>
         <LiveBadge computing={computing} />
@@ -653,15 +661,15 @@ export default function GrammarForge() {
       </div>
 
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
-        <span style={{ color: CYAN_GLOW }}>MAP-Elites</span> illuminates a design space of CSG shape programs — target a{" "}
-        <span className="text-slate-200">peanut</span> of two spheres — across a 6×4 behavior grid (total material × dipole
+        <span style={{ color: CYAN_GLOW }}>MAP-Elites</span> illuminates a design space of CSG shape programs, targeting a{" "}
+        <span className="text-slate-200">peanut</span> of two spheres, across a 6×4 behavior grid (total material × dipole
         separation), keeping the best-matching program per niche: <span className="text-slate-200">18 of 24</span> filled. Each
         elite then passes through a <span style={{ color: EMERALD }}>certificate-preserving simplifier</span> whose
-        geometric-identity rewrites and tiny-offset drops carry an error bound — and the campaign{" "}
+        geometric-identity rewrites and tiny-offset drops carry an error bound, and the campaign{" "}
         <span className="text-slate-200">independently re-measures</span> each result to confirm it stays within that bound:{" "}
         <span style={{ color: EMERALD }}>108 → 99 nodes</span>, re-verified <span style={{ color: EMERALD }}>sound</span>. A
         fabrication predicate separates buildable programs from fantasy. Move <span style={{ color: EMERALD }}>simplify tol</span>{" "}
-        and watch node count — and the shape — change, every rewrite re-proven by compiled Rust in your tab.
+        and watch the node count and the shape change together, every rewrite re-proven by compiled Rust in your tab.
       </div>
     </SyncContainer>
   );

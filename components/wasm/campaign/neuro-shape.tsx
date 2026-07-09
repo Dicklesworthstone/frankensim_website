@@ -314,7 +314,7 @@ export default function NeuroShape() {
 
     // interior bloom
     ctx.globalCompositeOperation = "lighter";
-    ctx.globalAlpha = 0.55 * reveal;
+    ctx.globalAlpha = 0.62 * reveal;
     ctx.filter = `blur(${Math.max(4, Math.round(W / 46))}px)`;
     ctx.drawImage(buf, 0, 0, d.n, d.n, inset, PAD * H, span, H - 2 * PAD * H);
     ctx.filter = "none";
@@ -328,12 +328,17 @@ export default function NeuroShape() {
         ctx.moveTo(mx(s.x0), my(s.y0));
         ctx.lineTo(mx(s.x1), my(s.y1));
       }
-      ctx.strokeStyle = "rgba(198,255,224,0.95)";
-      ctx.lineWidth = Math.max(1.4, W / 300);
+      // soft emerald halo underneath
+      ctx.strokeStyle = "rgba(52,211,153,0.32)";
+      ctx.lineWidth = Math.max(2.4, W / 150);
       ctx.shadowColor = EMERALD;
-      ctx.shadowBlur = W / 90;
+      ctx.shadowBlur = W / 64;
       ctx.stroke();
+      // crisp bright core on top
+      ctx.strokeStyle = "rgba(210,255,232,0.98)";
+      ctx.lineWidth = Math.max(1.2, W / 330);
       ctx.shadowBlur = 0;
+      ctx.stroke();
     }
 
     // certificate boxes (the geometric heart of the proof)
@@ -344,6 +349,7 @@ export default function NeuroShape() {
       const w = (2 * half * span) / range;
       ctx.strokeStyle = col;
       ctx.lineWidth = Math.max(1.1, W / 360);
+      ctx.lineJoin = "round";
       ctx.shadowColor = col;
       ctx.shadowBlur = glow;
       ctx.strokeRect(x0, y0, w, w);
@@ -375,7 +381,7 @@ export default function NeuroShape() {
     }
 
     // vignette
-    const vg = ctx.createRadialGradient(W / 2, H / 2, W * 0.28, W / 2, H / 2, W * 0.74);
+    const vg = ctx.createRadialGradient(W / 2, H / 2, Math.max(0, W * 0.28), W / 2, H / 2, Math.max(0.1, W * 0.74));
     vg.addColorStop(0, "rgba(0,0,0,0)");
     vg.addColorStop(1, "rgba(0,0,0,0.5)");
     ctx.fillStyle = vg;
@@ -462,7 +468,7 @@ export default function NeuroShape() {
         <div className="space-y-2.5">
           <Eyebrow>Campaign 07 · fs-neuroshape-e2e · IBP × Lipschitz</Eyebrow>
           <h3 className="text-xl font-black leading-tight tracking-tight text-white md:text-2xl">
-            A neural shape, its topology <span className="text-emerald-300">proven</span> — not sampled.
+            A neural shape whose topology is <span className="text-emerald-300">proven</span>.
           </h3>
         </div>
         <LiveBadge computing={computing} />
@@ -613,7 +619,7 @@ export default function NeuroShape() {
         not the picture but the <span className="text-slate-200">topology certificate</span>. By propagating the network&apos;s{" "}
         <span style={{ color: CYAN_GLOW }}>sound interval enclosure</span> (IBP), the kernel proves a central box is strictly{" "}
         <span style={{ color: EMERALD }}>inside</span> (interval hi &lt; 0) while all eight boxes on a ring are strictly{" "}
-        <span style={{ color: CYAN_GLOW }}>outside</span> (lo &gt; 0) — a non-empty interior trapped in a certified-positive
+        <span style={{ color: CYAN_GLOW }}>outside</span> (lo &gt; 0); a non-empty interior trapped in a certified-positive
         ring is provably a <span className="text-slate-200">single bounded connected component</span>. A certified Lipschitz
         bound underwrites safe sphere-tracing; a Morse check confirms one interior minimum. Raise{" "}
         <span style={{ color: EMERALD }}>lift</span> past ~8.23 and the interior empties: the shape vanishes and the proof

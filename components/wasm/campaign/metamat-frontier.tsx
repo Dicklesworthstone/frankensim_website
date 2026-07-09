@@ -158,6 +158,11 @@ export default function MetamatFrontier() {
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = BG;
       ctx.fillRect(0, 0, W, H);
+      const vg = ctx.createRadialGradient(W * 0.5, H * 0.36, Math.max(0, 0), W * 0.5, H * 0.5, Math.max(0.1, Math.max(W, H) * 0.72));
+      vg.addColorStop(0, "rgba(10,26,34,0.5)");
+      vg.addColorStop(1, "rgba(0,0,0,0.5)");
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
 
       const padL = W * 0.13;
       const padR = W * 0.05;
@@ -206,14 +211,17 @@ export default function MetamatFrontier() {
       ctx.fillText("axial stiffness C₁₁", 0, 0);
       ctx.restore();
 
-      // Voigt upper-bound line  C11 = ρ·c_solid
-      ctx.setLineDash([6, 5]);
-      ctx.strokeStyle = `${TEAL}aa`;
-      ctx.lineWidth = Math.max(1.2, W / 420);
+      // Voigt upper-bound line  C11 = ρ·c_solid — crisp teal dash with a faint glow
+      ctx.setLineDash([7, 5]);
+      ctx.strokeStyle = `${TEAL}dd`;
+      ctx.lineWidth = Math.max(1.3, W / 380);
+      ctx.shadowColor = TEAL;
+      ctx.shadowBlur = 6;
       ctx.beginPath();
       ctx.moveTo(X(xLo), Y(Math.min(yHi, d.cSolid * xLo)));
       ctx.lineTo(X(xHi), Y(Math.min(yHi, d.cSolid * xHi)));
       ctx.stroke();
+      ctx.shadowBlur = 0;
       ctx.setLineDash([]);
       ctx.fillStyle = TEAL;
       ctx.textAlign = "right";
@@ -236,17 +244,23 @@ export default function MetamatFrontier() {
         const b = d.pts[kFull + 1];
         ctx.lineTo(X(a.density + (b.density - a.density) * frac), Y(a.c11 + (b.c11 - a.c11) * frac));
       }
-      ctx.strokeStyle = "rgba(16,185,129,0.7)";
-      ctx.lineWidth = Math.max(1.6, W / 300);
+      // wide soft underglow beneath a bright core line
+      ctx.strokeStyle = "rgba(16,185,129,0.14)";
+      ctx.lineWidth = Math.max(4, W / 150);
       ctx.shadowColor = EMERALD;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 16;
+      ctx.stroke();
+      ctx.strokeStyle = "rgba(16,185,129,0.85)";
+      ctx.lineWidth = Math.max(1.7, W / 290);
+      ctx.shadowColor = EMERALD;
+      ctx.shadowBlur = 9;
       ctx.stroke();
       ctx.shadowBlur = 0;
 
       const sel = selFloat(d, time);
       const selIdx = Math.round(sel);
 
-      // nodes
+      // nodes — each glowing in its own certificate color
       for (let i = 0; i <= Math.min(kFull, d.pts.length - 1); i++) {
         const p = d.pts[i];
         const px = X(p.density);
@@ -254,9 +268,18 @@ export default function MetamatFrontier() {
         const col = nodeColor(p);
         const hot = i === selIdx;
         const pulse = reduced ? 1 : 0.85 + 0.15 * Math.sin(time * 0.004 + i);
+        // soft radial halo in the certificate color
+        const hr = Math.max(0.1, W / (hot ? 24 : 42));
+        const halo = ctx.createRadialGradient(px, py, Math.max(0, 0), px, py, hr);
+        halo.addColorStop(0, `${col}${hot ? "66" : "44"}`);
+        halo.addColorStop(1, `${col}00`);
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(px, py, hr, 0, Math.PI * 2);
+        ctx.fill();
         if (hot) {
           ctx.beginPath();
-          ctx.arc(px, py, Math.max(6, W / 70), 0, Math.PI * 2);
+          ctx.arc(px, py, Math.max(0.1, Math.max(6, W / 70)), 0, Math.PI * 2);
           ctx.strokeStyle = col;
           ctx.lineWidth = Math.max(1.3, W / 300);
           ctx.shadowColor = col;
@@ -265,12 +288,17 @@ export default function MetamatFrontier() {
           ctx.shadowBlur = 0;
         }
         ctx.beginPath();
-        ctx.arc(px, py, Math.max(3, W / 130), 0, Math.PI * 2);
+        ctx.arc(px, py, Math.max(0.1, Math.max(3.2, W / 120)), 0, Math.PI * 2);
         ctx.fillStyle = col;
         ctx.shadowColor = col;
-        ctx.shadowBlur = (hot ? 16 : 8) * pulse;
+        ctx.shadowBlur = (hot ? 18 : 10) * pulse;
         ctx.fill();
         ctx.shadowBlur = 0;
+        // bright center
+        ctx.beginPath();
+        ctx.arc(px, py, Math.max(0.1, Math.max(1, W / 380)), 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        ctx.fill();
       }
     },
     [reduced, selFloat],
@@ -289,6 +317,11 @@ export default function MetamatFrontier() {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = BG;
+      ctx.fillRect(0, 0, W, H);
+      const vg = ctx.createRadialGradient(W * 0.5, H * 0.5, Math.max(0, 0), W * 0.5, H * 0.5, Math.max(0.1, Math.max(W, H) * 0.7));
+      vg.addColorStop(0, "rgba(10,26,34,0.55)");
+      vg.addColorStop(1, "rgba(0,0,0,0.55)");
+      ctx.fillStyle = vg;
       ctx.fillRect(0, 0, W, H);
 
       const sel = selFloat(d, time);
@@ -315,25 +348,29 @@ export default function MetamatFrontier() {
           const cy0 = oy + ty * cs;
           const cx = cx0 + cs / 2;
           const cy = cy0 + cs / 2;
-          // solid material
+          // solid material — a higher-contrast diagonal gradient for depth
           const grad = ctx.createLinearGradient(cx0, cy0, cx0 + cs, cy0 + cs);
-          grad.addColorStop(0, "rgba(20,184,166,0.30)");
-          grad.addColorStop(1, "rgba(16,185,129,0.16)");
+          grad.addColorStop(0, "rgba(20,184,166,0.42)");
+          grad.addColorStop(1, "rgba(16,185,129,0.08)");
           ctx.fillStyle = grad;
           ctx.fillRect(cx0 + 0.5, cy0 + 0.5, cs - 1, cs - 1);
-          ctx.strokeStyle = "rgba(148,163,184,0.18)";
+          ctx.strokeStyle = "rgba(148,163,184,0.22)";
           ctx.lineWidth = 1;
           ctx.strokeRect(cx0 + 0.5, cy0 + 0.5, cs - 1, cs - 1);
-          // hole (void)
+          // hole (void) — depth from a dark core radial fill + a bright rim glow
           if (holeR > 0.5) {
+            const hg = ctx.createRadialGradient(cx, cy, Math.max(0, 0), cx, cy, Math.max(0.1, holeR));
+            hg.addColorStop(0, "#01050a");
+            hg.addColorStop(0.72, BG);
+            hg.addColorStop(1, `${col}22`);
             ctx.beginPath();
-            ctx.arc(cx, cy, holeR, 0, Math.PI * 2);
-            ctx.fillStyle = BG;
+            ctx.arc(cx, cy, Math.max(0.1, holeR), 0, Math.PI * 2);
+            ctx.fillStyle = hg;
             ctx.fill();
-            ctx.strokeStyle = `${col}cc`;
-            ctx.lineWidth = Math.max(1, W / 300);
+            ctx.strokeStyle = `${col}dd`;
+            ctx.lineWidth = Math.max(1, W / 260);
             ctx.shadowColor = col;
-            ctx.shadowBlur = 8 * shimmer;
+            ctx.shadowBlur = 10 * shimmer;
             ctx.stroke();
             ctx.shadowBlur = 0;
           }
@@ -590,11 +627,11 @@ export default function MetamatFrontier() {
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
         A <span className="text-slate-200">metamaterial</span>: a plate perforated with a lattice of holes. FrankenSim{" "}
         <span style={{ color: TEAL }}>homogenizes</span> each porosity into an effective stiffness tensor and density, then proves
-        two things about every point — that the tensor is <span style={{ color: EMERALD }}>positive-definite</span> (physically
-        stable) and that it obeys the <span style={{ color: TEAL }}>Voigt bound</span> C₁₁ ≤ ρ·c_solid (no microstructure can beat
+        two things about every point: that the tensor is <span style={{ color: EMERALD }}>positive-definite</span> (physically
+        stable), and that it obeys the <span style={{ color: TEAL }}>Voigt bound</span> C₁₁ ≤ ρ·c_solid (no microstructure can beat
         the rule of mixtures). As the holes grow, axial stiffness <span className="text-slate-200">C₁₁</span> slides monotonically
         down the frontier, each node hugging just beneath the dashed bound. Both certificates hold at every point, so the whole
-        frontier earns a single <span style={{ color: EMERALD }}>Verified</span> color — real fs-lattice homogenization and fs-sos
+        frontier earns a single <span style={{ color: EMERALD }}>Verified</span> color. Real fs-lattice homogenization and fs-sos
         proofs, compiled to WASM.
       </div>
     </SyncContainer>

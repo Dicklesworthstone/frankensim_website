@@ -258,12 +258,12 @@ export default function AnytimeBo() {
       ctx.font = `${fs}px ui-monospace, monospace`;
       ctx.textAlign = "left";
       ctx.textBaseline = "top";
-      ctx.fillText("objective f(x) — minimize", padL + 4, topT + 2);
+      ctx.fillText("objective f(x) · minimize", padL + 4, topT + 2);
 
       // initial design points (hollow neutral)
       for (const p of d.init) {
         ctx.beginPath();
-        ctx.arc(X(p.x), Y(p.y), Math.max(2.6, W / 170), 0, Math.PI * 2);
+        ctx.arc(X(p.x), Y(p.y), Math.max(0.1, Math.max(2.6, W / 170)), 0, Math.PI * 2);
         ctx.fillStyle = "rgba(4,9,13,0.9)";
         ctx.fill();
         ctx.strokeStyle = rgba(MUTED, 0.75);
@@ -304,7 +304,7 @@ export default function AnytimeBo() {
         const col = improved ? EMERALD : AMBER;
         ctx.globalAlpha = appear;
         ctx.beginPath();
-        ctx.arc(tx, ty, Math.max(2.6, W / 155), 0, Math.PI * 2);
+        ctx.arc(tx, ty, Math.max(0.1, Math.max(2.6, W / 155)), 0, Math.PI * 2);
         ctx.fillStyle = rgba(col, 0.95);
         ctx.shadowColor = col;
         ctx.shadowBlur = 8;
@@ -336,7 +336,7 @@ export default function AnytimeBo() {
         const by = Y(d.bestValue);
         const pulse = rm ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
         ctx.beginPath();
-        ctx.arc(bx, by, Math.max(4, W / 140) * pulse, 0, Math.PI * 2);
+        ctx.arc(bx, by, Math.max(0.1, Math.max(4, W / 140) * pulse), 0, Math.PI * 2);
         ctx.strokeStyle = EMERALD;
         ctx.lineWidth = Math.max(1.3, W / 320);
         ctx.shadowColor = EMERALD;
@@ -403,7 +403,7 @@ export default function AnytimeBo() {
       // section label
       ctx.fillStyle = "rgba(148,163,184,0.75)";
       ctx.textBaseline = "top";
-      ctx.fillText("log e-value — evidence to stop ↑", padL + 4, botT + 2);
+      ctx.fillText("log e-value · evidence to stop ↑", padL + 4, botT + 2);
 
       // log-e trajectory (revealed up to the playhead)
       if (d.rows.length > 0) {
@@ -430,10 +430,15 @@ export default function AnytimeBo() {
           }
           ctx.lineTo(vx, vy);
         }
-        ctx.strokeStyle = rgba(CYAN_GLOW, 0.95);
-        ctx.lineWidth = Math.max(2, W / 260);
+        // soft under-glow, then a crisp bright core
+        ctx.strokeStyle = rgba(CYAN_GLOW, 0.28);
+        ctx.lineWidth = Math.max(4, W / 150);
         ctx.shadowColor = CYAN_GLOW;
-        ctx.shadowBlur = 9;
+        ctx.shadowBlur = 16;
+        ctx.stroke();
+        ctx.strokeStyle = rgba(CYAN_GLOW, 0.98);
+        ctx.lineWidth = Math.max(2, W / 260);
+        ctx.shadowBlur = 8;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
@@ -442,7 +447,7 @@ export default function AnytimeBo() {
           if (k + 1 > nShown + 1e-6) continue;
           const above = d.rows[k].logE >= d.ville;
           ctx.beginPath();
-          ctx.arc(X(k + 1), Y(d.rows[k].logE), Math.max(2.2, W / 170), 0, Math.PI * 2);
+          ctx.arc(X(k + 1), Y(d.rows[k].logE), Math.max(0.1, Math.max(2.2, W / 170)), 0, Math.PI * 2);
           ctx.fillStyle = above ? EMERALD : rgba(CYAN_GLOW, 0.9);
           ctx.fill();
         }
@@ -454,7 +459,7 @@ export default function AnytimeBo() {
         ctx.strokeStyle = EMERALD;
         ctx.lineWidth = Math.max(1.6, W / 300);
         ctx.shadowColor = EMERALD;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 15;
         ctx.beginPath();
         ctx.moveTo(sx, botT);
         ctx.lineTo(sx, botB);
@@ -463,10 +468,13 @@ export default function AnytimeBo() {
         const yS = Y(d.logEStop);
         const pulse = rm ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
         ctx.beginPath();
-        ctx.arc(sx, yS, Math.max(4.5, W / 120) * pulse, 0, Math.PI * 2);
+        ctx.arc(sx, yS, Math.max(0.1, Math.max(4.5, W / 120) * pulse), 0, Math.PI * 2);
         ctx.strokeStyle = EMERALD;
         ctx.lineWidth = Math.max(1.4, W / 300);
+        ctx.shadowColor = EMERALD;
+        ctx.shadowBlur = 12;
         ctx.stroke();
+        ctx.shadowBlur = 0;
         ctx.fillStyle = EMERALD;
         ctx.font = `700 ${Math.max(8, W / 62)}px ui-monospace, monospace`;
         ctx.textAlign = "right";
@@ -734,10 +742,10 @@ export default function AnytimeBo() {
         Bayesian optimization minimizes a tilted <span className="text-slate-200">double-well</span> objective on [0, 4]. Each
         iteration fits a <span style={{ color: CYAN_GLOW }}>Matérn-5/2 GP</span> (<span className="text-cyan-300">fs-adaptbo</span>),
         samples the point of maximum <span style={{ color: AMBER }}>expected improvement</span>, and feeds one binary
-        &ldquo;did the incumbent improve?&rdquo; indicator into a <span style={{ color: VIOLET }}>betting e-process</span> — a test
+        &ldquo;did the incumbent improve?&rdquo; indicator into a <span style={{ color: VIOLET }}>betting e-process</span>, a test
         martingale. The search <span style={{ color: EMERALD }}>stops</span> the first iteration the log-e-value crosses the{" "}
         <span style={{ color: AMBER }}>Ville threshold</span> ln(1/α): an <span className="text-slate-200">anytime-valid</span>{" "}
-        decision that stays sound even though you peeked after every iteration — no alpha-spending, no fixed horizon. Watch each
+        decision that stays sound even though you peeked after every iteration; no alpha-spending, no fixed horizon. Watch each
         sample drop onto the curve, the incumbent descend to the crowned{" "}
         <span style={{ color: EMERALD }}>certified best</span>, and the evidence climb across the threshold to the vertical{" "}
         <span style={{ color: EMERALD }}>STOP</span>. Every number is compiled Rust, live in your tab.

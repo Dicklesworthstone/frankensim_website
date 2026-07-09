@@ -297,7 +297,7 @@ export default function ScheduleCriticalPath() {
       ctx.strokeStyle = rgba(EMERALD, 0.95);
       ctx.lineWidth = Math.max(2.4, W / 200);
       ctx.shadowColor = EMERALD;
-      ctx.shadowBlur = W / 60;
+      ctx.shadowBlur = W / 52;
       ctx.stroke();
       ctx.shadowBlur = 0;
       if (local >= 1) {
@@ -322,7 +322,7 @@ export default function ScheduleCriticalPath() {
       const g = edgeGeom(critEdges[seg][0], critEdges[seg][1]);
       const [x, y] = bez(g, localT);
       ctx.beginPath();
-      ctx.arc(x, y, Math.max(2.5, W / 190), 0, Math.PI * 2);
+      ctx.arc(x, y, Math.max(0.1, Math.max(2.5, W / 190)), 0, Math.PI * 2);
       ctx.fillStyle = "rgba(209,250,229,0.95)";
       ctx.shadowColor = EMERALD;
       ctx.shadowBlur = W / 42;
@@ -362,7 +362,7 @@ export default function ScheduleCriticalPath() {
       if (isBott && d.bottleneck >= 0) {
         const pulse = rm ? 1 : 0.72 + 0.28 * Math.sin(time * 0.005);
         ctx.beginPath();
-        ctx.arc(cx[i], cy[i], r + Math.max(4, W / 150) * pulse, 0, Math.PI * 2);
+        ctx.arc(cx[i], cy[i], Math.max(0.1, r + Math.max(4, W / 150) * pulse), 0, Math.PI * 2);
         ctx.strokeStyle = rgba(EMERALD, 0.8);
         ctx.lineWidth = Math.max(1.4, W / 320);
         ctx.shadowColor = EMERALD;
@@ -372,11 +372,12 @@ export default function ScheduleCriticalPath() {
       }
 
       // glass disc
-      const grd = ctx.createRadialGradient(cx[i], cy[i] - r * 0.3, r * 0.1, cx[i], cy[i], r);
-      grd.addColorStop(0, rgba(col, onCrit ? 0.34 : 0.2));
-      grd.addColorStop(1, "rgba(8,19,26,0.92)");
+      const grd = ctx.createRadialGradient(cx[i], cy[i] - r * 0.3, Math.max(0, r * 0.1), cx[i], cy[i], Math.max(0.1, r));
+      grd.addColorStop(0, rgba(col, onCrit ? 0.42 : 0.26));
+      grd.addColorStop(0.5, rgba(col, onCrit ? 0.16 : 0.09));
+      grd.addColorStop(1, "rgba(6,14,20,0.96)");
       ctx.beginPath();
-      ctx.arc(cx[i], cy[i], r, 0, Math.PI * 2);
+      ctx.arc(cx[i], cy[i], Math.max(0.1, r), 0, Math.PI * 2);
       ctx.fillStyle = grd;
       ctx.fill();
       ctx.lineWidth = Math.max(1.4, W / 340);
@@ -519,14 +520,14 @@ export default function ScheduleCriticalPath() {
         {data && (
           <div
             className="pointer-events-none absolute right-3 top-3 flex flex-col items-end rounded-lg border px-2.5 py-1.5 text-right backdrop-blur-sm"
-            style={{ borderColor: `${EMERALD}44`, background: "rgba(4,9,13,0.72)" }}
+            style={{ borderColor: `${EMERALD}44`, background: "rgba(4,9,13,0.72)", boxShadow: `0 0 22px ${EMERALD}1f` }}
           >
             <span className="font-mono text-[8px] uppercase tracking-widest" style={{ color: MUTED }}>
               makespan
             </span>
             <span
               className="font-mono text-[22px] font-black leading-none tabular-nums md:text-[26px]"
-              style={{ color: "#d1fae5", textShadow: `0 0 14px ${EMERALD}88` }}
+              style={{ color: "#d1fae5", textShadow: `0 0 18px ${EMERALD}aa` }}
             >
               <span ref={makespanRef}>{Math.round(data.makespan)}</span>
             </span>
@@ -664,18 +665,18 @@ export default function ScheduleCriticalPath() {
 
       {/* caption */}
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
-        WHEN the campaign finishes is the <span className="text-slate-200">makespan</span> — the longest weighted path
+        WHEN the campaign finishes is the <span className="text-slate-200">makespan</span>: the longest weighted path
         through the precedence DAG, computed <span style={{ color: EMERALD }}>exactly</span> in the max-plus (tropical)
         semiring by <span className="text-cyan-300">fs-tropical</span>. It is a certified{" "}
         <span style={{ color: EMERALD }}>integer</span> (lo = hi = makespan → <span className="text-slate-200">Verified</span>),
         with every off-path study carrying a real <span style={{ color: AMBER }}>slack</span>. Drag{" "}
         <span className="text-white">windtunnel-A</span> and the emerald{" "}
-        <span style={{ color: EMERALD }}>critical path re-routes</span> — shrink it below hifi-B&apos;s chain and the
+        <span style={{ color: EMERALD }}>critical path re-routes</span>; shrink it below hifi-B&apos;s chain and the
         bottleneck jumps from <span className="text-slate-200">windtunnel-A → decide</span> to the central{" "}
         <span className="text-slate-200">surrogate-B → hifi-B → decide</span> spine. WHETHER to keep spending is a separate{" "}
         <span style={{ color: VIOLET }}>value-of-information</span> decision (<span className="text-cyan-300">fs-voi</span>):
         the <span style={{ color: VIOLET }}>EVPI</span> of one more experiment against your stop threshold, with a top-two{" "}
-        ranking <span style={{ color: AMBER }}>flip-risk</span> — resolved to a single{" "}
+        ranking <span style={{ color: AMBER }}>flip-risk</span>, resolved to a single{" "}
         <span style={{ color: ROSE }}>Act / Stop</span> verdict. Every number is compiled Rust, live in your tab.
       </div>
     </SyncContainer>
