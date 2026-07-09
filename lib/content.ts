@@ -65,7 +65,6 @@ export interface Principle { id: string; title: string; body: string; }
 export interface Phase {
   id: string;          // "P0"
   name: string;
-  window: string;      // "Weeks 0–6"
   status: "done" | "active" | "planned";
   scope: string;
   exit: string;
@@ -523,28 +522,28 @@ export const flagships: Flagship[] = [
 // ---------------------------------------------------------------------------
 
 export const phases: Phase[] = [
-  { id: "PV", name: "Vertical Skeleton", window: "Proven", status: "done",
+  { id: "PV", name: "Vertical Skeleton", status: "done",
     scope: "A tiny 2D SDF → PDE → objective → adjoint → optimize → replay demonstrator.",
     exit: "The typed continuum runs end-to-end and replays bit-for-bit." },
-  { id: "P0", name: "Bedrock", window: "Weeks 0–6", status: "done",
+  { id: "P0", name: "Bedrock", status: "done",
     scope: "Substrate, two-lane executor, alloc, la, sparse, fft, ivl, rand, ledger v0.",
     exit: "G0 + G4 green; GEMM / SpMV / FFT within 80% of targets on both ISAs; deterministic mode bit-stable." },
-  { id: "P1", name: "Geometry + Eyes", window: "Weeks 6–14", status: "done",
+  { id: "P1", name: "Geometry + Eyes", status: "done",
     scope: "geom, SDF / F-rep / mesh charts, Rep Router v1, dual contouring, Delaunay, the Lumen preview tracer.",
     exit: "Chart round-trips certified; watertightness vs. a ray-parity oracle; sphere-traced turntables at target ray rates." },
-  { id: "P2", name: "Elasticity + First Optimization", window: "Weeks 14–24", status: "active",
+  { id: "P2", name: "Elasticity + First Optimization", status: "done",
     scope: "FEEC elasticity, CutFEM-on-SDF, matrix-free p-MG + AMG, adjoints, SIMP.",
     exit: "Marquee demo: topology optimization on a raw SDF (no mesh in the loop) with a composed error certificate." },
-  { id: "P3", name: "Fluids I", window: "Weeks 24–34", status: "planned",
+  { id: "P3", name: "Fluids I", status: "done",
     scope: "LBM (cumulant, sparse, free-surface), the lattice-scaling assistant, thermal, non-Newtonian.",
     exit: "Cavity / TGV / cylinder benchmarks green; GLUP/s targets met; the first spout pours end-to-end." },
-  { id: "P4", name: "Structures at Scale", window: "Weeks 34–44", status: "planned",
+  { id: "P4", name: "Structures at Scale", status: "done",
     scope: "IGA + Kirchhoff–Love shells, fiber beams, ground-structure PDHG, Kanai–Tajimi + MLMC + e-stop.",
     exit: "Frame flagship v1: fragility with anytime-valid stopping; the NAFEMS shell suite green." },
-  { id: "P5", name: "Aero Stack", window: "Weeks 44–56", status: "planned",
+  { id: "P5", name: "Aero Stack", status: "done",
     scope: "BEM + FMM + Kutta, vortex particles, Dirac coupling, SE(3) integrators, Koopman surrogates.",
     exit: "Ornithoid flagship v1: a live, e-raced Pareto front." },
-  { id: "P6", name: "Certificates & Self-Optimization", window: "Weeks 56–68", status: "planned",
+  { id: "P6", name: "Certificates & Self-Optimization", status: "active",
     scope: "SOS / Lasserre SDP, sheaf certificates, conformal e-prediction, the self-optimizing planner, differentiable rendering.",
     exit: "Moonshot features pass certification or ship flagged-off; the planner beats hand-tuned allocation." },
 ];

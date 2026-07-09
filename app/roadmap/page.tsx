@@ -62,7 +62,7 @@ export default function RoadmapPage() {
         icon="clock"
         eyebrow="The Phase Ladder"
         title="Eight Gates"
-        kicker="Each phase exits only when its Gauntlet tier goes green. Illustrative windows are shown; the gate is the state, not the week."
+        kicker="Each phase exits only when its Gauntlet tier goes green. The gate is the state of the certificate, never a date on a calendar."
       >
         <ol className="relative space-y-4 border-l border-white/10 pl-6">
           {phases.map((p) => {
@@ -87,7 +87,6 @@ export default function RoadmapPage() {
                       style={{ color: s.color, background: `${s.color}14`, border: `1px solid ${s.color}33` }}>
                       {s.label}
                     </span>
-                    <span className="font-mono text-[11px] text-slate-600">{p.window}</span>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-slate-400"><span className="text-slate-500">Scope: </span>{p.scope}</p>
                   <p className="mt-1.5 text-sm leading-relaxed text-cyan-300/80"><span className="text-slate-500">Exit: </span>{p.exit}</p>
