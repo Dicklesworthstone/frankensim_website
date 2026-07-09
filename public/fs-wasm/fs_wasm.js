@@ -478,6 +478,39 @@ export function robust_hull(radius) {
 }
 
 /**
+ * @param {number} seed
+ * @returns {Float64Array}
+ */
+export function run_frame(seed) {
+    const ret = wasm.run_frame(seed);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} seed
+ * @returns {Float64Array}
+ */
+export function run_ornithoid(seed) {
+    const ret = wasm.run_ornithoid(seed);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} lip_x1000
+ * @returns {Float64Array}
+ */
+export function run_vessel(lip_x1000) {
+    const ret = wasm.run_vessel(lip_x1000);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} windtunnel_latency
  * @param {number} design_b_mean
  * @param {number} stop_threshold

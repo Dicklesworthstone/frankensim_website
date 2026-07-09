@@ -7,11 +7,11 @@ import {
 
 import GlitchText from "@/components/glitch-text";
 import { SyncContainer } from "@/components/sync-elements";
-import AdjointFlowViz from "@/components/viz/adjoint-flow-viz";
-import EprocessRaceViz from "@/components/viz/eprocess-race-viz";
-import BudgetLedgerViz from "@/components/viz/budget-ledger-viz";
 import CutfemSdfViz from "@/components/viz/cutfem-sdf-viz";
 import TopoptSdfViz from "@/components/viz/topopt-sdf-viz";
+import OrnithoidPipeline from "@/components/wasm/flagship/ornithoid-pipeline";
+import VesselPipeline from "@/components/wasm/flagship/vessel-pipeline";
+import FramePipeline from "@/components/wasm/flagship/frame-pipeline";
 import { flagships, phases, siteConfig, type Flagship } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -21,51 +21,17 @@ export const metadata: Metadata = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Per-flagship presentation: icon, the phase that delivers it, and   */
-/*  the interactive visualizations that carry its story.               */
+/*  Per-flagship presentation: icon + the live end-to-end pipeline     */
+/*  component (the real fs-*-e2e campaign compiled to WASM).           */
 /* ------------------------------------------------------------------ */
-
-type VizEntry = { Viz: React.ComponentType; caption: string };
 
 const FLAGSHIP_EXTRA: Record<
   string,
-  { Icon: LucideIcon; vizzes: VizEntry[] }
+  { Icon: LucideIcon; Pipeline: React.ComponentType }
 > = {
-  aircraft: {
-    Icon: Plane,
-    vizzes: [
-      {
-        Viz: AdjointFlowViz,
-        caption:
-          "The adjoint aero solve: solve the flow forward once, then a single adjoint solve returns the full gradient over every shape parameter, differentiating through the converged solution rather than the solver's iterations.",
-      },
-    ],
-  },
-  frame: {
-    Icon: Building2,
-    vizzes: [
-      {
-        Viz: EprocessRaceViz,
-        caption:
-          "Anytime-valid fragility stopping: candidate frames race under a betting e-process, and the Kanai–Tajimi + MLMC campaign halts the instant the seismic evidence is decisive, with no fixed-horizon core-hours burned.",
-      },
-      {
-        Viz: BudgetLedgerViz,
-        caption:
-          "The Error Ledger and Time Ledger attribute every digit of the fragility bound and every core-second back to the operator that produced it, so a tighter tolerance has a visible price.",
-      },
-    ],
-  },
-  vessel: {
-    Icon: Droplets,
-    vizzes: [
-      {
-        Viz: CutfemSdfViz,
-        caption:
-          "The vessel is a level set, an SDF, so physics runs directly on it with zero body-fitted meshing (shown: cut cells with a ghost penalty and Nitsche BCs). The laminar pour itself is a free-surface LBM solve tuned to an Orr–Sommerfeld stability objective.",
-      },
-    ],
-  },
+  aircraft: { Icon: Plane, Pipeline: OrnithoidPipeline },
+  frame: { Icon: Building2, Pipeline: FramePipeline },
+  vessel: { Icon: Droplets, Pipeline: VesselPipeline },
 };
 
 const EMERALD_BORDER = "rgba(16,185,129,0.30)";
@@ -122,7 +88,7 @@ function CertifiedLine({ text }: { text: string }) {
 /* ------------------------------------------------------------------ */
 
 function FlagshipSection({ f, index }: { f: Flagship; index: number }) {
-  const { Icon, vizzes } = FLAGSHIP_EXTRA[f.id];
+  const { Icon, Pipeline } = FLAGSHIP_EXTRA[f.id];
   const color = f.color;
   const meta = [f.bead, f.layer].filter(Boolean).join(" · ");
   const imageLeft = index % 2 === 0; // image-left, image-right, image-left
@@ -324,27 +290,19 @@ function FlagshipSection({ f, index }: { f: Flagship; index: number }) {
           </div>
         )}
 
-        {/* ── The interactive physics ── */}
+        {/* ── The certified pipeline, live in the browser ── */}
         <div className="mt-12">
           <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: `${color}dd` }}>
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ background: color }} />
               <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: color }} />
             </span>
-            Interactive · step through the pipeline
+            The certified pipeline, live in your browser
           </div>
-          <div className="space-y-8">
-            {vizzes.map(({ Viz, caption }, vi) => (
-              <div key={vi} className="min-w-0 space-y-3">
-                {/* Rendered directly (not via LazyViz): these lightweight,
-                    self-measuring SVG vizzes need a real layout box on their
-                    first render, which content-visibility deferral removes. */}
-                <SyncContainer withPulse accentColor={color} className="w-full max-w-full bg-black/40 p-2 shadow-2xl md:p-4">
-                  <Viz />
-                </SyncContainer>
-                <p className="px-1 text-sm leading-relaxed text-slate-500">{caption}</p>
-              </div>
-            ))}
+          {/* The real fs-*-e2e campaign compiled to WASM. Rendered directly:
+              it self-gates on scroll via useInView and brings its own frame. */}
+          <div className="min-w-0">
+            <Pipeline />
           </div>
         </div>
       </div>

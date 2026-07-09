@@ -1,23 +1,25 @@
 "use client";
 
 /**
- * Campaign 07 — neuroshape(lift, ring_r, inner)  ·  fs-neuroshape-e2e
- * "A neural shape, its topology proven — not sampled."
+ * Campaign 07 · neuroshape(lift, ring_r, inner) · fs-neuroshape-e2e
+ * "A neural shape, its topology proven, not sampled."
  *
  * A tiny neural network defines a signed-distance field over the square [-3,3]²; its
  * zero-level-set is a rounded blob. The headline is a TOPOLOGY CERTIFICATE built by
  * interval bound propagation (IBP): the network's sound interval enclosure proves that
- * a central box is strictly INSIDE (interval hi < 0) while all 8 boxes on a surrounding
- * ring are strictly OUTSIDE (interval lo > 0). A non-empty interior trapped inside a
- * certified-positive ring is provably a SINGLE bounded connected component — proven, not
- * sampled. A certified Lipschitz bound L underwrites safe sphere-tracing; a Morse check
- * confirms exactly one interior minimum.
+ * a central box is strictly INSIDE (interval hi < 0) while the FOUR boundary strips of a
+ * bounding box are each strictly OUTSIDE (interval lo > 0). Those strips tile the box
+ * boundary into a CLOSED frame whose corners overlap, so {f<0} provably cannot cross it:
+ * the interior is proven NON-EMPTY and BOUNDED. A closed barrier is a strictly stronger
+ * certificate than spot-checking discrete ring boxes, which would leave angular gaps and
+ * prove nothing about boundedness. A certified Lipschitz bound L underwrites safe
+ * sphere-tracing; a Morse check confirms exactly one interior minimum.
  *
- * We render the SDF as a glowing implicit surface — emerald interior, faded cool
- * exterior — with a crisp marching-squares zero contour as the shape boundary, and overlay
- * the central certified-inside box and the 8 ring boxes: the geometric heart of the proof.
- * Push the `lift` slider past ~8.23 and the interior empties: the shape vanishes, the
- * central box's interval crosses 0, and the certificate honestly flips Verified → Estimated.
+ * We render the SDF as a glowing implicit surface (emerald interior, faded cool exterior)
+ * with a crisp marching-squares zero contour as the shape boundary, and overlay the central
+ * certified-inside box together with the closed four-strip frame: the geometric heart of the
+ * proof. Push the `lift` slider past ~8.23 and the interior empties: the shape vanishes, the
+ * central box's interval crosses 0, and the certificate honestly flips Verified to Estimated.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -52,7 +54,8 @@ interface Seg {
   y1: number;
 }
 
-const PAD = 0.045; // window inset so ring boxes near the edge stay visible
+const PAD = 0.045; // window inset so the boundary frame near the edge stays visible
+const STRIP_W = 0.4; // boundary-strip width — fixed in the kernel (fs-neuroshape-e2e)
 
 /* diverging SDF ramps, centered at 0 */
 const INSIDE: [number, RGB][] = [
@@ -126,8 +129,8 @@ interface NeuroData {
   insideLo: number;
   insideHi: number;
   certInside: boolean;
-  certOutBoxes: number;
-  ringBoxes: number;
+  boundaryCertified: number;
+  boundarySegments: number;
   bounded: boolean;
   singleMin: boolean;
   crossings: number;
@@ -171,8 +174,8 @@ function decode(raw: Float64Array, lift: number, ms: number, seq: number): Neuro
     insideLo: raw[8],
     insideHi: raw[9],
     certInside: raw[10] > 0.5,
-    certOutBoxes: Math.round(raw[11]),
-    ringBoxes: Math.round(raw[12]),
+    boundaryCertified: Math.round(raw[11]), // strips certified strictly outside (of 4)
+    boundarySegments: Math.round(raw[12]), // total boundary strips forming the closed frame
     bounded: raw[13] > 0.5,
     singleMin: raw[14] > 0.5,
     crossings: Math.round(raw[15]),
@@ -341,7 +344,7 @@ export default function NeuroShape() {
       ctx.stroke();
     }
 
-    // certificate boxes (the geometric heart of the proof)
+    // certificate geometry (the geometric heart of the proof)
     const pulse = reducedRef.current ? 1 : 0.72 + 0.28 * Math.sin(time * 0.004);
     const box = (cx: number, cy: number, half: number, col: string, glow: number) => {
       const x0 = mx(cx - half);
@@ -355,20 +358,45 @@ export default function NeuroShape() {
       ctx.strokeRect(x0, y0, w, w);
       ctx.shadowBlur = 0;
     };
+    // a world-coords axis-aligned rect -> canvas [px, py, w, h] (py at top)
+    const worldRect = (x0: number, y0: number, x1: number, y1: number): [number, number, number, number] => {
+      const px = mx(x0);
+      const py = my(y1); // larger y maps to the smaller pixel (top)
+      return [px, py, mx(x1) - px, my(y0) - py];
+    };
 
     if (reveal > 0.35) {
-      // 8 ring boxes — strictly OUTSIDE (interval lo > 0)
-      for (let k = 0; k < d.ringBoxes; k++) {
-        const a = (k / d.ringBoxes) * Math.PI * 2;
-        const cx = d.ringR * Math.cos(a);
-        const cy = d.ringR * Math.sin(a);
-        ctx.fillStyle = "rgba(34,211,238,0.06)";
-        const x0 = mx(cx - d.inner);
-        const y0 = my(cy + d.inner);
-        const w = (2 * d.inner * span) / range;
-        ctx.fillRect(x0, y0, w, w);
-        box(cx, cy, d.inner, `rgba(34,211,238,${0.55 + 0.35 * pulse})`, (W / 120) * pulse);
-      }
+      // The closed boundary frame — the four edge strips of the box [-r, r]² each
+      // certified strictly OUTSIDE (interval lo > 0). Tiled together (corners
+      // overlap) they wall off the interior, so {f<0} provably cannot escape:
+      // a proof of boundedness, not eight spot checks.
+      const r = Math.max(0.1, d.ringR);
+      const inr = Math.max(0.05, r - STRIP_W); // inner edge of the frame band
+      const walled = d.bounded; // every strip certified -> closed barrier
+      const frameCol = walled ? CYAN : AMBER;
+      const frameFill = walled ? "rgba(34,211,238,0.09)" : "rgba(251,191,36,0.08)";
+      const frameStroke = walled ? `rgba(34,211,238,${0.5 + 0.38 * pulse})` : `rgba(251,191,36,${0.6 + 0.3 * pulse})`;
+
+      const [ox, oy, ow, oh] = worldRect(-r, -r, r, r);
+      const [ix, iy, iw, ih] = worldRect(-inr, -inr, inr, inr);
+
+      // fill the frame band (outer box minus inner box) as one closed region
+      ctx.fillStyle = frameFill;
+      ctx.beginPath();
+      ctx.rect(ox, oy, ow, oh);
+      ctx.rect(ix, iy, iw, ih);
+      ctx.fill("evenodd");
+
+      // glow walls: the outer and inner edges of the closed barrier
+      ctx.strokeStyle = frameStroke;
+      ctx.lineWidth = Math.max(1.1, W / 300);
+      ctx.lineJoin = "round";
+      ctx.shadowColor = frameCol;
+      ctx.shadowBlur = (W / 110) * pulse;
+      ctx.strokeRect(ox, oy, ow, oh);
+      ctx.strokeRect(ix, iy, iw, ih);
+      ctx.shadowBlur = 0;
+
       // central box — strictly INSIDE (interval hi < 0) when certified
       const inCol = topo ? EMERALD : d.insideHi > 0 ? ROSE : AMBER;
       const inRgba = topo ? `rgba(16,185,129,${0.6 + 0.35 * pulse})` : inCol === ROSE ? `rgba(244,63,94,${0.7 + 0.25 * pulse})` : `rgba(251,191,36,${0.7 + 0.25 * pulse})`;
@@ -480,7 +508,7 @@ export default function NeuroShape() {
           className="block aspect-square w-full max-w-full"
           style={{ filter: "saturate(1.1) contrast(1.04)" }}
           role="img"
-          aria-label="A neural signed-distance field rendered as a glowing emerald blob with its zero-contour boundary, a central certified-inside box and eight certified-outside ring boxes"
+          aria-label="A neural signed-distance field rendered as a glowing emerald blob with its zero-contour boundary, a central certified-inside box, and a closed four-strip frame certified strictly outside that walls off the interior"
         />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/40 to-transparent" />
 
@@ -567,13 +595,13 @@ export default function NeuroShape() {
           </div>
           <div className="rounded-lg border px-2.5 py-2" style={{ borderColor: `${CYAN}44`, background: `${CYAN}0d` }}>
             <div className="font-mono text-[9px] uppercase tracking-widest" style={{ color: MUTED }}>
-              ring boxes · outside
+              boundary strips · outside
             </div>
-            <div className="font-mono text-[13px] font-black tabular-nums" style={{ color: CYAN_GLOW }}>
-              {data.certOutBoxes}/{data.ringBoxes} · lo &gt; 0
+            <div className="font-mono text-[13px] font-black tabular-nums" style={{ color: data.bounded ? CYAN_GLOW : AMBER }}>
+              {data.boundaryCertified}/{data.boundarySegments} · lo &gt; 0
             </div>
             <div className="font-mono text-[8px] tracking-wide" style={{ color: MUTED }}>
-              certified-positive ring
+              {data.bounded ? "closed frame · barrier proven" : "frame open · barrier unproven"}
             </div>
           </div>
           <div className="col-span-2 rounded-lg border px-2.5 py-2 sm:col-span-1" style={{ borderColor: `${EMERALD}44`, background: "rgba(255,255,255,0.02)" }}>
@@ -592,7 +620,7 @@ export default function NeuroShape() {
 
       <div className="mt-4 flex flex-col gap-2.5">
         <Slider label="lift" value={lift} min={5.5} max={9.5} step={0.01} onChange={setLift} format={(v) => v.toFixed(2)} color={EMERALD} disabled={!ready} />
-        <Slider label="ring r" value={ringR} min={1.5} max={3.5} step={0.02} onChange={setRingR} format={(v) => v.toFixed(2)} disabled={!ready} />
+        <Slider label="frame r" value={ringR} min={1.5} max={3.5} step={0.02} onChange={setRingR} format={(v) => v.toFixed(2)} disabled={!ready} />
         <Slider label="box r" value={inner} min={0.15} max={0.6} step={0.01} onChange={setInner} format={(v) => v.toFixed(2)} color={CYAN} disabled={!ready} />
       </div>
 
@@ -601,11 +629,11 @@ export default function NeuroShape() {
         {data ? (
           <>
             {topo ? (
-              <span style={{ color: EMERALD }}>single bounded component · proven by interval enclosure</span>
+              <span style={{ color: EMERALD }}>single bounded component · closed frame proven by interval enclosure</span>
             ) : (
               <span style={{ color: AMBER }}>interior empties · central box interval crosses 0 → Estimated</span>
             )}{" "}
-            <span style={{ color: MUTED }}>│</span> L={data.L.toFixed(0)} · {data.certOutBoxes}/{data.ringBoxes} ring{" "}
+            <span style={{ color: MUTED }}>│</span> L={data.L.toFixed(0)} · {data.boundaryCertified}/{data.boundarySegments} strips{" "}
             <span style={{ color: MUTED }}>│</span> <span style={{ color: EMERALD }}>{data.ms.toFixed(1)} ms in WASM</span>
           </>
         ) : (
@@ -618,13 +646,15 @@ export default function NeuroShape() {
         <span style={{ color: EMERALD }}>signed-distance field</span> whose zero-contour is this rounded blob. The headline is
         not the picture but the <span className="text-slate-200">topology certificate</span>. By propagating the network&apos;s{" "}
         <span style={{ color: CYAN_GLOW }}>sound interval enclosure</span> (IBP), the kernel proves a central box is strictly{" "}
-        <span style={{ color: EMERALD }}>inside</span> (interval hi &lt; 0) while all eight boxes on a ring are strictly{" "}
-        <span style={{ color: CYAN_GLOW }}>outside</span> (lo &gt; 0); a non-empty interior trapped in a certified-positive
-        ring is provably a <span className="text-slate-200">single bounded connected component</span>. A certified Lipschitz
-        bound underwrites safe sphere-tracing; a Morse check confirms one interior minimum. Raise{" "}
-        <span style={{ color: EMERALD }}>lift</span> past ~8.23 and the interior empties: the shape vanishes and the proof
-        honestly downgrades <span style={{ color: EMERALD }}>Verified</span> → <span style={{ color: AMBER }}>Estimated</span>.
-        Every box, bound and normal is compiled Rust, live in your tab.
+        <span style={{ color: EMERALD }}>inside</span> (interval hi &lt; 0), then proves each of the{" "}
+        <span style={{ color: CYAN_GLOW }}>four boundary strips</span> of a bounding box is strictly{" "}
+        <span style={{ color: CYAN_GLOW }}>outside</span> (lo &gt; 0). Those strips tile the box edge into a{" "}
+        <span className="text-slate-200">closed frame</span> the interior cannot cross, so the shape is provably a{" "}
+        <span className="text-slate-200">single bounded connected component</span>. A closed wall is a proof of boundedness, not
+        eight spot checks. A certified Lipschitz bound underwrites safe sphere-tracing; a Morse check confirms one interior
+        minimum. Raise <span style={{ color: EMERALD }}>lift</span> past ~8.23 and the interior empties: the shape vanishes and
+        the proof honestly downgrades <span style={{ color: EMERALD }}>Verified</span> to{" "}
+        <span style={{ color: AMBER }}>Estimated</span>. Every strip, bound and normal is compiled Rust, live in your tab.
       </div>
     </SyncContainer>
   );
