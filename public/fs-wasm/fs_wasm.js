@@ -1,4 +1,17 @@
 /**
+ * @param {number} max_iters
+ * @param {number} delta
+ * @param {number} alpha
+ * @returns {Float64Array}
+ */
+export function anytimebo(max_iters, delta, alpha) {
+    const ret = wasm.anytimebo(max_iters, delta, alpha);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} xmin
  * @param {number} xmax
  * @param {number} samples
@@ -150,12 +163,37 @@ export function finite_difference_error(x0, steps) {
 }
 
 /**
+ * @param {number} steps
+ * @param {number} tol
+ * @returns {Float64Array}
+ */
+export function flowcert(steps, tol) {
+    const ret = wasm.flowcert(steps, tol);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} n
  * @param {number} frames
  * @returns {Float64Array}
  */
 export function fluid_frames(n, frames) {
     const ret = wasm.fluid_frames(n, frames);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} lo
+ * @param {number} hi
+ * @param {number} steps
+ * @returns {Float64Array}
+ */
+export function fluttercert(lo, hi, steps) {
+    const ret = wasm.fluttercert(lo, hi, steps);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -180,6 +218,18 @@ export function ga_motor_orbit(n_points, steps) {
  */
 export function gp_regression(n_train, samples) {
     const ret = wasm.gp_regression(n_train, samples);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} match_tol
+ * @param {number} simplify_tol
+ * @returns {Float64Array}
+ */
+export function grammarforge(match_tol, simplify_tol) {
+    const ret = wasm.grammarforge(match_tol, simplify_tol);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -290,6 +340,19 @@ export function marching_cubes(res, kind, iso) {
 }
 
 /**
+ * @param {number} n
+ * @param {number} points
+ * @param {number} rmax
+ * @returns {Float64Array}
+ */
+export function metamatcert(n, points, rmax) {
+    const ret = wasm.metamatcert(n, points, rmax);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} cells
  * @param {number} frames
  * @param {number} re
@@ -298,6 +361,19 @@ export function marching_cubes(res, kind, iso) {
  */
 export function navier_stokes_cavity(cells, frames, re, steps_per_frame) {
     const ret = wasm.navier_stokes_cavity(cells, frames, re, steps_per_frame);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} lift
+ * @param {number} ring_r
+ * @param {number} inner
+ * @returns {Float64Array}
+ */
+export function neuroshape(lift, ring_r, inner) {
+    const ret = wasm.neuroshape(lift, ring_r, inner);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -353,6 +429,19 @@ export function poisson2d(n) {
 }
 
 /**
+ * @param {number} alpha
+ * @param {number} sigma
+ * @param {number} n
+ * @returns {Float64Array}
+ */
+export function proofrobust(alpha, sigma, n) {
+    const ret = wasm.proofrobust(alpha, sigma, n);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} max_log2
  * @param {number} seed
  * @returns {Float64Array}
@@ -389,6 +478,19 @@ export function robust_hull(radius) {
 }
 
 /**
+ * @param {number} windtunnel_latency
+ * @param {number} design_b_mean
+ * @param {number} stop_threshold
+ * @returns {Float64Array}
+ */
+export function schedule_campaign(windtunnel_latency, design_b_mean, stop_threshold) {
+    const ret = wasm.schedule_campaign(windtunnel_latency, design_b_mean, stop_threshold);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} res
  * @param {number} kind
  * @param {number} t
@@ -396,6 +498,19 @@ export function robust_hull(radius) {
  */
 export function sdf_volume(res, kind, t) {
     const ret = wasm.sdf_volume(res, kind, t);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} threshold
+ * @param {number} max_sensors
+ * @param {number} b_prior_mean
+ * @returns {Float64Array}
+ */
+export function sensorforge(threshold, max_sensors, b_prior_mean) {
+    const ret = wasm.sensorforge(threshold, max_sensors, b_prior_mean);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -435,6 +550,19 @@ export function taylor_bound(center, radius, order) {
  */
 export function topopt_frames(nx, ny, iters, volfrac) {
     const ret = wasm.topopt_frames(nx, ny, iters, volfrac);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} gap_tol
+ * @returns {Float64Array}
+ */
+export function trusspath(nx, ny, gap_tol) {
+    const ret = wasm.trusspath(nx, ny, gap_tol);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;

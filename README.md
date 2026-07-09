@@ -7,7 +7,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-149ECA)](https://react.dev/)
 [![Bun](https://img.shields.io/badge/Bun-1.3-F9F1E1)](https://bun.sh/)
-[![WASM](https://img.shields.io/badge/lab-20%20live%20Rust%20kernels-654FF0)](https://frankensim.org/lab)
+[![WASM](https://img.shields.io/badge/lab-40%20live%20Rust%20kernels-654FF0)](https://frankensim.org/lab)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](#license)
 
 **The marketing and documentation site for [FrankenSim](https://github.com/Dicklesworthstone/frankensim), a certified simulation and design kernel for Rust. Live at [frankensim.org](https://frankensim.org).**
@@ -22,13 +22,13 @@ git clone https://github.com/Dicklesworthstone/frankensim_website.git && cd fran
 
 **The problem:** most project sites for deep systems are static marketing pages. They *claim* the system is fast, correct, and novel, but a reader leaves without ever seeing it do anything, and the impressive parts stay abstract.
 
-**The solution:** this site *shows* FrankenSim instead of describing it. Twenty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser; the ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
+**The solution:** this site *shows* FrankenSim instead of describing it. Forty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser, across four tiers — foundations, real-time 3D, the deep upper stack, and ten certified end-to-end campaigns; the ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
 
 ### Why this site is different
 
 | Capability | What you get |
 |---|---|
-| **Live WASM kernels** | Twenty of FrankenSim's actual Rust kernels ([`/lab`](https://frankensim.org/lab)) compiled to WebAssembly and computing in your browser: a topology optimizer, a raymarched signed-distance surface, spectral waves, a Lorenz attractor, an interval-certified Mandelbrot, randomized SVD, Orr–Sommerfeld stability, and more. No mocks; the same bytes the native build runs. |
+| **Live WASM kernels** | Forty of FrankenSim's actual Rust kernels ([`/lab`](https://frankensim.org/lab)) compiled to WebAssembly and computing in your browser, in four tiers: foundations (topology optimizer, raymarched SDF, spectral waves, Lorenz, interval-certified Mandelbrot, randomized SVD, Orr–Sommerfeld), the deep upper stack (Hodge decomposition, real Navier–Stokes, Gaussian-process BO, CutFEM), and ten certified end-to-end campaigns that return a proof, a frontier, or a credibility map. No mocks; the same bytes the native build runs. |
 | **Interactive concept viz** | Twenty-plus bespoke visualizations for the hard ideas: Region/Chart routing, the three epistemic colors, `Evidence<T>`, sheaf gluing (H⁰) and obstruction (H¹), the two-lane executor, certified speculation, the Gauntlet. |
 | **Real 3D** | Six of the Lab demos render in WebGL through Three.js with custom GLSL. |
 | **Self-maintaining stats** | The crate count, line count, and test totals are computed from the FrankenSim source, not hand-typed. |
@@ -50,7 +50,7 @@ This repository is the **website** for that project, not the kernel itself.
 ```bash
 bun install                              # install deps (Bun only)
 bun dev                                  # dev server at http://localhost:3000
-open http://localhost:3000/lab           # the 20 live WASM kernels
+open http://localhost:3000/lab           # the 40 live WASM kernels
 open http://localhost:3000/epistemics    # the sheaf-cohomology story, visualized
 bunx tsc --noEmit                        # strict typecheck
 bun run build                            # production build
@@ -67,7 +67,7 @@ bun run build                            # production build
 
 | Dimension | This site | Typical project microsite | Plain docs |
 |---|---|---|---|
-| Runs the real system in-browser | ✅ 20 Rust kernels via WASM | ❌ Screenshots or video | ❌ None |
+| Runs the real system in-browser | ✅ 40 Rust kernels via WASM | ❌ Screenshots or video | ❌ None |
 | Interactive concept teaching | ✅ 20+ bespoke visualizations | ⚠️ Occasional | ❌ Prose only |
 | Real-time 3D (WebGL) | ✅ 6 Three.js demos | ⚠️ Rare | ❌ None |
 | Numbers verified from source | ✅ Computed by script | ⚠️ Hand-typed, drifts | ⚠️ Hand-typed |
@@ -92,6 +92,8 @@ bun run build                            # production build
 │  components/viz/*             16 SVG/canvas concept viz       │
 │  components/wasm/*            10 foundation Lab demos         │
 │  components/wasm/frontier/*   10 Three.js / WebGL demos       │
+│  components/wasm/deep/*       10 upper-stack kernel demos     │
+│  components/wasm/campaign/*   10 certified end-to-end demos   │
 │  lib/use-fs-wasm.ts          shared Web Worker → WASM kernels │
 └───────────────┬──────────────────────────────────────────────┘
                 ▼

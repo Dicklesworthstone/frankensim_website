@@ -43,6 +43,18 @@ import CutfemQuadtree from "@/components/wasm/deep/cutfem-quadtree";
 import FfdDeform from "@/components/wasm/deep/ffd-deform";
 import BettiShapes from "@/components/wasm/deep/betti-shapes";
 
+// ── Tier IV · The Campaign (certified end-to-end pipelines) ───────────────
+import ProofRobust from "@/components/wasm/campaign/proof-robust";
+import MetamatFrontier from "@/components/wasm/campaign/metamat-frontier";
+import FlutterBoundary from "@/components/wasm/campaign/flutter-boundary";
+import ScheduleCriticalPath from "@/components/wasm/campaign/schedule-critical-path";
+import TrussPath from "@/components/wasm/campaign/truss-path";
+import SensorForge from "@/components/wasm/campaign/sensor-forge";
+import NeuroShape from "@/components/wasm/campaign/neuro-shape";
+import GrammarForge from "@/components/wasm/campaign/grammar-forge";
+import AnytimeBo from "@/components/wasm/campaign/anytime-bo";
+import FlowCert from "@/components/wasm/campaign/flow-cert";
+
 const FOUNDATIONS = [
   { key: "heat", Comp: HeatPde },
   { key: "orr", Comp: OrrSommerfeld },
@@ -80,6 +92,19 @@ const DEEP = [
   { key: "cutfem", Comp: CutfemQuadtree },
   { key: "ffd", Comp: FfdDeform },
   { key: "betti", Comp: BettiShapes },
+];
+
+const CAMPAIGN = [
+  { key: "proofrobust", Comp: ProofRobust },
+  { key: "metamat", Comp: MetamatFrontier },
+  { key: "flutter", Comp: FlutterBoundary },
+  { key: "schedule", Comp: ScheduleCriticalPath },
+  { key: "truss", Comp: TrussPath },
+  { key: "sensor", Comp: SensorForge },
+  { key: "neuro", Comp: NeuroShape },
+  { key: "grammar", Comp: GrammarForge },
+  { key: "anytimebo", Comp: AnytimeBo },
+  { key: "flowcert", Comp: FlowCert },
 ];
 
 function TierHeader({
@@ -134,13 +159,14 @@ export default function WasmLab() {
             </h1>
           </GlitchText>
           <p className="mt-8 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-slate-400">
-            Thirty of FrankenSim&apos;s actual Rust kernels, the very same code the native
+            Forty of FrankenSim&apos;s actual Rust kernels, the very same code the native
             workspace compiles, cross-compiled to WebAssembly and computing in your browser,
             right now. No mocks, no pre-baked data, no server. Certified error bounds, exact
             autodiff, a topology optimizer, raymarched signed-distance surfaces, a Lorenz
-            attractor, and the deep stack itself: Hodge decomposition, real Navier–Stokes,
-            Gaussian-process Bayesian optimization, CutFEM on a signed-distance boundary. Every
-            pixel is real math.
+            attractor, the deep stack itself (Hodge decomposition, real Navier–Stokes,
+            Gaussian-process Bayesian optimization, CutFEM), and ten certified end-to-end
+            campaigns that return a proof, a frontier, or a credibility map, not just a number.
+            Every pixel is real math.
           </p>
 
           {/* engine chip */}
@@ -165,7 +191,7 @@ export default function WasmLab() {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-            <span className="inline-flex items-center gap-1.5"><Cpu className="h-3 w-3 text-cyan-400" /> fs-sparse · fs-cheb · fs-ivl · fs-ad · fs-fft · fs-la · fs-ga · fs-feec · fs-flux · fs-bo · fs-cutfem · fs-solver · fs-dfo · fs-symmetry · fs-xform · fs-math</span>
+            <span className="inline-flex items-center gap-1.5"><Cpu className="h-3 w-3 text-cyan-400" /> fs-sparse · fs-cheb · fs-ivl · fs-ad · fs-fft · fs-la · fs-ga · fs-feec · fs-flux · fs-bo · fs-cutfem · fs-solver · fs-dfo · fs-symmetry · fs-xform · fs-sos · fs-robust · fs-tropical · fs-voi · fs-lattice · fs-truss · fs-lbm · fs-archive · fs-eproc · fs-evidence · fs-math</span>
             <span className="inline-flex items-center gap-1.5"><Zap className="h-3 w-3 text-violet-400" /> off-main-thread web worker</span>
           </div>
         </div>
@@ -229,9 +255,33 @@ export default function WasmLab() {
               </LazyViz>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* TIER IV — THE CAMPAIGN */}
+      <section className="relative pb-32 border-t border-white/5 pt-20">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-[8%] right-[-8%] h-[42%] w-[48%] rounded-full bg-emerald-500/10 blur-[130px]" />
+        </div>
+        <div className="mx-auto max-w-7xl px-6">
+          <TierHeader eyebrow="Tier IV · The Campaign" title={<>The whole stack, <span className="text-emerald-400">composed and certified</span>.</>} accent="#10b981">
+            Ten end-to-end campaigns, each wiring a cluster of kernels that were never designed to
+            meet into one certified pipeline. FrankenSim returns not an answer but an illuminated one:
+            an SOS global-optimality proof, a PSD-stable stiffness frontier, a proven flutter boundary,
+            a max-plus critical path, a value-of-information stopping rule, an interval-certified
+            topology, a re-verified program simplification, an anytime-valid stop, a CFD credibility
+            map. Every certificate is recomputed live, in your browser.
+          </TierHeader>
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+            {CAMPAIGN.map(({ key, Comp }) => (
+              <LazyViz key={key} minHeight={560}>
+                <Comp />
+              </LazyViz>
+            ))}
+          </div>
 
           <p className="mx-auto mt-16 max-w-2xl text-center text-sm text-slate-500">
-            Every frame across all three tiers was produced by FrankenSim&apos;s real Rust kernels
+            Every frame across all four tiers was produced by FrankenSim&apos;s real Rust kernels
             compiled to WebAssembly, the same bytes the native build runs. Source lives in{" "}
             <code className="text-cyan-300">crates/fs-wasm</code>.
           </p>
