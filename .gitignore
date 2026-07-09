@@ -42,3 +42,7 @@ update_page.js
 
 # Ephemeral verification/diagnostic helpers
 scripts/_*.mjs
+
+# large source renders (keep local, ship the webp)
+public/flagships/*.png
+public/flagships/PROMPTS.md

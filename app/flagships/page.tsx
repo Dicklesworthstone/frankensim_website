@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight, Plane, Building2, Droplets, Target, Sparkles, Rocket, Boxes,
-  Camera, Layers, CheckCircle2, Github, type LucideIcon,
+  ShieldCheck, CheckCircle2, Github, type LucideIcon,
 } from "lucide-react";
 
 import GlitchText from "@/components/glitch-text";
@@ -13,28 +12,27 @@ import EprocessRaceViz from "@/components/viz/eprocess-race-viz";
 import BudgetLedgerViz from "@/components/viz/budget-ledger-viz";
 import CutfemSdfViz from "@/components/viz/cutfem-sdf-viz";
 import TopoptSdfViz from "@/components/viz/topopt-sdf-viz";
-import { flagships, phases, siteConfig } from "@/lib/content";
+import { flagships, phases, siteConfig, type Flagship } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Flagships",
   description:
-    "The three forcing functions that drive FrankenSim end-to-end: an ornithoid aircraft, a seismic-minimal frame, and a laminar-pour vessel. Plus the P2 marquee: topology optimization on a raw SDF with no mesh in the loop. Each returns a certified artifact rather than a bare number.",
+    "The forcing functions that drive FrankenSim end to end, each now shipping as a certified five-stage campaign: an ornithoid aircraft, a seismic-minimal frame, and a laminar-pour vessel. Plus the P2 marquee: topology optimization on a raw SDF with no mesh in the loop. Each returns a certified artifact rather than a bare number.",
 };
 
 /* ------------------------------------------------------------------ */
-/*  Per-flagship presentation: icon, the phase that delivers it,       */
-/*  and the interactive visualizations that carry its story.           */
+/*  Per-flagship presentation: icon, the phase that delivers it, and   */
+/*  the interactive visualizations that carry its story.               */
 /* ------------------------------------------------------------------ */
 
 type VizEntry = { Viz: React.ComponentType; caption: string };
 
 const FLAGSHIP_EXTRA: Record<
   string,
-  { Icon: LucideIcon; phaseId: string; vizzes: VizEntry[] }
+  { Icon: LucideIcon; vizzes: VizEntry[] }
 > = {
   aircraft: {
     Icon: Plane,
-    phaseId: "P5",
     vizzes: [
       {
         Viz: AdjointFlowViz,
@@ -45,7 +43,6 @@ const FLAGSHIP_EXTRA: Record<
   },
   frame: {
     Icon: Building2,
-    phaseId: "P4",
     vizzes: [
       {
         Viz: EprocessRaceViz,
@@ -61,7 +58,6 @@ const FLAGSHIP_EXTRA: Record<
   },
   vessel: {
     Icon: Droplets,
-    phaseId: "P3",
     vizzes: [
       {
         Viz: CutfemSdfViz,
@@ -72,18 +68,293 @@ const FLAGSHIP_EXTRA: Record<
   },
 };
 
-function accentTitle(name: string, color: string) {
-  const words = name.split(" ");
-  const last = words.pop() ?? name;
-  const head = words.join(" ");
+const EMERALD_BORDER = "rgba(16,185,129,0.30)";
+const EMERALD_BG = "rgba(16,185,129,0.07)";
+
+function StatusChip({ status }: { status?: Flagship["status"] }) {
+  const shipped = status === "shipped";
   return (
-    <>
-      {head}
-      {head ? " " : ""}
-      <span style={{ color }}>{last}.</span>
-    </>
+    <span
+      className="inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] font-black uppercase tracking-[0.28em]"
+      style={
+        shipped
+          ? { borderColor: "rgba(16,185,129,0.45)", background: "rgba(16,185,129,0.12)", color: "#6ee7b7" }
+          : { borderColor: "rgba(245,158,11,0.35)", background: "rgba(245,158,11,0.08)", color: "#fcd34d" }
+      }
+    >
+      <span
+        className="h-1.5 w-1.5 rounded-full"
+        style={{ background: shipped ? "#10b981" : "#f59e0b" }}
+      />
+      {shipped ? "Shipped" : "Planned"}
+    </span>
   );
 }
+
+function CrateChip({ name, color }: { name: string; color: string }) {
+  return (
+    <span
+      className="rounded-lg border px-2.5 py-1 font-mono text-[12px] font-semibold"
+      style={{ borderColor: `${color}33`, background: `${color}0d`, color }}
+    >
+      {name}
+    </span>
+  );
+}
+
+function CertifiedLine({ text }: { text: string }) {
+  return (
+    <div
+      className="mt-4 flex items-start gap-2.5 rounded-xl border px-4 py-3"
+      style={{ borderColor: EMERALD_BORDER, background: EMERALD_BG }}
+    >
+      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+      <p className="min-w-0 font-mono text-[12px] leading-relaxed text-slate-300">
+        <span className="font-bold text-emerald-300">Certified: </span>
+        {text}
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  One rich section per flagship                                      */
+/* ------------------------------------------------------------------ */
+
+function FlagshipSection({ f, index }: { f: Flagship; index: number }) {
+  const { Icon, vizzes } = FLAGSHIP_EXTRA[f.id];
+  const color = f.color;
+  const meta = [f.bead, f.layer].filter(Boolean).join(" · ");
+  const imageLeft = index % 2 === 0; // image-left, image-right, image-left
+
+  return (
+    <section
+      id={f.id}
+      className="scroll-mt-24 relative overflow-hidden border-t border-white/5 py-20 md:py-28"
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute top-[6%] h-[42%] w-[44%] rounded-full blur-[140px]"
+          style={{ background: `${color}12`, left: imageLeft ? "-10%" : undefined, right: imageLeft ? undefined : "-10%" }}
+        />
+      </div>
+
+      <div className="mx-auto max-w-6xl px-6">
+        {/* ── Two-column hero: the certified render + the flagship identity.
+             Image side alternates per flagship; stacks image-on-top on mobile. ── */}
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+          {/* The render — a framed, softly glowing gallery piece, aspect intact */}
+          <figure className={`group relative m-0 min-w-0 ${imageLeft ? "" : "lg:order-2"}`}>
+            <div
+              aria-hidden="true"
+              className="absolute -inset-4 rounded-[2.25rem] blur-2xl transition-opacity duration-700 group-hover:opacity-90"
+              style={{ background: `${color}22` }}
+            />
+            <div
+              className="relative overflow-hidden rounded-3xl border shadow-2xl"
+              style={{ borderColor: `${color}45`, background: "#070d13" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={f.image}
+                alt={`${f.name}: ${f.tagline}`}
+                loading="lazy"
+                decoding="async"
+                className="block h-auto w-full max-w-full"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
+                style={{ background: `linear-gradient(158deg, ${color}22 0%, transparent 40%)` }}
+              />
+              <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" aria-hidden="true" />
+            </div>
+          </figure>
+
+          {/* The identity */}
+          <div className={`min-w-0 ${imageLeft ? "" : "lg:order-1"}`}>
+            <div className="mb-5 flex flex-wrap items-center gap-2.5">
+              <StatusChip status={f.status} />
+              {meta && (
+                <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-slate-300">
+                  {meta}
+                </span>
+              )}
+            </div>
+
+            <div className="mb-4 flex items-center gap-4">
+              <div
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border"
+                style={{ background: `${color}18`, borderColor: `${color}45`, color }}
+              >
+                <Icon className="h-5 w-5" />
+              </div>
+              <span
+                className="font-mono text-[10px] font-black uppercase tracking-[0.3em]"
+                style={{ color: `${color}cc` }}
+              >
+                Flagship {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+
+            <GlitchText trigger="hover" intensity="low">
+              <h2 className="text-4xl font-black leading-[1.03] tracking-tight text-white md:text-5xl">
+                {f.name}
+              </h2>
+            </GlitchText>
+
+            <p className="mt-4 text-lg font-semibold md:text-xl" style={{ color }}>
+              {f.tagline}
+            </p>
+
+            <p className="mt-6 text-[15px] leading-relaxed text-slate-300 md:text-base md:leading-relaxed">
+              {f.lede ?? f.description}
+            </p>
+          </div>
+        </div>
+
+        {/* ── The certified campaign, stage by stage ── */}
+        {f.stages && f.stages.length > 0 && (
+          <>
+            <div className="mt-16 mb-2 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+              <span className="h-px w-6" style={{ background: `${color}66` }} />
+              The certified campaign, stage by stage
+            </div>
+
+            <div className="relative mt-6">
+              <div
+                aria-hidden="true"
+                className="absolute left-[21px] top-3 bottom-3 w-px"
+                style={{ background: `linear-gradient(${color}55, ${color}0a)` }}
+              />
+              <ol className="space-y-9">
+                {f.stages.map((s) => (
+                  <li key={s.n} className="relative flex gap-5">
+                    <div
+                      className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border font-mono text-base font-black"
+                      style={{ borderColor: `${color}55`, background: "#050b10", color }}
+                    >
+                      {s.n}
+                    </div>
+                    <div className="min-w-0 flex-1 pb-1">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+                        <h3 className="text-lg font-black tracking-tight text-white md:text-xl">{s.name}</h3>
+                        <span className="font-mono text-[12px] font-bold" style={{ color }}>{s.crates}</span>
+                      </div>
+                      <p className="mt-3 text-[15px] leading-relaxed text-slate-400">{s.detail}</p>
+                      <CertifiedLine text={s.metric} />
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </>
+        )}
+
+        {/* ── Objective / methods / payoff (frame + vessel) ── */}
+        {!f.stages && (
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            <div className="space-y-8">
+              <div className="space-y-2.5">
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Objective</div>
+                <div
+                  className="flex items-center gap-3 rounded-xl border px-4 py-3 font-mono text-sm"
+                  style={{ borderColor: `${color}40`, background: `${color}0d` }}
+                >
+                  <Target className="h-4 w-4 shrink-0" style={{ color }} />
+                  <span className="min-w-0 break-words text-slate-200">{f.objective}</span>
+                </div>
+              </div>
+
+              <div className="space-y-2.5">
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Methods</div>
+                <div className="flex flex-wrap gap-2">
+                  {f.methods.map((m) => (
+                    <span
+                      key={m}
+                      className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold text-slate-300"
+                    >
+                      {m}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="flex items-start gap-3 rounded-2xl border p-5 md:p-6"
+              style={{ borderColor: `${color}33`, background: `${color}0a` }}
+            >
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" style={{ color }} />
+              <div className="min-w-0">
+                <div className="mb-1.5 text-[10px] font-black uppercase tracking-[0.3em]" style={{ color }}>
+                  The payoff
+                </div>
+                <p className="text-[15px] leading-relaxed text-slate-300">{f.payoff}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Composed-from crate roll ── */}
+        {f.composed && f.composed.length > 0 && (
+          <div className="mt-12">
+            <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
+              <span className="h-px w-6" style={{ background: `${color}66` }} />
+              Composed from
+            </div>
+            <div className="flex flex-wrap gap-2.5">
+              {f.composed.map((c) => (
+                <CrateChip key={c} name={c} color={color} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Finale: what the campaign proves (ornithoid) ── */}
+        {f.finale && (
+          <div
+            className="mt-8 rounded-2xl border p-5 md:p-6"
+            style={{ borderColor: EMERALD_BORDER, background: EMERALD_BG }}
+          >
+            <div className="mb-2 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-emerald-300">
+              <Sparkles className="h-3.5 w-3.5" /> What it proves
+            </div>
+            <p className="text-[15px] leading-relaxed text-slate-200 md:text-base md:leading-relaxed">{f.finale}</p>
+          </div>
+        )}
+
+        {/* ── The interactive physics ── */}
+        <div className="mt-12">
+          <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: `${color}dd` }}>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style={{ background: color }} />
+              <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: color }} />
+            </span>
+            Interactive · step through the pipeline
+          </div>
+          <div className="space-y-8">
+            {vizzes.map(({ Viz, caption }, vi) => (
+              <div key={vi} className="min-w-0 space-y-3">
+                {/* Rendered directly (not via LazyViz): these lightweight,
+                    self-measuring SVG vizzes need a real layout box on their
+                    first render, which content-visibility deferral removes. */}
+                <SyncContainer withPulse accentColor={color} className="w-full max-w-full bg-black/40 p-2 shadow-2xl md:p-4">
+                  <Viz />
+                </SyncContainer>
+                <p className="px-1 text-sm leading-relaxed text-slate-500">{caption}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
 
 export default function FlagshipsPage() {
   const marquee = phases.find((p) => p.id === "P2");
@@ -91,71 +362,57 @@ export default function FlagshipsPage() {
   return (
     <main id="main-content">
       {/* ================================================================
-          HERO
+          HERO — no illustration, editorial lede on what a flagship is
           ================================================================ */}
-      <section className="relative overflow-hidden pt-32 pb-20">
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <div className="absolute top-[-8%] left-[8%] h-[420px] w-[420px] rounded-full bg-blue-500/10 blur-[120px]" />
-          <div className="absolute top-[10%] right-[6%] h-[380px] w-[380px] rounded-full bg-cyan-500/10 blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-1/2 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-amber-500/[0.07] blur-[130px]" />
+      <section className="relative overflow-hidden pt-36 pb-16">
+        <div className="absolute inset-0 -z-10" aria-hidden="true">
+          <div className="absolute top-[-10%] left-[-5%] h-[46%] w-[46%] rounded-full bg-blue-500/10 blur-[120px]" />
+          <div className="absolute top-[6%] right-[-6%] h-[42%] w-[44%] rounded-full bg-cyan-600/10 blur-[120px]" />
+          <div className="absolute bottom-[-14%] left-1/2 h-[36%] w-[40%] -translate-x-1/2 rounded-full bg-amber-500/[0.06] blur-[130px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-8 inline-flex items-center gap-3">
-              <div className="h-px w-8 bg-cyan-500/40" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/80">
-                The Forcing Functions
-              </span>
-              <div className="h-px w-8 bg-cyan-500/40" />
-            </div>
-
-            <GlitchText trigger="hover" intensity="medium">
-              <h1 className="mb-6 text-5xl font-black tracking-tighter text-white md:text-7xl">
-                Three <span className="text-cyan-400">north stars</span>.
-              </h1>
-            </GlitchText>
-
-            <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-slate-400">
-              FrankenSim is driven by three flagship pipelines plus a marquee demo. Each is a
-              forcing function that must work end-to-end, and each produces a{" "}
-              <span className="text-slate-200">certified artifact</span> rather than a bare number.
-            </p>
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-6 inline-flex items-center gap-3">
+            <div className="h-px w-8 bg-cyan-500/40" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">
+              The Forcing Functions
+            </span>
           </div>
 
-          {/* Illustration banner */}
-          <div className="group relative mx-auto mt-16 max-w-5xl">
-            <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-blue-500 via-cyan-500 to-amber-500 opacity-20 blur transition duration-1000 group-hover:opacity-35" />
-            <SyncContainer withNodes={false} className="relative overflow-hidden glass-modern p-0 shadow-2xl">
-              <Image
-                src="/frankensim_illustration.webp"
-                alt="The FrankenSim continuum: geometry, physics, optimization, and rendering fused into one memory-safe Rust kernel."
-                width={1280}
-                height={853}
-                priority
-                className="h-auto w-full rounded-2xl"
-              />
-            </SyncContainer>
-          </div>
+          <GlitchText trigger="hover" intensity="medium">
+            <h1 className="text-[clamp(2.5rem,6.5vw,5rem)] font-black leading-[0.98] tracking-tight text-white">
+              Three flagships, <span className="text-gradient-sync">driven end to end</span>.
+            </h1>
+          </GlitchText>
+
+          <p className="mt-8 max-w-3xl text-lg font-medium leading-relaxed text-slate-300 md:text-xl md:leading-relaxed">
+            A flagship is a forcing function: one demanding artifact that must drive the entire kernel from
+            geometry through physics, optimization, and rendering, and come back carrying a certified
+            artifact you can defend rather than a bare number. All three now ship as certified campaigns
+            that run the whole pipeline end to end.
+          </p>
 
           {/* Quick index */}
-          <div className="mx-auto mt-16 grid max-w-5xl gap-4 sm:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-3">
             {flagships.map((f) => {
               const Icon = FLAGSHIP_EXTRA[f.id].Icon;
               return (
                 <a
                   key={f.id}
                   href={`#${f.id}`}
-                  className="card card-hover group flex items-start gap-4 rounded-2xl p-5"
+                  className="card card-hover group flex flex-col gap-3 rounded-2xl p-5"
                   style={{ borderColor: `${f.color}22` }}
                 >
-                  <div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
-                    style={{ backgroundColor: `${f.color}18`, color: f.color }}
-                  >
-                    <Icon className="h-5 w-5" />
+                  <div className="flex items-center justify-between gap-3">
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: `${f.color}18`, color: f.color }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <StatusChip status={f.status} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-sm font-black text-white">{f.name}</div>
                     <div className="mt-1 text-xs leading-relaxed text-slate-500">{f.tagline}</div>
                   </div>
@@ -167,203 +424,34 @@ export default function FlagshipsPage() {
       </section>
 
       {/* ================================================================
-          THE THREE FLAGSHIPS — full alternating sections
+          THE THREE FLAGSHIPS
           ================================================================ */}
-      {flagships.map((f, i) => {
-        const { Icon, phaseId, vizzes } = FLAGSHIP_EXTRA[f.id];
-        const phase = phases.find((p) => p.id === phaseId);
-        const flip = i % 2 === 1;
-        const statusLabel =
-          phase?.status === "done" ? "Proven" : phase?.status === "active" ? "Landing now" : "Planned";
-
-        return (
-          <section
-            key={f.id}
-            id={f.id}
-            className="relative overflow-hidden border-t border-white/5 py-20 md:py-32"
-          >
-            <div className="absolute inset-0 z-0" aria-hidden="true">
-              <div
-                className={`absolute top-1/3 h-[420px] w-[420px] rounded-full blur-[140px] ${flip ? "right-[-6%]" : "left-[-6%]"}`}
-                style={{ backgroundColor: `${f.color}14` }}
-              />
-            </div>
-
-            <div className="relative z-10 mx-auto max-w-7xl px-6">
-              <div
-                className={`flex flex-col items-start gap-12 lg:gap-20 ${flip ? "lg:flex-row-reverse" : "lg:flex-row"}`}
-              >
-                {/* Copy column */}
-                <div className="flex-1 w-full min-w-0 space-y-7">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border"
-                      style={{
-                        backgroundColor: `${f.color}12`,
-                        borderColor: `${f.color}40`,
-                        color: f.color,
-                      }}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <span
-                      className="text-[10px] font-black uppercase tracking-[0.3em]"
-                      style={{ color: f.color }}
-                    >
-                      Flagship 0{i + 1}
-                    </span>
-                  </div>
-
-                  <GlitchText trigger="hover" intensity="low">
-                    <h2 className="text-4xl font-black leading-tight tracking-tight text-white md:text-5xl">
-                      {accentTitle(f.name, f.color)}
-                    </h2>
-                  </GlitchText>
-
-                  <p className="text-lg font-semibold text-slate-300">{f.tagline}</p>
-                  <p className="text-lg leading-relaxed text-slate-400">{f.description}</p>
-
-                  {/* Objective — a formula-ish chip */}
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-                      Objective
-                    </div>
-                    <div
-                      className="inline-flex items-center gap-3 rounded-xl border px-4 py-3 font-mono text-sm"
-                      style={{ borderColor: `${f.color}40`, backgroundColor: `${f.color}0d` }}
-                    >
-                      <Target className="h-4 w-4 shrink-0" style={{ color: f.color }} />
-                      <span className="text-slate-200">{f.objective}</span>
-                    </div>
-                  </div>
-
-                  {/* Methods — chips */}
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-                      Methods
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {f.methods.map((m) => (
-                        <span
-                          key={m}
-                          className="rounded-full border border-white/5 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold text-slate-300"
-                        >
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Payoff */}
-                  <div
-                    className="flex items-start gap-3 rounded-2xl border p-5"
-                    style={{ borderColor: `${f.color}33`, backgroundColor: `${f.color}0a` }}
-                  >
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" style={{ color: f.color }} />
-                    <div>
-                      <div
-                        className="mb-1 text-[10px] font-black uppercase tracking-[0.3em]"
-                        style={{ color: f.color }}
-                      >
-                        The Payoff
-                      </div>
-                      <p className="leading-relaxed text-slate-300">{f.payoff}</p>
-                    </div>
-                  </div>
-
-                  {/* Phase tie-in */}
-                  {phase && (
-                    <div className="flex items-center gap-3 pt-1 text-sm text-slate-500">
-                      <Layers className="h-4 w-4 text-slate-600" />
-                      <span>
-                        Delivered by{" "}
-                        <span className="font-bold text-slate-300">
-                          {phase.id} · {phase.name}
-                        </span>{" "}
-                        <span className="text-slate-600">({phase.window})</span>
-                      </span>
-                      <span
-                        className="rounded-full border px-2 py-0.5 text-[10px] font-black uppercase tracking-widest"
-                        style={{ borderColor: `${f.color}40`, color: f.color }}
-                      >
-                        {statusLabel}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Viz column */}
-                <div className="w-full flex-1 min-w-0 space-y-8 lg:max-w-2xl">
-                  {vizzes.map(({ Viz, caption }, vi) => (
-                    <div key={vi} className="space-y-3">
-                      <SyncContainer
-                        withPulse
-                        accentColor={f.color}
-                        className="bg-black/40 p-2 shadow-2xl md:p-4"
-                      >
-                        <Viz />
-                      </SyncContainer>
-                      <p className="px-1 text-sm leading-relaxed text-slate-500">{caption}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
-
-      {/* ================================================================
-          VESSEL CALLOUT — the marketing shot IS the physics
-          ================================================================ */}
-      <section className="relative overflow-hidden border-t border-white/5 py-20 md:py-28">
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-gradient-to-b from-cyan-950/10 to-transparent" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-500/25 bg-cyan-500/[0.06] text-cyan-400">
-              <Camera className="h-6 w-6" />
-            </div>
-          </div>
-          <GlitchText trigger="hover" intensity="medium">
-            <h2 className="text-3xl font-black tracking-tight text-white md:text-5xl">
-              The marketing shot <span className="text-cyan-400">is</span> the physics.
-            </h2>
-          </GlitchText>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400">
-            For the Spout That Never Dribbles, the hero render is not a separate art asset. Lumen&apos;s
-            differentiable renderer draws the certified vessel from the{" "}
-            <span className="text-slate-200">same bytes</span> the Orr–Sommerfeld stability objective and
-            the free-surface LBM pour were computed on. The image you would put on the box is a
-            differentiable function of the design, so you can optimize what the product looks like and
-            what it does at once, and never ship a picture the physics disagrees with.
-          </p>
-        </div>
-      </section>
+      {flagships.map((f, i) => (
+        <FlagshipSection key={f.id} f={f} index={i} />
+      ))}
 
       {/* ================================================================
           THE MARQUEE — topology optimization on a raw SDF (P2)
           ================================================================ */}
       <section
         id="marquee"
-        className="relative overflow-hidden border-t border-white/5 py-20 md:py-32"
+        className="scroll-mt-24 relative overflow-hidden border-t border-white/5 py-20 md:py-28"
       >
-        <div className="absolute inset-0 z-0" aria-hidden="true">
+        <div className="absolute inset-0 -z-10" aria-hidden="true">
           <div className="absolute top-1/4 left-1/2 h-[460px] w-[460px] -translate-x-1/2 rounded-full bg-cyan-500/[0.09] blur-[140px]" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-8 inline-flex items-center gap-3">
+            <div className="mb-6 inline-flex items-center gap-3">
               <div className="h-px w-8 bg-cyan-500/40" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/80">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">
                 The Marquee {marquee ? `· ${marquee.id}` : ""}
               </span>
               <div className="h-px w-8 bg-cyan-500/40" />
             </div>
             <GlitchText trigger="hover" intensity="medium">
-              <h2 className="text-3xl font-black leading-tight tracking-tight text-white md:text-5xl">
+              <h2 className="text-3xl font-black leading-[1.05] tracking-tight text-white md:text-5xl">
                 Topology optimization on a raw SDF, <span className="text-cyan-400">no mesh in the loop</span>.
               </h2>
             </GlitchText>
@@ -375,9 +463,9 @@ export default function FlagshipsPage() {
             </p>
           </div>
 
-          <div className="mx-auto mt-14 grid max-w-6xl gap-8 lg:grid-cols-2">
+          <div className="mt-14 grid gap-8 lg:grid-cols-2">
             <div className="min-w-0 space-y-3">
-              <SyncContainer withPulse accentColor="#06b6d4" className="bg-black/40 p-2 shadow-2xl md:p-4">
+              <SyncContainer withPulse accentColor="#06b6d4" className="w-full max-w-full bg-black/40 p-2 shadow-2xl md:p-4">
                 <TopoptSdfViz />
               </SyncContainer>
               <p className="px-1 text-sm leading-relaxed text-slate-500">
@@ -386,7 +474,7 @@ export default function FlagshipsPage() {
               </p>
             </div>
             <div className="min-w-0 space-y-3">
-              <SyncContainer withPulse accentColor="#22d3ee" className="bg-black/40 p-2 shadow-2xl md:p-4">
+              <SyncContainer withPulse accentColor="#22d3ee" className="w-full max-w-full bg-black/40 p-2 shadow-2xl md:p-4">
                 <CutfemSdfViz />
               </SyncContainer>
               <p className="px-1 text-sm leading-relaxed text-slate-500">
@@ -401,8 +489,8 @@ export default function FlagshipsPage() {
               <div className="grid gap-4 rounded-2xl border border-cyan-500/15 bg-white/[0.02] p-6 md:grid-cols-2 md:p-8">
                 <div className="flex items-start gap-3">
                   <Boxes className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
-                  <div>
-                    <div className="mb-1 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/80">
+                  <div className="min-w-0">
+                    <div className="mb-1 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">
                       Scope
                     </div>
                     <p className="text-sm leading-relaxed text-slate-400">{marquee.scope}</p>
@@ -410,8 +498,8 @@ export default function FlagshipsPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-cyan-400" />
-                  <div>
-                    <div className="mb-1 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/80">
+                  <div className="min-w-0">
+                    <div className="mb-1 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400/80">
                       Exit Gate
                     </div>
                     <p className="text-sm leading-relaxed text-slate-400">{marquee.exit}</p>

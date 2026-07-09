@@ -71,6 +71,13 @@ export interface Phase {
   exit: string;
 }
 
+export interface FlagshipStage {
+  n: number;
+  name: string;
+  crates: string;
+  detail: string;
+  metric: string;
+}
 export interface Flagship {
   id: string;
   name: string;
@@ -81,6 +88,14 @@ export interface Flagship {
   objective: string;
   methods: string[];
   payoff: string;
+  status?: "shipped" | "planned"; // shipped = runs end-to-end at smoke tier
+  bead?: string; // tracking bead, e.g. "mye.2"
+  layer?: string; // e.g. "L6 · Helm"
+  image?: string; // optional hero render (falls back to the gradient panel)
+  lede?: string; // richer motivation for the /flagships page
+  stages?: FlagshipStage[]; // the certified end-to-end campaign, stage by stage
+  composed?: string[]; // the crates the campaign wires together
+  finale?: string; // the closing "what it proves" line
 }
 
 // ---------------------------------------------------------------------------
@@ -325,6 +340,57 @@ export const flagships: Flagship[] = [
     objective: "maximize L/D × stability × maneuverability",
     methods: ["BEM + FMM + Kutta", "vortex-particle wakes", "Dirac-structure coupling", "SE(3) integrators", "Koopman surrogates"],
     payoff: "delivers a certified Pareto atlas with SOS Lyapunov region-of-attraction proofs.",
+    status: "shipped",
+    bead: "mye.2",
+    layer: "L6 · Helm",
+    image: "/flagships/ornithoid.webp",
+    lede:
+      "Classical aircraft shape optimization returns one design after a hand-tuned run, and asks you to trust that the run converged somewhere good. The ornithoid flagship runs the whole certified campaign end to end instead: it parameterizes a bird-like, multi-inlet, flapping-wing flyer, screens a wide field with the payoff measured rather than asserted, refines the survivors against a real flow solver, proves each one's stability, and returns a Pareto atlas where every row carries its own certificates and its lineage.",
+    composed: ["fs-bem", "fs-vpm", "fs-race", "fs-lbm", "fs-sos", "fs-dfo", "fs-evidence"],
+    stages: [
+      {
+        n: 1,
+        name: "Parameterize",
+        crates: "fs-bem · fs-vpm",
+        detail:
+          "A sectional candidate exposes four levers: wing thickness, trim angle, inlet position, and a flapping gait. Each lever carries a Jacobian action, the BEM adjoint where it exists, so the campaign has exact gradients rather than finite-difference noise.",
+        metric: "BEM adjoint matches central differences to 1.8e-8; the inlet mass-flow proxy tracks the inlet lever",
+      },
+      {
+        n: 2,
+        name: "Screen wide, e-raced",
+        crates: "fs-bem · fs-vpm · fs-race",
+        detail:
+          "Panel lift-to-drag plus a flapping-wake metric score a wide field of candidates, raced generation by generation through an e-process so dominated designs die early and the winner's advantage is measured, not asserted.",
+        metric: "finds the argmax L/D while eliminating 23 of 24 dominated candidates early; 578 evaluations against a fixed-N equivalent of 9,600, a 16× saving",
+      },
+      {
+        n: 3,
+        name: "Refine",
+        crates: "fs-lbm",
+        detail:
+          "The survivors face a real lattice-Boltzmann channel flow around the rasterized section, with forces read off a control-volume momentum balance over the solver's public moments. The panel-versus-LBM agreement is gated within model-form evidence, and the honesty label travels in the report.",
+        metric: "one flow-through leaves the field unsettled at 1.1e-3; two transits reach 5.5e-6",
+      },
+      {
+        n: 4,
+        name: "Trim & Certify",
+        crates: "fs-sos · fs-evidence",
+        detail:
+          "Each candidate gets a two-state pitch model whose closed-form Lyapunov matrix an SOS certificate verifies, yielding a certified region-of-attraction volume that is zero unless proven, enforced on every atlas row. A conformal e-band wraps the cheap surrogate screen.",
+        metric: "region-of-attraction certified per row; the conformal band covers 0.97 on 60 fresh candidates",
+      },
+      {
+        n: 5,
+        name: "Pareto atlas",
+        crates: "fs-dfo · fs-evidence",
+        detail:
+          "NSGA-II searches four objectives at once, L/D × region-of-attraction × maneuver × inlet mass-flow, with the knee design polished by the BEM adjoint. Every row of the atlas ships with its hypervolume, knee point, gene lineage, and its certificates.",
+        metric: "24 certified rows; adjoint polish lifts the knee design's L/D from 7.64 to 9.41",
+      },
+    ],
+    finale:
+      "The whole campaign replays bit-for-bit from its seed, and it degrades honestly: when the LBM budget runs out mid-run, the seven remaining candidates fall back to the surrogate-plus-conformal path with six of seven still inside the band. Zero certificate violations across all 124 crates.",
   },
   {
     id: "frame",
@@ -336,6 +402,57 @@ export const flagships: Flagship[] = [
     objective: "minimize material subject to a certified fragility bound",
     methods: ["IGA + Kirchhoff–Love shells", "fiber beams", "ground-structure PDHG", "Kanai–Tajimi + MLMC", "e-stopping"],
     payoff: "a fragility curve with anytime-valid stopping; you stop the moment the evidence is decisive.",
+    status: "shipped",
+    bead: "mye.3",
+    layer: "L6 · Helm",
+    image: "/flagships/seismic-frame.webp",
+    lede:
+      "A building frame should use the least material that still survives an earthquake, and it should be able to prove it. This flagship pairs a ground-structure layout that strips the frame to its load-bearing essentials with a seismic fragility campaign that stops the instant the evidence is decisive, so no core-hours are burned once the answer is settled.",
+    composed: ["fs-truss", "fs-solid", "fs-scenario", "fs-eproc", "fs-uq", "fs-evidence"],
+    stages: [
+      {
+        n: 1,
+        name: "Layout",
+        crates: "fs-truss",
+        detail:
+          "A ground-structure layout LP, solved by PDHG, strips the frame to its load-bearing members and emits its primal-dual duality gap as a near-optimality certificate.",
+        metric: "PDHG duality gap certifies the layout near-optimal",
+      },
+      {
+        n: 2,
+        name: "Sizing",
+        crates: "fs-truss",
+        detail:
+          "Members are sized against Euler buckling floors and snapped up to a real steel catalog, with the governing code rows recorded alongside each section.",
+        metric: "catalog-snapped sections, code checks attached",
+      },
+      {
+        n: 3,
+        name: "Time history",
+        crates: "fs-solid · fs-scenario",
+        detail:
+          "A fiber-hinge story model, Mander concrete and Menegotto–Pinto steel through real sections, is driven by Kanai–Tajimi synthetic ground motions and integrated with Newmark average acceleration.",
+        metric: "nonlinear fiber-hinge response under a Kanai–Tajimi motion ensemble",
+      },
+      {
+        n: 4,
+        name: "Fragility",
+        crates: "fs-eproc · fs-uq",
+        detail:
+          "The exceedance probability is estimated with an anytime-valid e-stop, so the fragility campaign halts the instant the seismic evidence is decisive, backed by a multilevel Monte-Carlo report.",
+        metric: "anytime-valid e-stop halts when the fragility evidence is decisive; MLMC-backed",
+      },
+      {
+        n: 5,
+        name: "CVaR mass minimization",
+        crates: "fs-truss · fs-evidence",
+        detail:
+          "Finally a Rockafellar–Uryasev CVaR minimization over the section scale trims mass against the fragility tail, then snaps to catalog with an independent re-check.",
+        metric: "CVaR mass minimization, catalog-snapped and independently re-checked",
+      },
+    ],
+    finale:
+      "Smoke tier, honestly: one story, two fiber-hinge columns, synthetic motions. The distributed-plasticity frames, recorded-motion suites, and million-member ground structures are named successors in the contract, not pretended.",
   },
   {
     id: "vessel",
@@ -347,6 +464,57 @@ export const flagships: Flagship[] = [
     objective: "maximize pour stability (minimize spectral growth)",
     methods: ["Orr–Sommerfeld stability", "free-surface LBM", "Carreau rheology", "spectral rendering"],
     payoff: "the marketing shot and the physics are the same bytes: a differentiable render of the certified design.",
+    status: "shipped",
+    bead: "mye.4",
+    layer: "L6 · Helm",
+    image: "/flagships/laminar-vessel.webp",
+    lede:
+      "A pouring vessel that dribbles is a stability failure you can see. This flagship shapes the spout so its stream stays laminar, optimizing a spectral-growth objective and validating it against a real free-surface pour, and then renders the winner from the very same certified geometry, so the beauty shot and the physics are literally the same bytes.",
+    composed: ["fs-cheb", "fs-lbm", "fs-material", "fs-race", "fs-render", "fs-evidence"],
+    stages: [
+      {
+        n: 1,
+        name: "Parameterize",
+        crates: "fs-cheb",
+        detail:
+          "A Chebyshev vessel-of-revolution profile with a scalar lip channel gives a smooth, fully differentiable family of spouts to search over.",
+        metric: "a compact spectral profile; every lever differentiable end to end",
+      },
+      {
+        n: 2,
+        name: "Stability objective",
+        crates: "fs-cheb",
+        detail:
+          "Quasi-steady thin-film Reynolds numbers along the pour path feed an Orr–Sommerfeld modal-growth calculation. The objective is a min-max over modes and stations, a differentiable laminarity proxy.",
+        metric: "spectral growth minimized over every unstable mode and station along the stream",
+      },
+      {
+        n: 3,
+        name: "Validation",
+        crates: "fs-lbm · fs-material",
+        detail:
+          "A free-surface lattice-Boltzmann pour over the lip, under a rotating-gravity tilt schedule, checks the design with a strict mass ledger, a Carreau viscosity band, and Plateau–Rayleigh fragment scoring.",
+        metric: "the mass ledger closes; the open contact-line term travels as a sensitivity band, never a false certainty",
+      },
+      {
+        n: 4,
+        name: "Robustify",
+        crates: "fs-race",
+        detail:
+          "Candidates are hardened with a CVaR over the fluid band and e-raced, so the designs that only pour well in the easy cases fall away early.",
+        metric: "CVaR over the fluid band; survivors decided by an e-race, not a fixed budget",
+      },
+      {
+        n: 5,
+        name: "Deliverable",
+        crates: "fs-render",
+        detail:
+          "The winning pour is rendered by a Woodcock tracker bound zero-copy to the simulation's own mass buffer, so the beauty shot reads the same field the physics wrote.",
+        metric: "the render reads the simulation's mass buffer directly: the same bytes, no re-modeling",
+      },
+    ],
+    finale:
+      "Where the physics is genuinely uncertain, at the moving contact line, the campaign reports a sensitivity band instead of a number it cannot back. Smoke tier today; the level-set lip topology and cumulant collision lanes are named successors, not pretended.",
   },
 ];
 
