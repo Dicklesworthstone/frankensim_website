@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { isScrollingNow, subscribeGate } from "@/lib/use-viz-anim";
 
 /**
  * Mounts its children only once they scroll near the viewport, and applies
@@ -29,12 +30,53 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
  */
 
 // ── Shared one-mount-per-frame stagger queue ────────────────────────────────
-const mountQueue: Array<() => void> = [];
+interface MountReq {
+  fn: () => void;
+  el: HTMLElement | null;
+}
+const mountQueue: MountReq[] = [];
 let draining = false;
 
+// Distance of an element's center from the viewport center — used to mount the
+// panels the user is actually looking at FIRST when a scroll settles.
+function viewportDistance(el: HTMLElement | null): number {
+  if (!el) return Number.MAX_SAFE_INTEGER;
+  const r = el.getBoundingClientRect();
+  const vh = window.innerHeight || 800;
+  return Math.abs(r.top + r.height / 2 - vh / 2);
+}
+
 function drainMountQueue() {
-  const fn = mountQueue.shift();
-  if (fn) fn();
+  // Hold mounts off the scroll critical path: a demo's first paint (dynamic
+  // import("three"), scene build, WASM result → geometry) must not land inside
+  // a scroll gesture. While scrolling, park and resume the drain on scroll-idle
+  // (`draining` stays true so no second drain starts meanwhile).
+  if (isScrollingNow()) {
+    const unsub = subscribeGate(() => {
+      if (!isScrollingNow()) {
+        unsub();
+        requestAnimationFrame(drainMountQueue);
+      }
+    });
+    return;
+  }
+  if (mountQueue.length === 0) {
+    draining = false;
+    return;
+  }
+  // Mount the panel nearest the viewport first, so a flick that queues many
+  // panels top-to-bottom still fills the on-screen ones before off-screen ones.
+  let best = 0;
+  let bestDist = Infinity;
+  for (let i = 0; i < mountQueue.length; i++) {
+    const d = viewportDistance(mountQueue[i].el);
+    if (d < bestDist) {
+      bestDist = d;
+      best = i;
+    }
+  }
+  const req = mountQueue.splice(best, 1)[0];
+  req.fn();
   if (mountQueue.length > 0) {
     requestAnimationFrame(drainMountQueue);
   } else {
@@ -42,12 +84,12 @@ function drainMountQueue() {
   }
 }
 
-function requestMount(fn: () => void) {
+function requestMount(fn: () => void, el: HTMLElement | null) {
   if (typeof requestAnimationFrame === "undefined") {
     fn();
     return;
   }
-  mountQueue.push(fn);
+  mountQueue.push({ fn, el });
   if (!draining) {
     draining = true;
     requestAnimationFrame(drainMountQueue);
@@ -83,7 +125,7 @@ export default function LazyViz({
           io.disconnect();
           if (!queued) {
             queued = true;
-            requestMount(() => setShow(true));
+            requestMount(() => setShow(true), el);
           }
         }
       },
