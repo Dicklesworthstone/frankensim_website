@@ -22,13 +22,14 @@ git clone https://github.com/Dicklesworthstone/frankensim_website.git && cd fran
 
 **The problem:** most project sites for deep systems are static marketing pages. They *claim* the system is fast, correct, and novel, but a reader leaves without ever seeing it do anything, and the impressive parts stay abstract.
 
-**The solution:** this site *shows* FrankenSim instead of describing it. Forty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser, across four tiers — foundations, real-time 3D, the deep upper stack, and ten certified end-to-end campaigns; the ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
+**The solution:** this site *shows* FrankenSim instead of describing it. Forty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser, across two experiences: thirty quick demos in the Lab ([`/lab`](https://frankensim.org/lab), three tiers from numerical primitives to the deep upper stack) and ten certified end-to-end campaigns ([`/e2e`](https://frankensim.org/e2e), each composing crates that were never designed to meet into one pipeline that returns a proof, a frontier, a stop rule, or a credibility map). The ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
 
 ### Why this site is different
 
 | Capability | What you get |
 |---|---|
-| **Live WASM kernels** | Forty of FrankenSim's actual Rust kernels ([`/lab`](https://frankensim.org/lab)) compiled to WebAssembly and computing in your browser, in four tiers: foundations (topology optimizer, raymarched SDF, spectral waves, Lorenz, interval-certified Mandelbrot, randomized SVD, Orr–Sommerfeld), the deep upper stack (Hodge decomposition, real Navier–Stokes, Gaussian-process BO, CutFEM), and ten certified end-to-end campaigns that return a proof, a frontier, or a credibility map. No mocks; the same bytes the native build runs. |
+| **Live WASM kernels** | Thirty of FrankenSim's actual Rust kernels ([`/lab`](https://frankensim.org/lab)) compiled to WebAssembly and computing in your browser, in three tiers: foundations (topology optimizer, raymarched SDF, spectral waves, Lorenz, interval-certified Mandelbrot, randomized SVD, Orr–Sommerfeld) and the deep upper stack (Hodge decomposition, real Navier–Stokes, Gaussian-process BO, CutFEM). No mocks; the same bytes the native build runs. |
+| **Certified E2E campaigns** | Ten end-to-end pipelines ([`/e2e`](https://frankensim.org/e2e)), each wiring crates that were never designed to meet (SOS × robust, tropical × VoI, LBM × archive, rep-neural × interval arithmetic, …) into a single certified result: an SOS-proven global optimum, a PSD-stable stiffness frontier, a proven flutter boundary, an anytime-valid stop, a CFD credibility map. Each runs its whole pipeline live in the browser. |
 | **Interactive concept viz** | Twenty-plus bespoke visualizations for the hard ideas: Region/Chart routing, the three epistemic colors, `Evidence<T>`, sheaf gluing (H⁰) and obstruction (H¹), the two-lane executor, certified speculation, the Gauntlet. |
 | **Real 3D** | Six of the Lab demos render in WebGL through Three.js with custom GLSL. |
 | **Self-maintaining stats** | The crate count, line count, and test totals are computed from the FrankenSim source, not hand-typed. |
@@ -50,7 +51,8 @@ This repository is the **website** for that project, not the kernel itself.
 ```bash
 bun install                              # install deps (Bun only)
 bun dev                                  # dev server at http://localhost:3000
-open http://localhost:3000/lab           # the 40 live WASM kernels
+open http://localhost:3000/lab           # the 30 live WASM kernels (three tiers)
+open http://localhost:3000/e2e           # the 10 certified end-to-end campaigns
 open http://localhost:3000/epistemics    # the sheaf-cohomology story, visualized
 bunx tsc --noEmit                        # strict typecheck
 bun run build                            # production build
@@ -67,7 +69,7 @@ bun run build                            # production build
 
 | Dimension | This site | Typical project microsite | Plain docs |
 |---|---|---|---|
-| Runs the real system in-browser | ✅ 40 Rust kernels via WASM | ❌ Screenshots or video | ❌ None |
+| Runs the real system in-browser | ✅ 40 Rust kernels via WASM (30 Lab + 10 E2E) | ❌ Screenshots or video | ❌ None |
 | Interactive concept teaching | ✅ 20+ bespoke visualizations | ⚠️ Occasional | ❌ Prose only |
 | Real-time 3D (WebGL) | ✅ 6 Three.js demos | ⚠️ Rare | ❌ None |
 | Numbers verified from source | ✅ Computed by script | ⚠️ Hand-typed, drifts | ⚠️ Hand-typed |
@@ -83,17 +85,18 @@ bun run build                            # production build
                 ▼
 ┌──────────────────────────────────────────────────────────────┐
 │  Next.js 16 App Router                                        │
-│  app/{page,architecture,kernel,flagships,lab,epistemics,     │
+│  app/{page,architecture,kernel,flagships,lab,e2e,epistemics, │
 │       roadmap,glossary,getting-started}/page.tsx             │
 └───────────────┬──────────────────────────────────────────────┘
                 ▼
 ┌──────────────────────────────────────────────────────────────┐
 │  Components                                                   │
 │  components/viz/*             16 SVG/canvas concept viz       │
-│  components/wasm/*            10 foundation Lab demos         │
-│  components/wasm/frontier/*   10 Three.js / WebGL demos       │
-│  components/wasm/deep/*       10 upper-stack kernel demos     │
-│  components/wasm/campaign/*   10 certified end-to-end demos   │
+│  components/wasm/*            10 foundation Lab demos    (/lab)│
+│  components/wasm/frontier/*   10 Three.js / WebGL demos  (/lab)│
+│  components/wasm/deep/*       10 upper-stack kernel demos(/lab)│
+│  components/wasm/campaign/*   10 certified campaigns     (/e2e)│
+│  components/e2e-showcase.tsx  the /e2e editorial layout        │
 │  lib/use-fs-wasm.ts          shared Web Worker → WASM kernels │
 └───────────────┬──────────────────────────────────────────────┘
                 ▼

@@ -25,6 +25,7 @@ export const navItems = [
   { href: "/kernel", label: "Kernel" },
   { href: "/flagships", label: "Flagships" },
   { href: "/lab", label: "Lab" },
+  { href: "/e2e", label: "E2E" },
   { href: "/epistemics", label: "Epistemics" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/glossary", label: "Glossary" },
@@ -645,4 +646,221 @@ export const epics: Epic[] = [
   { title: "Structure & Self-Knowledge", group: "Research Bets", color: "#10b981", blurb: "Interface types + symmetry, spectral health, explanations, value-of-information." },
   { title: "Go-To-Market", group: "Research Bets", color: "#f97316", blurb: "The wedge and the conformance-tested plugin surface." },
   { title: "Epistemic Engine", group: "Research Bets", color: "#f43f5e", blurb: "Governance, phases, risks: an epistemic engine for physical claims." },
+];
+
+// ---------------------------------------------------------------------------
+//  End-to-end campaigns (the /e2e page)
+//
+//  Each entry is a certified multi-crate pipeline: it composes FrankenSim
+//  crates that were never designed to meet into one campaign that returns an
+//  ILLUMINATED answer — a proof, a frontier, a stop rule, a credibility map —
+//  not a bare number. Prose distilled from the crates' own raison-d'etre docs.
+// ---------------------------------------------------------------------------
+
+export interface E2ePillar { crate: string; role: string; }
+export interface E2eCampaign {
+  key: string; // matches the live demo component
+  crate: string;
+  layer: string;
+  name: string;
+  title: string;
+  tagline: string;
+  lede: string;
+  pillars: E2ePillar[];
+  impossible: string;
+  result: string;
+  accent: string;
+}
+
+export const e2eCampaigns: E2eCampaign[] = [
+  {
+    key: "proofrobust",
+    crate: "fs-robustopt-e2e",
+    layer: "L4 · Ascent",
+    name: "ProofRobust",
+    title: "The proven optimum is not the robust one.",
+    tagline: "SOS-certified global optima, ranked by worst-case robustness.",
+    lede:
+      "A local optimizer hands you a point and a shrug: no proof it is the global best, and no account of what a manufacturing perturbation does to it. ProofRobust picks a design with both guarantees at once, from crates that were never designed to meet.",
+    pillars: [
+      { crate: "fs-sos", role: "Each design family's cost is a convex quadratic. certify_quadratic returns the exact global minimum with an executable sum-of-squares proof, p(x) − p* = (√a·x + b∕2√a)², machine-checked by matching coefficients. No local-optimum ambiguity." },
+      { crate: "fs-robust", role: "The realized design deviates from x* by a manufacturing tolerance, so a steep family is punished: p(x*+δ) = p* + a·δ². CVaR over a deterministic tolerance grid gives each family's worst-case cost." },
+      { crate: "fs-evidence", role: "The nominal optimum is Verified (a proof); the robust CVaR ranking is Estimated (a finite sample). The headline claim never outranks its weakest input." },
+    ],
+    impossible:
+      "No optimizer returns a global-optimality proof and a worst-case-robust ranking in a single pass. The punchline lands here: the family with the lowest nominal cost loses. A flatter family with a higher nominal cost wins under uncertainty, and both optima are proven global.",
+    result: "3 / 3 families proven globally optimal · robust winner ≠ nominal winner · headline honestly Estimated",
+    accent: "#10b981",
+  },
+  {
+    key: "metamat",
+    crate: "fs-metamat-e2e",
+    layer: "L4 · Ascent",
+    name: "MetamatCert",
+    title: "Every point on the frontier is certified.",
+    tagline: "A stiffness–density frontier that is provably stable and admissible.",
+    lede:
+      "Numerical homogenization turns a microstructure into an effective stiffness tensor, but the raw numbers carry no guarantee they are even physically admissible. MetamatCert discovers the stiffness–density frontier of a holed-plate metamaterial and proves two things at every point.",
+    pillars: [
+      { crate: "fs-lattice", role: "Each porosity gives an effective Voigt tensor C and a solid fraction ρ; the axial stiffness is C₁₁." },
+      { crate: "fs-sos · is_psd", role: "A physical elastic tensor must be positive-definite; a non-PSD stiffness stores negative energy and is unstable. The minimum-eigenvalue certificate proves C ≻ 0 at every point." },
+      { crate: "fs-lattice · voigt_bound", role: "No microstructure at fraction ρ can beat the Voigt mixture bound ρ·C₁₁ˢᵒˡⁱᵈ. A violation would mean the homogenizer itself is wrong — certifying the certifier — and it proves the solid optimal for specific stiffness." },
+    ],
+    impossible:
+      "A homogenizer that checks its own output against a physical upper bound and a stability proof at every frontier point, so the whole frontier earns a single Verified color. The bound violation that never happens is exactly what would expose a broken solver.",
+    result: "6-point frontier · C₁₁ 3.5 → 0.8 · every point PSD-stable and Voigt-admissible · Verified",
+    accent: "#22d3ee",
+  },
+  {
+    key: "flutter",
+    crate: "fs-flutter-e2e",
+    layer: "L4 · Ascent",
+    name: "FlutterCert",
+    title: "A flutter boundary you can prove, not just plot.",
+    tagline: "The aeroelastic stability boundary, certified two independent ways.",
+    lede:
+      "Flutter analysis traditionally means sweeping a parameter and plotting where a damping curve crosses zero: a picture, not a proof. FlutterCert locates the added-mass instability boundary of a 2-DOF coupled operator and hands back a machine-checked certificate.",
+    pillars: [
+      { crate: "fs-sos", role: "A Lyapunov certificate checks P ≻ 0 and −(AᵀP + PA) ≻ 0 for the operator A(μ). It recovers the exact boundary μ* = 2 and is Verified." },
+      { crate: "fs-spectral", role: "Independently, the symmetric part's largest eigenvalue is negative iff μ < 2. Two different methods land on the same boundary — certifying the certifier." },
+      { crate: "fs-couple", role: "To compute the coupled response by a partitioned scheme, naive staggering diverges early (μ ≥ 1); Aitken relaxation converges across the whole stable range up to μ*." },
+    ],
+    impossible:
+      "A proven stability boundary that a second, independent method confirms, alongside a solver that shows exactly where naive coupling fails while the right relaxation reaches the true boundary. A crossing plot can suggest; only a certificate can prove.",
+    result: "Lyapunov μ* = spectral μ* = 2 · boundaries agree · Aitken reaches the boundary, naive diverges near μ = 1",
+    accent: "#a855f7",
+  },
+  {
+    key: "schedule",
+    crate: "fs-schedule-e2e",
+    layer: "L6 · Helm",
+    name: "CampaignSchedule",
+    title: "When it finishes, and whether to keep going.",
+    tagline: "An exact critical path plus a value-of-information stop rule.",
+    lede:
+      "A design campaign asks two orthogonal questions. CampaignSchedule answers both with certificates: an exact completion time, and a decision-theoretic verdict on whether the next experiment is even worth running.",
+    pillars: [
+      { crate: "fs-tropical", role: "The refinement studies form a precedence DAG with per-study latencies. The completion time is the longest weighted path, a max-plus critical-path computation that is exact by construction and names the bottleneck study." },
+      { crate: "fs-voi", role: "The candidate designs have uncertain cost. EVPI measures how much resolving the ranking ambiguity is worth; recommend picks the best value-per-cost study, or says STOP when the decision is already robust." },
+      { crate: "fs-evidence", role: "The makespan is Verified (an exact computation); the EVPI-driven recommendation is Estimated (a decision-theoretic model)." },
+    ],
+    impossible:
+      "One pipeline that computes an exact makespan in the tropical semiring and, separately, decides whether more data is worth gathering at all. A Gantt chart shows a schedule; this proves the finish time and hands you an anytime stop rule for the search itself.",
+    result: "makespan 13 (exact) · critical path windtunnel-A → decide · EVPI 0.048 → Act: sample-B",
+    accent: "#f59e0b",
+  },
+  {
+    key: "truss",
+    crate: "fs-truss-e2e",
+    layer: "L4 · Ascent",
+    name: "TrussPath",
+    title: "An optimal truss, and how the load travels through it.",
+    tagline: "43 candidate bars pruned to 6, with a duality-gap certificate and a critical load path.",
+    lede:
+      "A structural optimizer returns member sizes. TrussPath returns an optimal truss plus two certificates: that it is near-optimal, and exactly how the load reaches the supports.",
+    pillars: [
+      { crate: "fs-truss", role: "A Michell ground structure of all admissible candidate bars is sized to minimum volume under equilibrium by a first-order PDHG solver, which emits a certified relative duality gap: a machine-checkable bound on how far from optimal the design is." },
+      { crate: "fs-tropical", role: "The active bars form a DAG oriented by distance-to-support; a max-plus critical-path computation finds the single chain carrying the most material from load to supports, and names the bottleneck bar." },
+      { crate: "fs-evidence", role: "The optimality claim is Verified when the duality gap and equilibrium residual are tiny; the load path is Verified, an exact tropical computation." },
+    ],
+    impossible:
+      "A topology optimizer that certifies its own near-optimality with a duality gap and traces the critical load path through the result. You leave with the shape, a proof of its quality, and the story of how it carries force.",
+    result: "43 → 6 active bars · duality gap 7.8e-5 · critical path bottlenecked at member 33 · Verified optimal",
+    accent: "#22d3ee",
+  },
+  {
+    key: "sensor",
+    crate: "fs-oed-e2e",
+    layer: "L4 · Ascent",
+    name: "SensorForge",
+    title: "Measure the decision, not the uncertainty.",
+    tagline: "Value-of-information sensor placement that knows when to stop.",
+    lede:
+      "You must pick the best of several designs, but their performances are only estimated; you can spend sensors to sharpen them. SensorForge answers which to measure and when you have measured enough, both with certificates.",
+    pillars: [
+      { crate: "fs-assimilate", role: "Each candidate is a Gaussian belief; a sensor reading is fused with the exact scalar Kalman update, shrinking that candidate's posterior variance." },
+      { crate: "fs-voi", role: "EVPI scores the decision's ambiguity; recommend places the next sensor on the candidate whose measurement most sharpens the decision, not the most-uncertain one, and stops the instant EVPI falls below threshold." },
+      { crate: "fs-toleralloc", role: "The measurement-precision budget is then distributed cost-optimally across candidates by sensitivity." },
+    ],
+    impossible:
+      "Greedy experimental design that targets the decision rather than the raw variance, with a principled stopping rule. It spends sensors only on the contenders that could change the answer, and never on a design already dominated.",
+    result: "sensors land on decision-relevant contenders only · EVPI 0.163 → 0.010 over 8 placements · stops robust, chooses A",
+    accent: "#10b981",
+  },
+  {
+    key: "neuro",
+    crate: "fs-neuroshape-e2e",
+    layer: "L5 · Lumen",
+    name: "NeuroShapeCert",
+    title: "A neural shape whose topology is proven.",
+    tagline: "A learned SDF with a certified Lipschitz bound and a proven single component.",
+    lede:
+      "A learned neural SDF renders a shape but gives no guarantees: how far can a sphere-tracing ray step without tunneling through a thin feature, and how many components does the level set actually have? NeuroShapeCert proves both.",
+    pillars: [
+      { crate: "fs-rep-neural", role: "A small tanh-MLP SDF, spectrally normalized, is provably negative near the origin and positive on a surrounding ring. Its certified Lipschitz constant L = Π σᵢ makes |f|∕L a sphere-trace step that cannot tunnel through the surface." },
+      { crate: "fs-rep-neural · IBP", role: "Sound interval bound propagation proves a central box strictly inside (hi < 0) and every ring box strictly outside (lo > 0). A non-empty interior trapped in a certified-positive ring is a single bounded component: a proof, not a mesh." },
+      { crate: "fs-viz", role: "A Morse cross-check confirms a single interior minimum; isocontour crossings localize the zero set, and every crossing falls inside the certified ring." },
+    ],
+    impossible:
+      "Topology proven by interval arithmetic instead of sampled by marching a grid, plus a Lipschitz bound that makes rendering provably tunnel-free. A mesh can miss a thin handle or a hidden void; a sound interval enclosure cannot.",
+    result: "Lipschitz L = 18 (certified) · single bounded component proven · single interior minimum · all Verified",
+    accent: "#a855f7",
+  },
+  {
+    key: "grammar",
+    crate: "fs-grammar-e2e",
+    layer: "L4 · Ascent",
+    name: "GrammarForge",
+    title: "A fabricable family of shape programs, each rewrite re-proven.",
+    tagline: "MAP-Elites over CSG programs with certificate-preserving simplification.",
+    lede:
+      "A CAD model is one hand-built artifact with no guarantees. GrammarForge illuminates the diverse family of CSG programs that approximate a target shape and are fabricable, and proves every simplification preserves the geometry.",
+    pillars: [
+      { crate: "fs-shapeprog", role: "A candidate is a CSG program; its fidelity is the worst-case SDF discrepancy from the target. The rewrite engine drops redundant offsets and applies geometric identities, each carrying a fidelity certificate, so the simplified program is provably within max_error, and the campaign re-measures to confirm it." },
+      { crate: "fs-fab", role: "A minimum-feature-size constraint scores each program's smallest feature: the fabrication margin that separates buildable from fantasy." },
+      { crate: "fs-archive", role: "MAP-Elites over (program size × fabrication margin) keeps the best-matching program in every complexity niche: the diverse atlas, not one model." },
+    ],
+    impossible:
+      "A generative design loop that returns a whole illuminated family of programs, not one model, and re-verifies every optimization rewrite against the geometry it claims to preserve. The simplifier certifies itself, and the campaign checks the certificate.",
+    result: "18 / 24 niches filled · simplification 108 → 99 nodes, re-verified sound · fabricable family · Verified",
+    accent: "#22d3ee",
+  },
+  {
+    key: "anytimebo",
+    crate: "fs-adaptbo-e2e",
+    layer: "L4 · Ascent",
+    name: "AnytimeBO",
+    title: "Bayesian optimization that provably knows when to stop.",
+    tagline: "An anytime-valid stopping certificate for the search loop.",
+    lede:
+      "Every practical Bayesian optimizer faces the same question: have we searched enough? Peeking at the best-so-far after each iteration and stopping on a threshold silently inflates the chance of stopping too early. AnytimeBO answers with a guarantee.",
+    pillars: [
+      { crate: "fs-bo", role: "A Matérn-5⁄2 Gaussian process with closed-form Expected Improvement drives a deterministic minimization loop over a candidate grid." },
+      { crate: "fs-eproc", role: "A betting e-process watches a per-iteration stall indicator. When its e-value crosses 1∕α the search stops, an anytime-valid decision by Ville's inequality, so testing after every iteration never inflates the false-stop rate beyond α." },
+      { crate: "fs-eproc · CS", role: "An anytime-valid confidence sequence tracks the best-value trace as a running diagnostic." },
+    ],
+    impossible:
+      "A stopping rule that survives being checked after every single iteration. Classical tests break under peeking; an e-process is valid at every stopping time by construction, so the optimizer stops early without spending its error budget.",
+    result: "stops at iteration 12 · log-e 3.17 > Ville threshold 3.00 · anytime-valid, no alpha-spending",
+    accent: "#f59e0b",
+  },
+  {
+    key: "flowcert",
+    crate: "fs-flowcert-e2e",
+    layer: "L4 · Ascent",
+    name: "FlowCert",
+    title: "It tells you where to trust the CFD.",
+    tagline: "A certified credibility map over a lattice-Boltzmann operating space.",
+    lede:
+      "A CFD run gives you a number; it does not tell you whether to believe it. FlowCert illuminates the operating space of a lattice-Boltzmann channel and certifies credibility at every point.",
+    pillars: [
+      { crate: "fs-lbm", role: "Each channel is marched to steady state, then compared to the analytic Poiseuille solution: a manufactured-solution accuracy check reflecting the inherent O(1∕ny²) error. The scaling planner derives ν, τ and Mach for the target Reynolds and flags the regime Verified only when comfortably stable." },
+      { crate: "fs-archive", role: "MAP-Elites over (Reynolds × resolution) keeps the most-accurate operating point in every niche: the credibility atlas, not a single run." },
+      { crate: "fs-evidence", role: "A point that is accurate and comfortably stable is Verified; a point near τ = ½ is flagged Estimated as risky even where it is currently accurate." },
+    ],
+    impossible:
+      "A CFD sweep that returns not an answer but a map of where its answer is trustworthy, checked against an exact solution and a stability envelope. Most solvers hand you a number; this hands you a credibility verdict for every operating point.",
+    result: "Re = 20 credible at every resolution · Re = 120 flagged (unstable regime) · error 0.0008 → 0.22 across the map",
+    accent: "#22d3ee",
+  },
 ];
