@@ -6,9 +6,14 @@
  *
  * The same SPD 2D Laplacian (m = n² unknowns) solved by three Krylov methods —
  * CG, MINRES, GMRES — each returning its relative-residual history. We draw the
- * plunge on a log y-axis: whoever hits machine precision in the fewest steps wins
- * the race. GMRES cliff-drops in a couple of restart cycles; CG and MINRES take
- * the scenic route. All residuals are the real compiled-Rust solver output.
+ * plunge on a log y-axis against a shared *work* axis (matrix–vector products),
+ * which is the honest way to race them: CG and MINRES report one residual per
+ * iteration (one matvec), while restarted GMRES(30) reports one residual per
+ * completed restart cycle — thirty matvecs each — so its history points are
+ * placed 30 matvecs apart, not one. On this common axis CG and MINRES exploit
+ * the SPD structure to reach machine precision in the fewest products; GMRES
+ * cliff-drops steeply inside each cycle but pays thirty matvecs per restart.
+ * All residuals are the real compiled-Rust solver output.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -38,18 +43,31 @@ import {
 const TOL = 1e-8;
 const TOP_EXP = 1; // 10^1
 const BOT_EXP = -16; // 10^-16
+// Restart length of GMRES(m) inside the kernel (fs-wasm deep.rs). Each GMRES
+// history point is one completed cycle = this many matrix–vector products, so
+// its x-positions are spaced this far apart on the shared work axis. Keep in
+// sync with `let restart = 30usize;` in krylov_convergence.
+const GMRES_RESTART = 30;
+
+// Unicode-superscript an integer exponent (e.g. -8 → "⁻⁸") for the decade labels.
+const SUP: Record<string, string> = {
+  "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
+  "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹",
+};
+const sup = (e: number) => String(e).split("").map((ch) => SUP[ch] ?? ch).join("");
 
 interface Curve {
   name: string;
   color: string;
   rgba: (a: number) => string;
   vals: Float64Array;
+  xStep: number; // matrix–vector products represented by each history point
   tolIdx: number; // first index at or below TOL, or -1
 }
 interface KryData {
   m: number;
   curves: Curve[];
-  maxLen: number;
+  maxIter: number; // horizontal extent in matrix–vector products
   ms: number;
   seq: number;
 }
@@ -104,12 +122,12 @@ export default function KrylovConvergence() {
         const minres = readSection();
         const gmres = readSection();
         const curves: Curve[] = [
-          { name: "CG", color: CYAN_GLOW, rgba: (a) => `rgba(34,211,238,${a})`, vals: cg, tolIdx: firstBelow(cg, TOL) },
-          { name: "MINRES", color: VIOLET, rgba: (a) => `rgba(168,85,247,${a})`, vals: minres, tolIdx: firstBelow(minres, TOL) },
-          { name: "GMRES", color: AMBER, rgba: (a) => `rgba(251,191,36,${a})`, vals: gmres, tolIdx: firstBelow(gmres, TOL) },
+          { name: "CG", color: CYAN_GLOW, rgba: (a) => `rgba(34,211,238,${a})`, vals: cg, xStep: 1, tolIdx: firstBelow(cg, TOL) },
+          { name: "MINRES", color: VIOLET, rgba: (a) => `rgba(168,85,247,${a})`, vals: minres, xStep: 1, tolIdx: firstBelow(minres, TOL) },
+          { name: "GMRES", color: AMBER, rgba: (a) => `rgba(251,191,36,${a})`, vals: gmres, xStep: GMRES_RESTART, tolIdx: firstBelow(gmres, TOL) },
         ];
-        const maxLen = Math.max(cg.length, minres.length, gmres.length, 2);
-        dataRef.current = { m, curves, maxLen, ms, seq: token };
+        const maxIter = Math.max(2, ...curves.map((c) => c.vals.length * c.xStep));
+        dataRef.current = { m, curves, maxIter, ms, seq: token };
         setData(dataRef.current);
         if (msLabelRef.current) msLabelRef.current.textContent = ms.toFixed(2);
       } catch (e) {
@@ -139,14 +157,15 @@ export default function KrylovConvergence() {
     const padB = H * 0.13;
     const plotW = W - padL - padR;
     const plotH = H - padT - padB;
-    const px = (idx: number) => padL + (d.maxLen > 1 ? idx / (d.maxLen - 1) : 0) * plotW;
+    // x maps a matrix–vector-product count (0 .. maxIter) to pixels.
+    const px = (iter: number) => padL + (d.maxIter > 0 ? iter / d.maxIter : 0) * plotW;
     const py = (v: number) => padT + yFrac(v) * plotH;
     const fs = Math.max(8, W / 52);
 
-    // decade gridlines + labels
+    // decade gridlines + labels (10⁰ down to 10⁻¹⁶, emphasising the 10⁰ start line)
     ctx.font = `${fs}px ui-monospace, monospace`;
     ctx.textBaseline = "middle";
-    for (let e = TOP_EXP; e >= BOT_EXP; e -= 2) {
+    for (let e = 0; e >= BOT_EXP; e -= 2) {
       const y = py(Math.pow(10, e));
       ctx.beginPath();
       ctx.moveTo(padL, y);
@@ -156,7 +175,7 @@ export default function KrylovConvergence() {
       ctx.stroke();
       ctx.fillStyle = MUTED;
       ctx.textAlign = "right";
-      ctx.fillText(`10${e < 0 ? "⁻" : ""}${String(Math.abs(e))}`, padL - W * 0.015, y);
+      ctx.fillText(`10${sup(e)}`, padL - W * 0.015, y);
     }
 
     // tolerance line
@@ -176,7 +195,7 @@ export default function KrylovConvergence() {
     // x-axis label
     ctx.fillStyle = MUTED;
     ctx.textAlign = "center";
-    ctx.fillText("iteration / restart cycle →", padL + plotW / 2, H - padB * 0.35);
+    ctx.fillText("matrix–vector products →", padL + plotW / 2, H - padB * 0.35);
 
     // reveal clip (curves draw left→right together)
     const clipX = padL + reveal * plotW + 2;
@@ -188,10 +207,11 @@ export default function KrylovConvergence() {
     for (const c of d.curves) {
       const L = c.vals.length;
       if (L === 0) continue;
-      // lead-in plunge from residual ~1 at x0 (esp. dramatic for GMRES)
+      // lead-in plunge from residual ~1 at 0 matvecs; each history point k sits
+      // at (k+1)·xStep products (GMRES a full 30-matvec cycle further right).
       ctx.beginPath();
       ctx.moveTo(px(0), py(1));
-      for (let k = 0; k < L; k++) ctx.lineTo(px(k), py(c.vals[k]));
+      for (let k = 0; k < L; k++) ctx.lineTo(px((k + 1) * c.xStep), py(c.vals[k]));
       ctx.strokeStyle = c.rgba(0.95);
       ctx.lineWidth = Math.max(1.6, W / 300);
       ctx.shadowColor = c.color;
@@ -202,18 +222,20 @@ export default function KrylovConvergence() {
       // point markers
       for (let k = 0; k < L; k++) {
         ctx.beginPath();
-        ctx.arc(px(k), py(c.vals[k]), Math.max(1.5, W / 320), 0, Math.PI * 2);
+        ctx.arc(px((k + 1) * c.xStep), py(c.vals[k]), Math.max(1.5, W / 320), 0, Math.PI * 2);
         ctx.fillStyle = c.rgba(0.9);
         ctx.fill();
       }
     }
     ctx.restore();
 
-    // tolerance-crossing markers (only once revealed past them)
+    // tolerance-crossing markers (only once revealed past them), labelled with
+    // the matrix–vector-product count at which the residual first cleared TOL.
     ctx.textAlign = "center";
     for (const c of d.curves) {
       if (c.tolIdx < 0) continue;
-      const x = px(c.tolIdx);
+      const iter = (c.tolIdx + 1) * c.xStep;
+      const x = px(iter);
       if (x > clipX) continue;
       const y = py(c.vals[c.tolIdx]);
       const pulse = reduced ? 1 : 0.7 + 0.3 * Math.sin(time * 0.005);
@@ -226,7 +248,7 @@ export default function KrylovConvergence() {
       ctx.stroke();
       ctx.shadowBlur = 0;
       ctx.fillStyle = c.color;
-      ctx.fillText(String(c.tolIdx), x, y - fs * 1.2);
+      ctx.fillText(String(iter), x, y - fs * 1.2);
     }
   }, [reduced]);
 
@@ -322,15 +344,15 @@ export default function KrylovConvergence() {
       {/* legend */}
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[11px]">
         {(data?.curves ?? [
-          { name: "CG", color: CYAN_GLOW, vals: new Float64Array(), tolIdx: -1 },
-          { name: "MINRES", color: VIOLET, vals: new Float64Array(), tolIdx: -1 },
-          { name: "GMRES", color: AMBER, vals: new Float64Array(), tolIdx: -1 },
-        ] as { name: string; color: string; vals: Float64Array; tolIdx: number }[]).map((c) => (
+          { name: "CG", color: CYAN_GLOW, vals: new Float64Array(), xStep: 1, tolIdx: -1 },
+          { name: "MINRES", color: VIOLET, vals: new Float64Array(), xStep: 1, tolIdx: -1 },
+          { name: "GMRES", color: AMBER, vals: new Float64Array(), xStep: GMRES_RESTART, tolIdx: -1 },
+        ] as { name: string; color: string; vals: Float64Array; xStep: number; tolIdx: number }[]).map((c) => (
           <span key={c.name} className="inline-flex items-center gap-1.5" style={{ color: c.color }}>
             <span className="h-2 w-2 rounded-full" style={{ background: c.color, boxShadow: `0 0 6px ${c.color}` }} />
             {c.name}
             <span style={{ color: MUTED }}>
-              {c.vals.length ? `· ${c.vals.length} step${c.vals.length === 1 ? "" : "s"}${c.tolIdx >= 0 ? ` · tol@${c.tolIdx}` : ""}` : ""}
+              {c.vals.length ? `· ${c.vals.length * c.xStep} matvecs${c.tolIdx >= 0 ? ` · tol@${(c.tolIdx + 1) * c.xStep}` : ""}` : ""}
             </span>
           </span>
         ))}
@@ -355,11 +377,12 @@ export default function KrylovConvergence() {
 
       <div className="mt-4 border-t pt-3 text-[13px] leading-relaxed text-slate-400" style={{ borderColor: BORDER }}>
         One symmetric-positive-definite system, <span className="text-slate-200">−Δu = b</span> on an {n}×{n} grid, handed to
-        three Krylov solvers at once. <span style={{ color: CYAN_GLOW }}>CG</span> exploits symmetry with a short recurrence;{" "}
-        <span style={{ color: VIOLET }}>MINRES</span> minimises the residual norm monotonically; <span style={{ color: AMBER }}>GMRES</span>{" "}
-        builds a full Krylov basis and plunges to machine precision in a couple of restart cycles. Each dot is a genuine
-        residual from the compiled-Rust solver — no scripted curve. Watch them race down sixteen orders of magnitude to the
-        emerald tolerance line.
+        three Krylov solvers at once and raced on a shared <span className="text-slate-200">matrix–vector-product</span> axis.{" "}
+        <span style={{ color: CYAN_GLOW }}>CG</span> exploits symmetry with a short recurrence and reaches machine precision in
+        the fewest products; <span style={{ color: VIOLET }}>MINRES</span> minimises the residual norm monotonically;{" "}
+        <span style={{ color: AMBER }}>GMRES(30)</span> builds a full Krylov basis and cliff-drops inside each cycle, but every
+        restart costs another thirty matvecs. Each dot is a genuine residual from the compiled-Rust solver — no scripted curve.
+        Watch the residual plunge ten orders of magnitude to the emerald tolerance line.
       </div>
     </SyncContainer>
   );

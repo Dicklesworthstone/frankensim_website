@@ -297,7 +297,15 @@ export default function GpRegression() {
         const raw = await call<Float64Array>("gp_regression", nTrain, samples);
         const ms = performance.now() - t0;
         if (tokenRef.current !== token) return;
-        setState(decode(raw, ms));
+        const decoded = decode(raw, ms);
+        // The kernel folds a Cholesky/fit failure to an all-NaN tail (x_next,
+        // EI, posterior). Guard so the HUD never prints the literal "NaN".
+        if (!Number.isFinite(decoded.xNext) || !Number.isFinite(decoded.yLo)) {
+          setState(null);
+          setError("GP fit failed (near-singular covariance) — adjust the training set.");
+          return;
+        }
+        setState(decoded);
       } catch (e) {
         if (tokenRef.current === token) setError(e instanceof Error ? e.message : String(e));
       } finally {

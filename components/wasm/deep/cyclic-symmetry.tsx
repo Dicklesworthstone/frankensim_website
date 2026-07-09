@@ -401,7 +401,7 @@ export default function CyclicSymmetry() {
 
       <div className="mt-4 flex flex-col gap-2.5">
         <Slider label="N" value={n} min={4} max={64} step={1} onChange={(v) => setN(Math.round(v))} format={(v) => String(Math.round(v))} disabled={!ready} />
-        <Slider label="k" value={stiffness} min={0.05} max={4} step={0.05} onChange={setStiffness} format={(v) => v.toFixed(2)} color={VIOLET} disabled={!ready} />
+        <Slider label="κ" value={stiffness} min={0.05} max={4} step={0.05} onChange={setStiffness} format={(v) => v.toFixed(2)} color={VIOLET} disabled={!ready} />
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: MUTED }}>N</span>
           {[6, 8, 12, 24, 48].map((p) => (
@@ -413,7 +413,7 @@ export default function CyclicSymmetry() {
       </div>
 
       <div className="mt-3 rounded-md border px-3 py-1.5 font-mono text-[11px]" style={{ borderColor: BORDER, background: SURFACE, color: BRIGHT }}>
-        <span style={{ color: CYAN_GLOW }}>›</span> circulant {n}×{n} · <span style={{ color: EMERALD }}>{n} independent DFT harmonic blocks</span> · dominant k=
+        <span style={{ color: CYAN_GLOW }}>›</span> circulant {n}×{n} · κ={stiffness.toFixed(2)} · <span style={{ color: EMERALD }}>{n} independent DFT harmonic blocks</span> · dominant k=
         {data ? data.dominant : "—"}
         {data ? (
           <>
