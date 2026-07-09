@@ -4,27 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import type { MutableRefObject, RefObject } from "react";
 
 /* ───────────────────────────────────────────────────────────────────────────
- * Global animation gate — one authority for "should anything be animating?"
+ * Global visibility gate — pause animation ONLY when the tab is backgrounded.
  *
- * The Lab stacks forty always-animating live-WASM panels. Two states make the
- * whole page cheap to *interact with* without touching a single demo's draw
- * code, because every demo already gates its rAF loop on `useInView`:
- *
- *  • `scrolling` — true while the user is actively scrolling (reset ~120ms after
- *    the last scroll event). Folding this into `useInView` freezes every visible
- *    panel's animation for the duration of the gesture, so a scroll does almost
- *    no per-frame canvas/WebGL work. Resumes instantly on scroll-idle.
- *  • `hidden` — true while the tab is backgrounded (`visibilitychange`), so a
- *    hidden Lab burns zero CPU/GPU.
- *
- * LazyViz also consults `isScrollingNow()` to hold demo *mounts* until the
- * scroll settles, keeping the mount/first-paint storm off the scroll critical
- * path. Lazily initialised on first use; a no-op on the server.
+ * A hidden tab should burn zero CPU/GPU, and that pause is invisible to the
+ * user. We deliberately do NOT pause on scroll: freezing visible panels mid-
+ * gesture reads as "broken", and the cure is worse than the jank it prevents.
+ * Folded into `useInView` so every demo (which already gates on it) inherits
+ * the hidden-pause for free. Lazily initialised; a no-op on the server.
  * ────────────────────────────────────────────────────────────────────────── */
-let gScrolling = false;
 let gHidden = false;
 let gateInited = false;
-let gateScrollTimer: ReturnType<typeof setTimeout> | null = null;
 const gateSubs = new Set<() => void>();
 
 function notifyGate() {
@@ -32,40 +21,19 @@ function notifyGate() {
 }
 
 function ensureGate() {
-  if (gateInited || typeof window === "undefined") return;
+  if (gateInited || typeof window === "undefined" || typeof document === "undefined") return;
   gateInited = true;
-  gHidden = typeof document !== "undefined" && document.hidden;
-  const onScroll = () => {
-    if (!gScrolling) {
-      gScrolling = true;
+  gHidden = document.hidden;
+  document.addEventListener("visibilitychange", () => {
+    const h = document.hidden;
+    if (h !== gHidden) {
+      gHidden = h;
       notifyGate();
     }
-    if (gateScrollTimer) clearTimeout(gateScrollTimer);
-    gateScrollTimer = setTimeout(() => {
-      gScrolling = false;
-      gateScrollTimer = null;
-      notifyGate();
-    }, 120);
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  if (typeof document !== "undefined") {
-    document.addEventListener("visibilitychange", () => {
-      const h = document.hidden;
-      if (h !== gHidden) {
-        gHidden = h;
-        notifyGate();
-      }
-    });
-  }
+  });
 }
 
-/** True while the user is actively scrolling (LazyViz defers mounts on this). */
-export function isScrollingNow(): boolean {
-  ensureGate();
-  return gScrolling;
-}
-
-/** Subscribe to gate transitions (scroll start/stop, tab show/hide). */
+/** Subscribe to visibility transitions (tab show/hide). */
 export function subscribeGate(cb: () => void): () => void {
   ensureGate();
   gateSubs.add(cb);
@@ -81,35 +49,29 @@ export function subscribeGate(cb: () => void): () => void {
  * re-renders only on enter/leave transitions (never per frame); `inViewRef`
  * mirrors it so rAF loops can read the latest value without becoming an effect
  * dependency. Animation loops gate on this and stop painting while the panel is
- * scrolled out of view — the core anti-flicker mechanism: forty canvas/WebGL
- * loops must not all run at once, only the handful actually on screen.
+ * scrolled well out of view — the core anti-flicker mechanism: many canvas/WebGL
+ * loops must not all run at once, only the handful actually on (or near) screen.
  *
- * The reported value is `on-screen AND not(scrolling) AND not(tab hidden)`, so
- * every demo also freezes for the length of a scroll gesture and while the tab
- * is backgrounded — the page does near-zero animation work while you scroll.
- * Only currently-visible panels flip on a scroll transition (off-screen ones are
- * already false), so a scroll start/stop costs a handful of re-renders, not forty.
+ * The reported value is `on-screen AND not(tab hidden)`. Panels keep animating
+ * while you scroll (freezing them mid-gesture reads as broken); they only pause
+ * when scrolled away or when the tab is backgrounded.
  *
  * Defaults to visible so the first client paint animates immediately; the first
  * observer callback corrects it. A generous `rootMargin` keeps a panel "live"
  * slightly before it is fully on screen so entering never shows a frozen frame.
  */
 export function useInView<T extends Element = HTMLDivElement>(
-  // Tight margin: only near-visible panels animate. The old 150px lead existed
-  // to avoid a frozen frame when scrolling a panel in; with the scroll-freeze
-  // above, panels are frozen during the gesture and resume on scroll-idle
-  // regardless, so a smaller band just trims the simultaneously-animating set.
-  rootMargin = "64px 0px",
+  rootMargin = "200px 0px",
 ): { ref: RefObject<T | null>; inView: boolean; inViewRef: MutableRefObject<boolean> } {
   const ref = useRef<T | null>(null);
   const ioVisibleRef = useRef(true); // raw IntersectionObserver visibility
-  const inViewRef = useRef(true); // effective = ioVisible && !scrolling && !hidden
+  const inViewRef = useRef(true); // effective = ioVisible && !hidden
   const [inView, setInView] = useState(true);
 
   useEffect(() => {
     ensureGate();
     const recompute = () => {
-      const eff = ioVisibleRef.current && !gScrolling && !gHidden;
+      const eff = ioVisibleRef.current && !gHidden;
       inViewRef.current = eff;
       setInView((prev) => (prev === eff ? prev : eff));
     };
@@ -128,7 +90,7 @@ export function useInView<T extends Element = HTMLDivElement>(
     }
 
     const unsub = subscribeGate(recompute);
-    recompute(); // fold in the current scroll/hidden state immediately
+    recompute(); // fold in the current hidden state immediately
     return () => {
       io?.disconnect();
       unsub();

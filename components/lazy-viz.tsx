@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { isScrollingNow, subscribeGate } from "@/lib/use-viz-anim";
 
 /**
  * Mounts its children only once they scroll near the viewport, and applies
@@ -47,19 +46,6 @@ function viewportDistance(el: HTMLElement | null): number {
 }
 
 function drainMountQueue() {
-  // Hold mounts off the scroll critical path: a demo's first paint (dynamic
-  // import("three"), scene build, WASM result → geometry) must not land inside
-  // a scroll gesture. While scrolling, park and resume the drain on scroll-idle
-  // (`draining` stays true so no second drain starts meanwhile).
-  if (isScrollingNow()) {
-    const unsub = subscribeGate(() => {
-      if (!isScrollingNow()) {
-        unsub();
-        requestAnimationFrame(drainMountQueue);
-      }
-    });
-    return;
-  }
   if (mountQueue.length === 0) {
     draining = false;
     return;
