@@ -12,6 +12,17 @@ export function autodiff_derivatives(xmin, xmax, samples) {
 }
 
 /**
+ * @param {number} shape
+ * @returns {Float64Array}
+ */
+export function betti_shapes(shape) {
+    const ret = wasm.betti_shapes(shape);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} kind
  * @param {number} samples
  * @returns {Float64Array}
@@ -35,12 +46,49 @@ export function chebyshev_spectrum(kind) {
 }
 
 /**
+ * @param {number} seed
+ * @param {number} gens
+ * @returns {Float64Array}
+ */
+export function cmaes_trace(seed, gens) {
+    const ret = wasm.cmaes_trace(seed, gens);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} count
  * @param {number} log10_big
  * @returns {Float64Array}
  */
 export function compensated_sum(count, log10_big) {
     const ret = wasm.compensated_sum(count, log10_big);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} base
+ * @param {number} target
+ * @param {number} radius
+ * @returns {Float64Array}
+ */
+export function cutfem_quadtree(base, target, radius) {
+    const ret = wasm.cutfem_quadtree(base, target, radius);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} n
+ * @param {number} stiffness
+ * @returns {Float64Array}
+ */
+export function cyclic_symmetry(n, stiffness) {
+    const ret = wasm.cyclic_symmetry(n, stiffness);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -61,6 +109,20 @@ export function engine() {
     } finally {
         wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
     }
+}
+
+/**
+ * @param {number} grid
+ * @param {number} controls
+ * @param {number} amp
+ * @param {number} mode
+ * @returns {Float64Array}
+ */
+export function ffd_deform(grid, controls, amp, mode) {
+    const ret = wasm.ffd_deform(grid, controls, amp, mode);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
 }
 
 /**
@@ -112,6 +174,18 @@ export function ga_motor_orbit(n_points, steps) {
 }
 
 /**
+ * @param {number} n_train
+ * @param {number} samples
+ * @returns {Float64Array}
+ */
+export function gp_regression(n_train, samples) {
+    const ret = wasm.gp_regression(n_train, samples);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
  * @param {number} n
  * @param {number} frames
  * @param {number} feed
@@ -133,6 +207,29 @@ export function gray_scott_frames(n, frames, feed, kill) {
  */
 export function heat_frames(n, frames, steps_per_frame) {
     const ret = wasm.heat_frames(n, frames, steps_per_frame);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} shape
+ * @returns {Float64Array}
+ */
+export function hodge_decomposition(shape) {
+    const ret = wasm.hodge_decomposition(shape);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} n
+ * @param {number} maxit
+ * @returns {Float64Array}
+ */
+export function krylov_convergence(n, maxit) {
+    const ret = wasm.krylov_convergence(n, maxit);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -187,6 +284,32 @@ export function mandelbrot_certified(w, h, cx, cy, scale, maxiter) {
  */
 export function marching_cubes(res, kind, iso) {
     const ret = wasm.marching_cubes(res, kind, iso);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} cells
+ * @param {number} frames
+ * @param {number} re
+ * @param {number} steps_per_frame
+ * @returns {Float64Array}
+ */
+export function navier_stokes_cavity(cells, frames, re, steps_per_frame) {
+    const ret = wasm.navier_stokes_cavity(cells, frames, re, steps_per_frame);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * @param {number} n
+ * @param {number} epsilon
+ * @returns {Float64Array}
+ */
+export function optimal_transport(n, epsilon) {
+    const ret = wasm.optimal_transport(n, epsilon);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -332,6 +455,9 @@ export function wave2d_frames(n, frames, steps_per_frame) {
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
+        __wbg___wbindgen_throw_344f42d3211c4765: function(arg0, arg1) {
+            throw new Error(getStringFromWasm0(arg0, arg1));
+        },
         __wbindgen_init_externref_table: function() {
             const table = wasm.__wbindgen_externrefs;
             const offset = table.grow(4);

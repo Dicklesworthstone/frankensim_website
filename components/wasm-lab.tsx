@@ -31,6 +31,18 @@ import Mandelbrot from "@/components/wasm/frontier/mandelbrot";
 import GaMotor from "@/components/wasm/frontier/ga-motor";
 import Symplectic from "@/components/wasm/frontier/symplectic";
 
+// ── Tier III · The Deep Kernel (newly-unlocked upper stack) ───────────────
+import HodgeDecomposition from "@/components/wasm/deep/hodge-decomposition";
+import NavierStokesCavity from "@/components/wasm/deep/navier-stokes-cavity";
+import GpRegression from "@/components/wasm/deep/gp-regression";
+import CmaesTrace from "@/components/wasm/deep/cmaes-trace";
+import OptimalTransport from "@/components/wasm/deep/optimal-transport";
+import CyclicSymmetry from "@/components/wasm/deep/cyclic-symmetry";
+import KrylovConvergence from "@/components/wasm/deep/krylov-convergence";
+import CutfemQuadtree from "@/components/wasm/deep/cutfem-quadtree";
+import FfdDeform from "@/components/wasm/deep/ffd-deform";
+import BettiShapes from "@/components/wasm/deep/betti-shapes";
+
 const FOUNDATIONS = [
   { key: "heat", Comp: HeatPde },
   { key: "orr", Comp: OrrSommerfeld },
@@ -55,6 +67,19 @@ const FRONTIER = [
   { key: "mandel", Comp: Mandelbrot },
   { key: "ga", Comp: GaMotor },
   { key: "symp", Comp: Symplectic },
+];
+
+const DEEP = [
+  { key: "hodge", Comp: HodgeDecomposition },
+  { key: "ns", Comp: NavierStokesCavity },
+  { key: "gp", Comp: GpRegression },
+  { key: "cmaes", Comp: CmaesTrace },
+  { key: "ot", Comp: OptimalTransport },
+  { key: "cyclic", Comp: CyclicSymmetry },
+  { key: "krylov", Comp: KrylovConvergence },
+  { key: "cutfem", Comp: CutfemQuadtree },
+  { key: "ffd", Comp: FfdDeform },
+  { key: "betti", Comp: BettiShapes },
 ];
 
 function TierHeader({
@@ -109,11 +134,13 @@ export default function WasmLab() {
             </h1>
           </GlitchText>
           <p className="mt-8 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-slate-400">
-            Twenty of FrankenSim&apos;s actual Rust kernels, the very same code the native
+            Thirty of FrankenSim&apos;s actual Rust kernels, the very same code the native
             workspace compiles, cross-compiled to WebAssembly and computing in your browser,
             right now. No mocks, no pre-baked data, no server. Certified error bounds, exact
-            autodiff, spectral eigensolves, a topology optimizer, raymarched signed-distance
-            surfaces, a Lorenz attractor, interval-certified fractals: every pixel is real math.
+            autodiff, a topology optimizer, raymarched signed-distance surfaces, a Lorenz
+            attractor, and the deep stack itself: Hodge decomposition, real Navier–Stokes,
+            Gaussian-process Bayesian optimization, CutFEM on a signed-distance boundary. Every
+            pixel is real math.
           </p>
 
           {/* engine chip */}
@@ -138,7 +165,7 @@ export default function WasmLab() {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-            <span className="inline-flex items-center gap-1.5"><Cpu className="h-3 w-3 text-cyan-400" /> fs-sparse · fs-cheb · fs-ivl · fs-ad · fs-fft · fs-la · fs-ga · fs-rand · fs-math</span>
+            <span className="inline-flex items-center gap-1.5"><Cpu className="h-3 w-3 text-cyan-400" /> fs-sparse · fs-cheb · fs-ivl · fs-ad · fs-fft · fs-la · fs-ga · fs-feec · fs-flux · fs-bo · fs-cutfem · fs-solver · fs-dfo · fs-symmetry · fs-xform · fs-math</span>
             <span className="inline-flex items-center gap-1.5"><Zap className="h-3 w-3 text-violet-400" /> off-main-thread web worker</span>
           </div>
         </div>
@@ -179,10 +206,33 @@ export default function WasmLab() {
               </LazyViz>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* TIER III — THE DEEP KERNEL */}
+      <section className="relative pb-32 border-t border-white/5 pt-20">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-[6%] left-[-8%] h-[42%] w-[48%] rounded-full bg-cyan-500/10 blur-[130px]" />
+        </div>
+        <div className="mx-auto max-w-7xl px-6">
+          <TierHeader eyebrow="Tier III · The Deep Kernel" title={<>The <span className="text-gradient-sync">upper stack</span>, unlocked.</>} accent="#22d3ee">
+            The heavy machinery, reached by compiling FrankenSim&apos;s own async runtime to the
+            browser: exact discrete de Rham (Hodge decomposition and Betti numbers), real
+            incompressible Navier–Stokes, Gaussian-process Bayesian optimization, CMA-ES, optimal
+            transport, Krylov solvers, cyclic-symmetry, CutFEM on a signed-distance boundary, and
+            free-form deformation. Kernels no browser has run before.
+          </TierHeader>
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+            {DEEP.map(({ key, Comp }) => (
+              <LazyViz key={key} minHeight={560}>
+                <Comp />
+              </LazyViz>
+            ))}
+          </div>
 
           <p className="mx-auto mt-16 max-w-2xl text-center text-sm text-slate-500">
-            Every frame above was produced by FrankenSim&apos;s real Rust kernels compiled to
-            WebAssembly, the same bytes the native build runs. Source lives in{" "}
+            Every frame across all three tiers was produced by FrankenSim&apos;s real Rust kernels
+            compiled to WebAssembly, the same bytes the native build runs. Source lives in{" "}
             <code className="text-cyan-300">crates/fs-wasm</code>.
           </p>
         </div>
