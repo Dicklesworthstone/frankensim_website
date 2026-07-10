@@ -1362,7 +1362,7 @@ export default function VesselPipeline() {
         packed into a single Float64Array. The wall profile is a differentiable{" "}
         <span style={{ color: CYAN_GLOW }}>Chebyshev</span> curve; an <span className="text-slate-200">Orr–Sommerfeld</span>{" "}
         spectral check proves the pour stays <span style={{ color: EMERALD }}>laminar</span>; the free-surface pour is validated
-        against the sim's own mass frames with the ledger closing to <span className="text-slate-200">~10⁻¹³</span>; a{" "}
+        against the sim&rsquo;s own mass frames with the ledger closing to <span className="text-slate-200">~10⁻¹³</span>; a{" "}
         <span style={{ color: CYAN_GLOW }}>CVaR</span> robustification trades a little mean to guard the tail; and the final image
         is a <span className="text-slate-200">Woodcock volume trace</span> of the transmittance buffer — the marketing shot and
         the physics are <span style={{ color: CYAN_GLOW }}>the same certified bytes</span>. Everything here is compiled Rust,

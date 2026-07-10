@@ -554,7 +554,7 @@ export default function FramePipeline() {
           </div>
         )}
 
-        {!ready && <BootOverlay />}
+        {(!ready || (computing && !data)) && <BootOverlay />}
       </div>
 
       {error && (
@@ -614,6 +614,37 @@ export default function FramePipeline() {
           <>
             <span style={{ color: CYAN_GLOW }}>›</span> running the end-to-end frame campaign in WASM and decoding the offset-header buffer…
           </>
+        )}
+      </div>
+
+      {/* running readout (seed · headline stats · WASM time) */}
+      <div
+        className="mt-3 rounded-md border px-3 py-1.5 font-mono text-[11px]"
+        style={{ borderColor: BORDER, background: SURFACE, color: BRIGHT }}
+      >
+        <span style={{ color: CYAN_GLOW }}>›</span>{" "}
+        {computing && !data ? (
+          <span style={{ color: AMBER }}>running the full end-to-end FRAME campaign in WASM…</span>
+        ) : data ? (
+          <>
+            5-stage campaign · seed <span style={{ color: CYAN }}>{data.seed}</span> ·{" "}
+            <span style={{ color: CYAN_GLOW }}>{data.members.filter((m) => m.survivor).length}</span> survivors ·{" "}
+            p̂ <span style={{ color: EMERALD }}>{data.pHat.toFixed(3)}</span>{" "}
+            {data.stoppedEarly ? (
+              <>
+                e-stopped at <span style={{ color: EMERALD }}>{data.membersUsed}</span>
+              </>
+            ) : (
+              <>
+                ran to <span style={{ color: MUTED }}>{data.membersUsed}</span>
+              </>
+            )}{" "}
+            <span style={{ color: MUTED }}>│</span>{" "}
+            <span style={{ color: EMERALD }}>{data.ms.toFixed(0)} ms in WASM</span>
+            {computing ? <span style={{ color: AMBER }}> · recomputing…</span> : null}
+          </>
+        ) : (
+          "one call runs Layout → Sizing → Time history → Fragility → CVaR; stepping just re-draws a decoded block…"
         )}
       </div>
 
