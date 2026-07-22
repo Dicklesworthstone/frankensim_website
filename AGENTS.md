@@ -11,7 +11,7 @@ The marketing and documentation site for [FrankenSim](https://github.com/Dickles
 ## Conventions
 
 - **All content lives in `lib/content.ts`** — the single source of truth (siteConfig, nav, the seven layers, principles, the crate atlas, flagships, comparison, roadmap, glossary, FAQ). Do not scatter content into other files.
-- **Numbers are computed, not typed.** `bun scripts/compute-stats.mjs` refreshes `heroStats` (crate count, lines of Rust, tests) and `bun scripts/generate-atlas.mjs` regenerates the crate atlas from the FrankenSim workspace metadata (`FRANKENSIM_DIR`, default `~/projects/frankensim`). Flowing prose uses floored forms ("100+ crates", "160K+ lines") so it does not go stale between runs.
+- **Numbers are computed, not typed.** `bun scripts/compute-stats.mjs` refreshes `heroStats` (crate count, lines of Rust, tests) and `bun scripts/generate-atlas.mjs` regenerates the crate atlas from the FrankenSim workspace metadata (`FRANKENSIM_DIR`, default `~/projects/frankensim`). Flowing prose uses floored forms ("100+ crates", "200K+ lines") so it does not go stale between runs.
 - **Copy is de-slopified:** minimal em-dashes (prefer commas, semicolons, or a recast), and no "not just X, it's Y" / "Here's why" LLM tells. Keep the declarative, technical voice.
 - **Design system:** near-black-teal `#04090d`, cyan `#06b6d4`/`#22d3ee` + violet `#a855f7`, glass surfaces, micro-labels (`text-[10px] font-black uppercase tracking-[0.3em]`), Inter + JetBrains Mono. Reuse the shared utilities in `app/globals.css` (`.glass-modern`, `.card`/`.card-hover`, `.field`, `.btn-secondary`).
 

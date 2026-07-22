@@ -22,7 +22,7 @@ git clone https://github.com/Dicklesworthstone/frankensim_website.git && cd fran
 
 **The problem:** most project sites for deep systems are static marketing pages. They *claim* the system is fast, correct, and novel, but a reader leaves without ever seeing it do anything, and the impressive parts stay abstract.
 
-**The solution:** this site *shows* FrankenSim instead of describing it. Forty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser, across two experiences: thirty quick demos in the Lab ([`/lab`](https://frankensim.org/lab), three tiers from numerical primitives to the deep upper stack) and ten certified end-to-end campaigns ([`/e2e`](https://frankensim.org/e2e), each composing crates that were never designed to meet into one pipeline that returns a proof, a frontier, a stop rule, or a credibility map). The ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 104-crate architecture is browsable, not just asserted.
+**The solution:** this site *shows* FrankenSim instead of describing it. Forty of FrankenSim's real Rust numerical kernels are compiled to WebAssembly and run live in your browser, across two experiences: thirty quick demos in the Lab ([`/lab`](https://frankensim.org/lab), three tiers from numerical primitives to the deep upper stack) and ten certified end-to-end campaigns ([`/e2e`](https://frankensim.org/e2e), each composing crates that were never designed to meet into one pipeline that returns a proof, a frontier, a stop rule, or a credibility map). The ideas behind the project (evidence-carrying values, sheaf-cohomology watertightness, anytime-valid statistics) are taught through interactive visualizations; and the whole 109-crate architecture is browsable, not just asserted.
 
 ### Why this site is different
 
@@ -40,7 +40,7 @@ git clone https://github.com/Dicklesworthstone/frankensim_website.git && cd fran
 
 [FrankenSim](https://github.com/Dicklesworthstone/frankensim) is a single, memory-safe Rust continuum for computational geometry, physics, optimization, and rendering. Most simulation stacks split physical units, numerical error, geometry validity, provenance, and reproducibility across incompatible tools; FrankenSim builds those concerns into one workspace, so derivatives, error bounds, budgets, provenance, and cancellation ride *inside* the values. Where it matters, it returns proofs, not just numbers.
 
-- **104 `fs-*` crates** in one acyclic workspace across seven layers (L0 Substrate through L6 Helm).
+- **109 `fs-*` crates** in one acyclic workspace across seven layers (L0 Substrate through L6 Helm).
 - Deterministic numerics, certified intervals, exact geometric predicates, CutFEM-on-SDF, adjoint-native optimization, spectral path tracing, and a FrankenSQLite-backed design ledger.
 - An epistemic type system: every value is verified, validated, or estimated, and composition is type-checked so an estimate can never launder into a certificate.
 
