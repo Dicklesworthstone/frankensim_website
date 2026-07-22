@@ -1,0 +1,1553 @@
+{
+  "generated_at": "2026-07-15T22:06:41Z",
+  "commits": [
+    {
+      "sha": "f0a485f5e9018d93c603e6d52d677698cd8ef5e3",
+      "date": "2026-07-06T14:00:08-04:00",
+      "message": "Implement fs-substrate tile layout with Morton codec and CCD affinity",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.6",
+        "frankensim-epic-substrate-wf9.9"
+      ]
+    },
+    {
+      "sha": "2f95854deb047561bbbe1fc0fbf41e5b350b074b",
+      "date": "2026-07-06T14:43:32-04:00",
+      "message": "Complete fs-exec executor contract and close its bead",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.7",
+        "frankensim-epic-ascent-7tv.6",
+        "frankensim-epic-foundations-huq.4",
+        "frankensim-epic-bedrock-6ys.2"
+      ]
+    },
+    {
+      "sha": "9672d667837a3ddbdcfdb15468d781ac808f34d0",
+      "date": "2026-07-06T14:58:40-04:00",
+      "message": "Close determinism-contract bead with final reduce polish",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.10"
+      ]
+    },
+    {
+      "sha": "4d9792889e68a49abb511bd43ed7509faa0c8381",
+      "date": "2026-07-06T15:31:37-04:00",
+      "message": "Close speculative-races bead with executor contract update",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.8",
+        "frankensim-epic-bedrock-6ys.9"
+      ]
+    },
+    {
+      "sha": "dd692b905f8e3640b189a7ac5866cb0a76cc107d",
+      "date": "2026-07-06T16:27:16-04:00",
+      "message": "Add fs-roofline roofline harness with ledgered attainment",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.12",
+        "frankensim-epic-perf-fz2.1",
+        "frankensim-epic-bedrock-6ys.3"
+      ]
+    },
+    {
+      "sha": "5e7875a4bcf5ea74d5276e25b6601c36415819d3",
+      "date": "2026-07-06T16:53:08-04:00",
+      "message": "Close fs-evidence bead with formatting polish",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.5",
+        "frankensim-epic-helm-gp3.2",
+        "frankensim-epic-bedrock-6ys.8"
+      ]
+    },
+    {
+      "sha": "33c1ed4c6ba49af09740e4b3c1cc9ec57449a30d",
+      "date": "2026-07-06T17:01:27-04:00",
+      "message": "Complete fs-ledger time travel: forks, at(t), explain, replay audit",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.3",
+        "frankensim-epic-morph-wqd.1"
+      ]
+    },
+    {
+      "sha": "a45f7cada829a23bc7abdcfc563ac9c2ee6cf778",
+      "date": "2026-07-06T17:11:43-04:00",
+      "message": "Start fs-ivl exact expansion arithmetic",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.14"
+      ]
+    },
+    {
+      "sha": "16a92ea3555d2e586c3d3e23011c119a89e4b8c3",
+      "date": "2026-07-06T17:14:21-04:00",
+      "message": "Close fs-la mixed-precision contract",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.17",
+        "frankensim-epic-bedrock-6ys.8"
+      ]
+    },
+    {
+      "sha": "bcc2848cb6b2392d2449763333315073f4f2511a",
+      "date": "2026-07-06T17:37:21-04:00",
+      "message": "Add Shewchuk exact predicates to fs-ivl",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.14"
+      ]
+    },
+    {
+      "sha": "18f5172b8dbc712b9024fef643a8ea88b5a25abf",
+      "date": "2026-07-06T18:25:41-04:00",
+      "message": "Close fs-rep-sdf bead with conformance and polish",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.2"
+      ]
+    },
+    {
+      "sha": "9c8ba5b7ea62e6d144d9d670bb57e908b01b5acc",
+      "date": "2026-07-06T18:26:27-04:00",
+      "message": "Add the Rep Router to fs-geom",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.8"
+      ]
+    },
+    {
+      "sha": "21369ba96892ba136bf8630a221005107f698be9",
+      "date": "2026-07-06T18:47:48-04:00",
+      "message": "Add fs-ir: FrankenScript typed AST with isomorphic syntaxes",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.4"
+      ]
+    },
+    {
+      "sha": "c6d372328b46e8582ceee7fdceb1c3fc900261e1",
+      "date": "2026-07-06T19:21:17-04:00",
+      "message": "Add certified mesh-to-SDF converter and close its bead",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.9",
+        "frankensim-epic-bedrock-6ys.13"
+      ]
+    },
+    {
+      "sha": "8341cb46c71f3dc076db3e7448b59529503f5c3f",
+      "date": "2026-07-06T19:36:03-04:00",
+      "message": "Add dual contouring with bracket certificate and close its bead",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.10"
+      ]
+    },
+    {
+      "sha": "a295b6b3f6a380e79dd4cf4ec4f9fb6e4a47b4df",
+      "date": "2026-07-06T20:39:20-04:00",
+      "message": "Add fs-rep-frep: CSG DAGs with R-function Booleans and derived evaluators",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.3",
+        "frankensim-epic-substrate-wf9.14"
+      ]
+    },
+    {
+      "sha": "fc735b76e967653b0cc0e68a788124221de49ce4",
+      "date": "2026-07-06T21:28:39-04:00",
+      "message": "docs(fs-rand): document extended distribution contracts",
+      "beads_added": [
+        "frankensim-epic-bedrock-6ys.19"
+      ]
+    },
+    {
+      "sha": "c25feae279e28be0f6f24016719f13f81da62ca0",
+      "date": "2026-07-06T22:08:45-04:00",
+      "message": "chore(beads): close Orr-Sommerfeld stack",
+      "beads_added": [
+        "frankensim-urvw"
+      ]
+    },
+    {
+      "sha": "4a17114c15002faf5d400706ef8971187da26614",
+      "date": "2026-07-06T22:12:39-04:00",
+      "message": "Add fs-xform: design parameterizations with exact Jacobian actions",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.19"
+      ]
+    },
+    {
+      "sha": "8f71102ca9f82c68d69848dc5d9d493e164c435d",
+      "date": "2026-07-06T23:37:50-04:00",
+      "message": "Complete fs-img: PNG/EXR round-trips, biased-labeled denoiser, film stack",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.6"
+      ]
+    },
+    {
+      "sha": "d0d59a07eaaaea20e924bd1f02fba48f80105e69",
+      "date": "2026-07-07T00:21:54-04:00",
+      "message": "Implement fs-ga: PGA motors + CGA rounds on const-evaluated Cayley tables",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.22"
+      ]
+    },
+    {
+      "sha": "64dbee1cf45d28669e36e9eb658e08dab5827f78",
+      "date": "2026-07-07T00:33:42-04:00",
+      "message": "Add fs-constraint: the typed constraint calculus with real proofs",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.2"
+      ]
+    },
+    {
+      "sha": "a24019ba487eab6d712e521676d8f4cfc613bfc3",
+      "date": "2026-07-07T01:21:08-04:00",
+      "message": "Implement fs-scenario: typed BC/load-case algebra with seeded ensembles",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.4",
+        "frankensim-epic-flux-tfz.1"
+      ]
+    },
+    {
+      "sha": "88c1b46c85f0895f25cc84f8f85a60e1e28c95b5",
+      "date": "2026-07-07T01:58:11-04:00",
+      "message": "Implement fs-regime: Buckingham-Pi, scaling maps, solver admission gating",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.3"
+      ]
+    },
+    {
+      "sha": "052d38bc5524e47f8ec931fcb74f9b852bd937e8",
+      "date": "2026-07-07T02:45:15-04:00",
+      "message": "Implement fs-material: consistent-tangent constitutive kernel",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.2"
+      ]
+    },
+    {
+      "sha": "df6e8dc93478dcf151de77b773ef1b3fd3429763",
+      "date": "2026-07-07T04:07:16-04:00",
+      "message": "Implement fs-ir static admission: six timed checks with ranked fixes",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.5"
+      ]
+    },
+    {
+      "sha": "c8e5ca9523f7586d219799cbefbaf2d4e1b9dbfe",
+      "date": "2026-07-07T05:49:09-04:00",
+      "message": "Implement fs-session: enforcing governor, idempotency, dry-run estimates",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.5",
+        "frankensim-epic-flux-tfz.5",
+        "frankensim-epic-bedrock-6ys.4",
+        "frankensim-epic-flux-tfz.12",
+        "frankensim-epic-helm-gp3.7"
+      ]
+    },
+    {
+      "sha": "19a4193b5356f8c910f3b3166ae52cdc8a068584",
+      "date": "2026-07-07T09:11:28-04:00",
+      "message": "Add fs-geocon: differentiable, certifiable geometric constraint primitives",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.21",
+        "frankensim-epic-morph-wqd.6"
+      ]
+    },
+    {
+      "sha": "d819cfa086fac65ef3c052d8670f3f7652e30d83",
+      "date": "2026-07-07T09:43:20-04:00",
+      "message": "Implement fs-rep-voxel: voxel fields, exact EDT, clouds, fnx lattices",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.11",
+        "frankensim-epic-morph-wqd.6",
+        "frankensim-epic-flux-tfz.5"
+      ]
+    },
+    {
+      "sha": "3948a82fb0793064c3428052335c59a46d70f8fe",
+      "date": "2026-07-07T12:07:00-04:00",
+      "message": "Add fs-topo: validity and topology certificates, fix icosphere projection",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.23",
+        "frankensim-epic-morph-wqd.5"
+      ]
+    },
+    {
+      "sha": "f8a3cf7d60c56afdc121f53f85a9cbbb9c10d9eb",
+      "date": "2026-07-07T12:49:34-04:00",
+      "message": "Implement fs-rep-nurbs: exact spline algebra, certified trims, honest Booleans",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.4",
+        "frankensim-epic-flux-tfz.6",
+        "frankensim-epic-morph-wqd.5"
+      ]
+    },
+    {
+      "sha": "e43e3b14c8db88bbc5263a98cfc9cfde19fcc2e3",
+      "date": "2026-07-07T14:32:14-04:00",
+      "message": "Add the three-color epistemic schema and its ledger write gate",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.25",
+        "frankensim-epic-epistype-qmao.1"
+      ]
+    },
+    {
+      "sha": "3432e6e6d5f6a847cab52d00eaa47afff8eba2b0",
+      "date": "2026-07-07T14:45:07-04:00",
+      "message": "Implement fs-io: quarantined imports, teaching catalogs, container exports",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.25"
+      ]
+    },
+    {
+      "sha": "39fd1a5144ae211073fbf8100774f1b4366304b3",
+      "date": "2026-07-07T14:56:40-04:00",
+      "message": "Add falsifier pairing: registry, consequence-x-doubt budget, rent reviews",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.15",
+        "frankensim-epic-flywheel-lmp4.6",
+        "frankensim-epic-epistype-qmao.4"
+      ]
+    },
+    {
+      "sha": "cc4383a029fb8a72e45e3101c889a1bd63a7303e",
+      "date": "2026-07-07T15:13:52-04:00",
+      "message": "Add the tombstone ledger: pi-space swarm memory with a validated gate",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.13",
+        "frankensim-epic-flywheel-lmp4.15"
+      ]
+    },
+    {
+      "sha": "5524bc9db33d0693c67e316c68327ba41cdd7aed",
+      "date": "2026-07-07T15:21:26-04:00",
+      "message": "Add tolerance-aware invalidation: flow-through absorption with upward closure",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.7",
+        "frankensim-epic-epistype-qmao.5"
+      ]
+    },
+    {
+      "sha": "f536e98f8254a443988830b2365e6a29d865dd3a",
+      "date": "2026-07-07T15:22:12-04:00",
+      "message": "feat(fs-opt): add the Goodhart guard (addendum Proposal D)",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.5"
+      ]
+    },
+    {
+      "sha": "983c9ab253547ccb470b7b8e2162da83b3b65156",
+      "date": "2026-07-07T16:40:08-04:00",
+      "message": "feat(fs-iface): coupling-graph static checker (addendum Proposal 13)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.8",
+        "frankensim-epic-morph-wqd.13",
+        "frankensim-epic-flux-tfz.10",
+        "frankensim-epic-flux-tfz.6",
+        "frankensim-epic-selfknow-knh1.1"
+      ]
+    },
+    {
+      "sha": "52a7aacc1d4063c3e2ff25a4f55fa1fcd4e4c0fc",
+      "date": "2026-07-07T16:47:47-04:00",
+      "message": "Add the perturb() API and cost-weighted cache policy",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.8",
+        "frankensim-epic-epistype-qmao.7"
+      ]
+    },
+    {
+      "sha": "04ca27a056645322510c3eabbe3b59632a976e78",
+      "date": "2026-07-07T16:54:50-04:00",
+      "message": "Implement sheaf watertightness certificates with interval-sound verdicts",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.13"
+      ]
+    },
+    {
+      "sha": "6ab7342f52778165f96296e3df8195792d4c22d6",
+      "date": "2026-07-07T17:01:51-04:00",
+      "message": "feat(fs-probe): discrepancy probes + budget pie (addendum Proposal 3)",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.2"
+      ]
+    },
+    {
+      "sha": "772d97508f1e19bf5d551c1147bd83b65f4e470f",
+      "date": "2026-07-07T17:08:46-04:00",
+      "message": "Add physics-VCS base verbs: Merkle commits, cheap checkouts, merge views",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.9"
+      ]
+    },
+    {
+      "sha": "67f026aa051a4520c94786769943982c6abc8f6b",
+      "date": "2026-07-07T17:17:57-04:00",
+      "message": "feat(fs-govern): machine-readable risk register R1-R10 (addendum Part V)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.6"
+      ]
+    },
+    {
+      "sha": "64ec7d62098932b6d35d20769cab63c136752479",
+      "date": "2026-07-07T17:23:41-04:00",
+      "message": "Add semantic diff: stable entity IDs plus ranked causal attribution",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.10"
+      ]
+    },
+    {
+      "sha": "7713ca504ecb8682cbeeb56a1b611184558fc16b",
+      "date": "2026-07-07T17:50:14-04:00",
+      "message": "feat(fs-govern): encode the doctrine + 19 proposals (addendum xpck.1)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.1"
+      ]
+    },
+    {
+      "sha": "c12ddbfa1cf4ab98255ea44ffad8040b6f5dea78",
+      "date": "2026-07-07T17:57:09-04:00",
+      "message": "feat(fs-spececo): certified-speculation accept/reject economics (Proposal 9)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.3"
+      ]
+    },
+    {
+      "sha": "259c07e4f7cf30f92bf355704062157835329f36",
+      "date": "2026-07-07T18:03:56-04:00",
+      "message": "Add sheaf repair: Hodge split with bounded auto-repair and ranked fixes",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.14"
+      ]
+    },
+    {
+      "sha": "ab3e9b5fee25e095be2026f9fb2c5de6465180fe",
+      "date": "2026-07-07T18:08:42-04:00",
+      "message": "feat(fs-govern): addendum crate registry (addendum xpck.7)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.7"
+      ]
+    },
+    {
+      "sha": "544eaee3c0fd27ab672c9f6cf36fbcbd7a99204a",
+      "date": "2026-07-07T18:15:50-04:00",
+      "message": "Close the Phase 0 spine milestone with an executable gate suite",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.2"
+      ]
+    },
+    {
+      "sha": "b33496e291b928f5113bd65c651b2d5b3b97b044",
+      "date": "2026-07-07T18:28:10-04:00",
+      "message": "feat(fs-contract): assume-guarantee component contracts (Proposal E)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.8",
+        "frankensim-epic-morph-wqd.11",
+        "frankensim-epic-flywheel-lmp4.14"
+      ]
+    },
+    {
+      "sha": "279d611817f854930a8dc20cd7605702a0f14c2f",
+      "date": "2026-07-07T18:52:06-04:00",
+      "message": "Add the certified NURBS-to-SDF converter behind the nurbs-sdf feature",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.24",
+        "frankensim-epic-morph-wqd.11",
+        "frankensim-epic-flux-tfz.10"
+      ]
+    },
+    {
+      "sha": "d462cca08d61f15d4f7cca6bd77cd4b91f54a578",
+      "date": "2026-07-07T19:11:17-04:00",
+      "message": "feat(fs-bisect): physics-VCS bisect (addendum Proposal 10)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.11"
+      ]
+    },
+    {
+      "sha": "c9e1a4b984773dfed3fcd953fd251394567867ec",
+      "date": "2026-07-07T19:32:48-04:00",
+      "message": "Add the SDF-to-NURBS refit closing the certified round-trip pair",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.12"
+      ]
+    },
+    {
+      "sha": "f781085a538063c1d6711777030efa3ca5817d19",
+      "date": "2026-07-07T19:39:53-04:00",
+      "message": "Add fs-cutfem: CutFEM on SDFs with certified cuts, ghost penalty, and zero meshing",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.8"
+      ]
+    },
+    {
+      "sha": "15eb75700d69ca73d6fec1cc72b18f3f65666a01",
+      "date": "2026-07-07T20:05:33-04:00",
+      "message": "Add fs-solid: elasticity core from linear to hyperelastic with measured locking-free path",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.13",
+        "frankensim-epic-flux-tfz.24",
+        "frankensim-epic-ascent-7tv.3"
+      ]
+    },
+    {
+      "sha": "0bdaf5d204ec1f2c856e3d7c41dfa3fbee62dfed",
+      "date": "2026-07-07T20:38:48-04:00",
+      "message": "feat(fs-dimine): dimensional knowledge mining (addendum Proposal 9)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.15",
+        "frankensim-epic-flux-tfz.7",
+        "frankensim-epic-flywheel-lmp4.5"
+      ]
+    },
+    {
+      "sha": "5f0db690c53172d7571357f8ca6247a33e6826d6",
+      "date": "2026-07-07T20:44:37-04:00",
+      "message": "feat(fs-package): machine-checkable evidence packages (addendum Proposal 12)",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.6"
+      ]
+    },
+    {
+      "sha": "8cbdb9529f36e3807cc19c998c551ead897799c7",
+      "date": "2026-07-07T20:52:28-04:00",
+      "message": "feat(fs-checker): standalone evidence-package checker (addendum Proposal 12)",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.8"
+      ]
+    },
+    {
+      "sha": "7d95552cf6bbb1055296991fb43f119b27916635",
+      "date": "2026-07-07T20:53:27-04:00",
+      "message": "Add fs-feec cohomology: harmonic cochains, Hodge split, circulation",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.7"
+      ]
+    },
+    {
+      "sha": "b12ea4bbb1d4566e49bce442b4270edfc0120499",
+      "date": "2026-07-07T20:59:13-04:00",
+      "message": "feat(fs-crosswalk): regulatory vocabulary crosswalk (addendum Proposal 12)",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.1",
+        "frankensim-epic-epistype-qmao.9"
+      ]
+    },
+    {
+      "sha": "f1d202841d6cb4c29fb60a1fdbfd8624df1c8c69",
+      "date": "2026-07-07T21:09:15-04:00",
+      "message": "feat(fs-ascent): add gradient optimizer stack",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.3"
+      ]
+    },
+    {
+      "sha": "41cadccb11349a1ab5b48374b5e5f875906cdfd7",
+      "date": "2026-07-07T21:13:53-04:00",
+      "message": "Add the ledger-DAG transposition: VJP registry, fail-loud gradients",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.11",
+        "frankensim-epic-selfknow-knh1.3",
+        "frankensim-epic-coupling-bk0o.1"
+      ]
+    },
+    {
+      "sha": "b07d32d30141075ef8bf68cca72df30b1826aad9",
+      "date": "2026-07-07T21:15:45-04:00",
+      "message": "feat(fs-spectral): spectral health monitoring (addendum Proposal 5)",
+      "beads_added": [
+        "frankensim-epic-selfknow-knh1.3"
+      ]
+    },
+    {
+      "sha": "3d7ac0e08e5214873728bedf6dde75e4cfceeb8d",
+      "date": "2026-07-07T21:28:46-04:00",
+      "message": "feat(fs-symmetry): symmetry harvesting (addendum Proposal 13)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.12",
+        "frankensim-epic-selfknow-knh1.2"
+      ]
+    },
+    {
+      "sha": "3a74c998d002f58f3a4b2a1d388e707d2c6f8d5b",
+      "date": "2026-07-07T21:34:06-04:00",
+      "message": "Add the sheaf-adjudicated three-way merge (the crown jewel)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.12"
+      ]
+    },
+    {
+      "sha": "89daf53a83d95ae164cfa91db3edd44124bf6b1d",
+      "date": "2026-07-07T21:37:22-04:00",
+      "message": "feat(fs-conform): restriction-map plugin conformance SDK (addendum Proposal 7)",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.2",
+        "frankensim-epic-gtm-jwq8.2"
+      ]
+    },
+    {
+      "sha": "38e1d33abbcb72ecb27b145dcc211e74d11fcf3b",
+      "date": "2026-07-07T21:42:27-04:00",
+      "message": "feat(fs-wedge): go-to-market wedge selection as data (addendum Proposal 7)",
+      "beads_added": [
+        "frankensim-epic-gtm-jwq8.1"
+      ]
+    },
+    {
+      "sha": "485917040d3b149dd811621ffd47657988cb1e76",
+      "date": "2026-07-07T21:47:17-04:00",
+      "message": "feat(fs-robust): wire objective epistemics into workspace",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.3"
+      ]
+    },
+    {
+      "sha": "9ac91869c99f56fbe5f9a58e859d4050f1296cf8",
+      "date": "2026-07-07T21:47:28-04:00",
+      "message": "feat(fs-robust): objective epistemics (addendum Proposal F)",
+      "beads_added": [
+        "frankensim-epic-epistype-qmao.3"
+      ]
+    },
+    {
+      "sha": "dcc2cd780e6a06b4202110ed2dd1a5abf470bbd5",
+      "date": "2026-07-07T21:48:27-04:00",
+      "message": "Add the meshing mitigations: differentiability-aware routing and flags",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.2"
+      ]
+    },
+    {
+      "sha": "3fab970ad002fb16223020cd8dfde362c117e004",
+      "date": "2026-07-07T22:31:36-04:00",
+      "message": "Add gradient certificates: interval residual bounds and the merge gate",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.3"
+      ]
+    },
+    {
+      "sha": "5d545413249548287cf7e57df1fa78684b2fb542",
+      "date": "2026-07-07T22:50:24-04:00",
+      "message": "Close DWR adaptivity bead; unblock the policy gate with fs-wasm's layer tag",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.23"
+      ]
+    },
+    {
+      "sha": "312d1f3d08f2ccc2494dfd7f582d339a7fecc9e9",
+      "date": "2026-07-07T23:09:03-04:00",
+      "message": "feat(fs-epi-e2e): epistemic type-system end-to-end suite (addendum qmao.10)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.11",
+        "frankensim-epic-ascent-7tv.5",
+        "frankensim-epic-ascent-7tv.12",
+        "frankensim-epic-epistype-qmao.10"
+      ]
+    },
+    {
+      "sha": "28c6a1a1b8b51e83762391a4b1db8ff9503dfeb9",
+      "date": "2026-07-07T23:16:33-04:00",
+      "message": "feat(fs-asbuilt): as-built ingestion, reality as a chart (addendum Proposal 11)",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.4",
+        "frankensim-epic-flywheel-lmp4.18"
+      ]
+    },
+    {
+      "sha": "2abd2e76a21a5528f04436546d25b1cb43fe40e3",
+      "date": "2026-07-07T23:23:28-04:00",
+      "message": "Add fs-topols: level-set topology optimization on the CutFEM stack",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.12"
+      ]
+    },
+    {
+      "sha": "91ca0d7174f18e3c95ad9910177509ee2d97ae33",
+      "date": "2026-07-07T23:31:13-04:00",
+      "message": "feat(fs-toleralloc): adjoint-driven tolerance allocation (addendum Proposal 11)",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.6"
+      ]
+    },
+    {
+      "sha": "11ff1c599edfe3a12674a7b5371c0557304ce1f0",
+      "date": "2026-07-07T23:41:33-04:00",
+      "message": "feat(fs-assimilate): data assimilation, validation as a living belief (Proposal 11)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.5",
+        "frankensim-epic-coupling-bk0o.5"
+      ]
+    },
+    {
+      "sha": "0541aac2bd17884d08f6e78e92cb872eee751670",
+      "date": "2026-07-07T23:53:05-04:00",
+      "message": "feat(fs-diffreal-e2e): differentiation \u0026 reality e2e suite (addendum bk0o.8)",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.8",
+        "frankensim-epic-flux-tfz.25"
+      ]
+    },
+    {
+      "sha": "bcc71d484b001d7188b920308971b7800c4cf543",
+      "date": "2026-07-07T23:55:13-04:00",
+      "message": "Add fs-solid structural elements: Cosserat rods, fiber sections, force-based beams",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.14"
+      ]
+    },
+    {
+      "sha": "a76cbea571cb0cb9b324a4734a200e40a63a8ca2",
+      "date": "2026-07-08T00:01:14-04:00",
+      "message": "feat(fs-voi): value-of-information and active validation (base-plan 7tv.18)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.18"
+      ]
+    },
+    {
+      "sha": "9ab427e3ca95b3e0e0556547c84234ce4ae37321",
+      "date": "2026-07-08T00:03:59-04:00",
+      "message": "Prove the flywheel compounds: the whole-loop e2e harness lands",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.20",
+        "frankensim-epic-flywheel-lmp4.18"
+      ]
+    },
+    {
+      "sha": "e90f79bba69cb606484a3dfa62124646dd9a91a3",
+      "date": "2026-07-08T00:07:20-04:00",
+      "message": "feat(fs-fab): manufacturing \u0026 code-compliance constraint layer (base-plan 7tv.20)",
+      "beads_added": [
+        "frankensim-epic-gtm-jwq8",
+        "frankensim-epic-ascent-7tv.20",
+        "frankensim-epic-epistype-qmao"
+      ]
+    },
+    {
+      "sha": "58c1becd87623a4fedb51554f8cfe2c290c93cd4",
+      "date": "2026-07-08T00:13:40-04:00",
+      "message": "feat(fs-tropical): tropical critical-path analytics (base-plan fz2.3)",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.4",
+        "frankensim-epic-perf-fz2.3"
+      ]
+    },
+    {
+      "sha": "e907bc6796b5e8b840b52bc618eae1657a969bf2",
+      "date": "2026-07-08T00:19:14-04:00",
+      "message": "Add the DWR goal-oriented accept test with mechanical color promotion",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.24",
+        "frankensim-epic-flywheel-lmp4.4"
+      ]
+    },
+    {
+      "sha": "034540b883432c80cc86d9122d3c9902d916723f",
+      "date": "2026-07-08T00:21:55-04:00",
+      "message": "feat(fs-shapeprog): generative geometry program synthesis (base-plan wqd.24)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.3",
+        "frankensim-epic-morph-wqd.24"
+      ]
+    },
+    {
+      "sha": "c339020dc6a6b8fb6bc6f0b47405491ac503b5cd",
+      "date": "2026-07-08T00:33:05-04:00",
+      "message": "Close the Phase 1 flywheel milestone with its executable gate",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.3"
+      ]
+    },
+    {
+      "sha": "17adceb60d42733878e890442ed6f8233a71a6da",
+      "date": "2026-07-08T00:37:05-04:00",
+      "message": "feat(fs-couple): port-Hamiltonian passive coupling (base-plan tfz.22)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.22",
+        "frankensim-epic-flywheel-lmp4.16"
+      ]
+    },
+    {
+      "sha": "8c5b0e555e9d3d0f1a7840e941fed43890519008",
+      "date": "2026-07-08T00:43:36-04:00",
+      "message": "Add fs-fmm and fs-bem: black-box FMM and potential-flow panel methods",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.20"
+      ]
+    },
+    {
+      "sha": "714e9e6ef39d590ddfd4fa42254fec89a136cc4b",
+      "date": "2026-07-08T00:48:10-04:00",
+      "message": "feat(fs-lbm): lattice Boltzmann D2Q9 core + scaling assistant (base-plan tfz.18)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.18"
+      ]
+    },
+    {
+      "sha": "fc3b099c311fae435b6788d25b22ff976bd90082",
+      "date": "2026-07-08T00:54:59-04:00",
+      "message": "feat(fs-iga): isogeometric analysis 1D B-spline Poisson (base-plan tfz.9)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.9"
+      ]
+    },
+    {
+      "sha": "9ee7227858c7f09c86bd694b600a1bb263a013b1",
+      "date": "2026-07-08T00:55:00-04:00",
+      "message": "Add the greedy fidelity-ladder planner; kill measurement passes 4.31x",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.16"
+      ]
+    },
+    {
+      "sha": "158a86bd2c2ab0eab958630da1d844b31aac2766",
+      "date": "2026-07-08T01:00:31-04:00",
+      "message": "feat(fs-ir): add anytime query refusal semantics",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.17"
+      ]
+    },
+    {
+      "sha": "1ade44a99cf9a67a6be8f6fa10b914209f9622c6",
+      "date": "2026-07-08T01:01:26-04:00",
+      "message": "Add anytime and refusal semantics: colored intervals, priced hints",
+      "beads_added": [
+        "frankensim-epic-flywheel-lmp4.17",
+        "frankensim-epic-ascent-7tv.8"
+      ]
+    },
+    {
+      "sha": "d336adbdd625544e25d062d4617fa0b309c14b63",
+      "date": "2026-07-08T01:01:43-04:00",
+      "message": "feat(fs-surrogate): POD ROM + conformal certify-or-escalate (base-plan 7tv.8)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.8"
+      ]
+    },
+    {
+      "sha": "f9fad5309f23a18de2d9356cecb01d21938e8aa7",
+      "date": "2026-07-08T01:04:31-04:00",
+      "message": "Add fs-truss: ground-structure layout LP with certified PDHG and code sizing",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.13"
+      ]
+    },
+    {
+      "sha": "7587e1a31bb4a073d29838244b6e2c502235a710",
+      "date": "2026-07-08T01:16:07-04:00",
+      "message": "feat(fs-rep-neural): Lipschitz-certified neural implicit charts (base-plan wqd.7)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.11",
+        "frankensim-epic-morph-wqd.7"
+      ]
+    },
+    {
+      "sha": "b089421c5494e231d3623973251e91a30169efb0",
+      "date": "2026-07-08T01:22:37-04:00",
+      "message": "feat(fs-render): unbiased spectral path-tracing core (base-plan qfx.1)",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.1"
+      ]
+    },
+    {
+      "sha": "c0f1a5c2ef63582e173efc87be255e3af1242e6c",
+      "date": "2026-07-08T01:29:31-04:00",
+      "message": "feat(fs-sos): proof-carrying optimization via SOS certificates (base-plan 7tv.10)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.16",
+        "frankensim-epic-ascent-7tv.10"
+      ]
+    },
+    {
+      "sha": "3c56418c549420e1f62886af9cd1c31a78c38a38",
+      "date": "2026-07-08T01:36:01-04:00",
+      "message": "feat(fs-archive): MAP-Elites / CVT quality-diversity archives (base-plan 7tv.17)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.17"
+      ]
+    },
+    {
+      "sha": "8aaecbcd1881349484bdabd3f71a5f38d250ee28",
+      "date": "2026-07-08T01:40:47-04:00",
+      "message": "feat(fs-viz): analytically-verified scientific-viz primitives (base-plan qfx.4)",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.4"
+      ]
+    },
+    {
+      "sha": "57d775e47f3d38f94b7c1d017c3c74888e551ec0",
+      "date": "2026-07-08T01:43:58-04:00",
+      "message": "Add fs-dd: BDDC with sheaf-framed edge coarse spaces and honest tables",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.11"
+      ]
+    },
+    {
+      "sha": "8f031ad48a56a3ac5e91023cd99782138918bcd4",
+      "date": "2026-07-08T02:15:12-04:00",
+      "message": "Complete fs-flux: BDM1-P0 pressure-robust Navier-Stokes (bead tfz.17)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.17"
+      ]
+    },
+    {
+      "sha": "6e5ae66563ec1267711c591ef23bbf47a4568596",
+      "date": "2026-07-08T02:27:52-04:00",
+      "message": "feat(fs-report): automatic lab notebooks + semantic diffs (base-plan gp3.10)",
+      "beads_added": [
+        "frankensim-6jtb",
+        "frankensim-dcng",
+        "frankensim-epic-helm-gp3.10",
+        "frankensim-epic-lumen-qfx.2",
+        "frankensim-mdx2"
+      ]
+    },
+    {
+      "sha": "43ea2dd57b29c33e221250cec35b5d8db814a6d5",
+      "date": "2026-07-08T02:37:35-04:00",
+      "message": "feat(fs-vpm): vortex particle method 2-D inviscid core (base-plan tfz.21)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.21"
+      ]
+    },
+    {
+      "sha": "f8a927e601372affc84484e041f8f99d513fe88a",
+      "date": "2026-07-08T02:42:02-04:00",
+      "message": "Add chart render backends: certified no-tunnel tracing, mixed scenes",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.2"
+      ]
+    },
+    {
+      "sha": "c237207ae16f557a92329426a906abc0735d139a",
+      "date": "2026-07-08T02:48:09-04:00",
+      "message": "feat(fs-marquee): scaffold P2 raw-SDF marquee study",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.1"
+      ]
+    },
+    {
+      "sha": "06ce40b0ac07242eac124cd42b9a2f7d22d74054",
+      "date": "2026-07-08T02:53:59-04:00",
+      "message": "Document fs-feec vector families in contract (bead dcng)",
+      "beads_added": [
+        "frankensim-dcng"
+      ]
+    },
+    {
+      "sha": "6df2c03eb3a2ea5c8c731faad7cabda19475aabb",
+      "date": "2026-07-08T03:29:47-04:00",
+      "message": "Ship the marquee study runner: raw-SDF optimization, zero meshing",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.1"
+      ]
+    },
+    {
+      "sha": "ded5b78909a40b81b493289bea2cd6742aa99eb1",
+      "date": "2026-07-08T04:02:21-04:00",
+      "message": "Complete fs-lbm extensions: rheology, thermal, free surface, refinement (bead tfz.19)",
+      "beads_added": [
+        "frankensim-epic-flux-tfz.19"
+      ]
+    },
+    {
+      "sha": "8d27622657d0f4ace6bdc40991f295e9b958e34c",
+      "date": "2026-07-08T04:37:44-04:00",
+      "message": "Ship fs-frame: seismic-minimal flagship smoke tier (bead mye.3)",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.3"
+      ]
+    },
+    {
+      "sha": "07ed68236119e92b0caeac8b6b6b47e20cca0c02",
+      "date": "2026-07-08T10:25:30-04:00",
+      "message": "Add manifold harmonics: LB shape spectrum with refresh transfer",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.20"
+      ]
+    },
+    {
+      "sha": "0ccee78a87ec4e81ca38554142e7506aea356bf5",
+      "date": "2026-07-08T11:28:50-04:00",
+      "message": "Ship fs-render volumes: Woodcock media on live LBM fields (bead qfx.3)",
+      "beads_added": [
+        "frankensim-mdx2",
+        "frankensim-epic-lumen-qfx.3"
+      ]
+    },
+    {
+      "sha": "c5c850c05cd45fa011bbbd7014b3186bd2b28545",
+      "date": "2026-07-08T12:41:18-04:00",
+      "message": "Add elastic shape metrics: SRV geodesics, straightening, trust regions",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.27"
+      ]
+    },
+    {
+      "sha": "980f979da8f2d4ff123328518b2ae943f58d1d17",
+      "date": "2026-07-08T14:32:36-04:00",
+      "message": "Add persistence topology penalties: Betti targets with attribution",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.15"
+      ]
+    },
+    {
+      "sha": "422f6d2b6ee29737a02b540d7cdd12b2e9c2e525",
+      "date": "2026-07-08T14:40:46-04:00",
+      "message": "Pin nightly-2026-07-06 toolchain (bead go7a)",
+      "beads_added": [
+        "frankensim-go7a"
+      ]
+    },
+    {
+      "sha": "2d0d12906a7730ce03707d41b75d0b4c1435b6b8",
+      "date": "2026-07-08T14:45:51-04:00",
+      "message": "Add conformal hardening: Mondrian buckets, drift e-tests, FCR budgets",
+      "beads_added": [
+        "frankensim-lar1",
+        "frankensim-epic-ascent-7tv.9"
+      ]
+    },
+    {
+      "sha": "4c3ec84cb5cdf5dcbf53e301accb3fc9e908be70",
+      "date": "2026-07-08T15:31:08-04:00",
+      "message": "Ship fs-lattice: unit-cell homogenization + graded optimization (bead 7tv.14, stages 1-3)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.14"
+      ]
+    },
+    {
+      "sha": "8ea3a9e5b7c1561896c9bc3ea1ee6244e7d5a939",
+      "date": "2026-07-08T18:02:16-04:00",
+      "message": "Add the certified abstraction ladder: RB beachhead with leak alarm",
+      "beads_added": [
+        "frankensim-epic-selfknow-knh1.4"
+      ]
+    },
+    {
+      "sha": "08b42b1b3d2f7d2facb6ae743dc1e0a64811b9db",
+      "date": "2026-07-08T18:09:42-04:00",
+      "message": "Complete fs-lattice with de-homogenization re-analysis (bead 7tv.14)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.14",
+        "frankensim-epic-selfknow-knh1.5"
+      ]
+    },
+    {
+      "sha": "ef019e265aaeeb7d8c305b139114e9b09affb89f",
+      "date": "2026-07-08T18:20:15-04:00",
+      "message": "Add explanation objects: checkable causal decompositions with bounds",
+      "beads_added": [
+        "frankensim-epic-selfknow-knh1.5",
+        "frankensim-epic-ascent-7tv.7"
+      ]
+    },
+    {
+      "sha": "9bde5a7e594e9cef74d2df90b4e1fcc89b2af9a6",
+      "date": "2026-07-08T18:23:11-04:00",
+      "message": "Ship fs-race: e-racing with anytime-valid cancellation (bead 7tv.7)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.7"
+      ]
+    },
+    {
+      "sha": "8a9016744727cdeb0b9788df6999e86e9bdc38ab",
+      "date": "2026-07-08T19:43:19-04:00",
+      "message": "Add time slabs as cells: splitting error in the ledger, controlled",
+      "beads_added": [
+        "frankensim-epic-coupling-bk0o.7"
+      ]
+    },
+    {
+      "sha": "125c7711ba645e4773604624ccbe754e14b9c1b5",
+      "date": "2026-07-08T20:00:06-04:00",
+      "message": "Ship fs-cheb variants: colleague roots, certification, Cheb2, Fourier (bead kw89)",
+      "beads_added": [
+        "frankensim-kw89",
+        "frankensim-epic-addendum-xpck.4"
+      ]
+    },
+    {
+      "sha": "3f9a714868c2de4a8ab62359f903a7990c272b4c",
+      "date": "2026-07-08T20:01:04-04:00",
+      "message": "Add the Phase 2 leverage gate: adjoint and planner benchmarks recorded",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.4"
+      ]
+    },
+    {
+      "sha": "7049ca38995f62664d0715580ae7b8fe987f22ae",
+      "date": "2026-07-08T20:33:37-04:00",
+      "message": "Ship Payne-Hanek trig reduction for all finite f64 (bead r6r5)",
+      "beads_added": [
+        "frankensim-r6r5"
+      ]
+    },
+    {
+      "sha": "941a67e3cfd3a2bbc1fc3209bf0a044bc073188f",
+      "date": "2026-07-08T21:00:17-04:00",
+      "message": "Add value-of-information queries: the ignorance market as a ranked list",
+      "beads_added": [
+        "frankensim-epic-selfknow-knh1.6"
+      ]
+    },
+    {
+      "sha": "b95e00ff7ee8140d0c1427824a23953af1353963",
+      "date": "2026-07-08T21:26:22-04:00",
+      "message": "Ship fs-vessel laminar-pour flagship (bead mye.4)",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.4"
+      ]
+    },
+    {
+      "sha": "922c83597d2a79c1a862d9b8e37f5240b8ec9c8e",
+      "date": "2026-07-08T21:43:23-04:00",
+      "message": "Add deterministic asin/acos and fs-ad inverse-trig Real ops (bead t88x)",
+      "beads_added": [
+        "frankensim-t88x"
+      ]
+    },
+    {
+      "sha": "7575cdd6bb0728794ef0fce4eae3512f9667b93d",
+      "date": "2026-07-08T22:14:02-04:00",
+      "message": "Ship fs-ad adjoint integrations (bead o3ui)",
+      "beads_added": [
+        "frankensim-o3ui"
+      ]
+    },
+    {
+      "sha": "319cb64f052d76e15882ee53ace41092881c7fa8",
+      "date": "2026-07-08T23:19:42-04:00",
+      "message": "Add vertex-patch Schwarz smoothing to the p-MG (bead x08j)",
+      "beads_added": [
+        "frankensim-x08j"
+      ]
+    },
+    {
+      "sha": "7624964781185c5d82879ba0e63aba9da304021d",
+      "date": "2026-07-08T23:36:47-04:00",
+      "message": "Add the self-knowledge e2e battery: six stages, one script, all held",
+      "beads_added": [
+        "frankensim-epic-selfknow-knh1.7",
+        "frankensim-avuw"
+      ]
+    },
+    {
+      "sha": "3dcbfaaf3d3e90496719bb6a879500ca825e61b7",
+      "date": "2026-07-08T23:45:49-04:00",
+      "message": "Add Stokes saddle-point block preconditioners and PMINRES (bead avuw)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.8",
+        "frankensim-avuw"
+      ]
+    },
+    {
+      "sha": "ff0fdabc5fdf1c9d530fd282ca52ea5c8aa9ba73",
+      "date": "2026-07-08T23:51:17-04:00",
+      "message": "Add the epistemic-engine acceptance: the whole product path executes",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.8"
+      ]
+    },
+    {
+      "sha": "4afcfab1f2f7a6fcb7975dfb2924b365f9407942",
+      "date": "2026-07-09T10:09:10-04:00",
+      "message": "Add the Phase 3 horizon gate: five activation instruments, in writing",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.5",
+        "frankensim-epic-addendum-xpck.5"
+      ]
+    },
+    {
+      "sha": "7b3eb638dfafe4217330f8bca793f0f64e628436",
+      "date": "2026-07-09T10:18:29-04:00",
+      "message": "Add edge-aware differentiable rendering to fs-render (bead qfx.5)",
+      "beads_added": [
+        "frankensim-epic-lumen-qfx.5"
+      ]
+    },
+    {
+      "sha": "fe8a2c2061377e47293a3c638eb152337a97adcd",
+      "date": "2026-07-09T10:42:39-04:00",
+      "message": "Add the budget allocator to fs-plan (bead gp3.9)",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.9"
+      ]
+    },
+    {
+      "sha": "6f7d53a6615147be57f7f40ea6459068743b6511",
+      "date": "2026-07-09T12:48:47-04:00",
+      "message": "chore(fs-gen): register proposal-only generative scaffold",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.19"
+      ]
+    },
+    {
+      "sha": "73c1c6b46f0f36673cc2bbda70164c0b11eee23c",
+      "date": "2026-07-09T12:55:19-04:00",
+      "message": "Add fs-gen: proposal-only generators with compiler-enforced epistemics",
+      "beads_added": [
+        "frankensim-vcia",
+        "frankensim-epic-ascent-7tv.19"
+      ]
+    },
+    {
+      "sha": "a7adca7caa259e57be927bd28bb10c7800194976",
+      "date": "2026-07-09T13:04:34-04:00",
+      "message": "Add MOO integration lanes: world-fork steering and chance constraints",
+      "beads_added": [
+        "frankensim-qlvf"
+      ]
+    },
+    {
+      "sha": "2f29772b8536171929f2b4bae4ece8aa849caa3c",
+      "date": "2026-07-09T13:22:51-04:00",
+      "message": "Add interior-point, SQP, fsci oracle, and the IR study runner (bead ijil)",
+      "beads_added": [
+        "frankensim-ijil"
+      ]
+    },
+    {
+      "sha": "d5873bfd82a3c2dbe359c11aef4947a5def8cdba",
+      "date": "2026-07-09T14:40:06-04:00",
+      "message": "Ship fs-ornith ornithoid flagship (bead mye.2)",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.2"
+      ]
+    },
+    {
+      "sha": "9dc7417090e62e7ab2756719034e2ab0d3b32875",
+      "date": "2026-07-09T14:56:35-04:00",
+      "message": "feat(fs-flagship-e2e): add staged flagship replay suite scaffold",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.5"
+      ]
+    },
+    {
+      "sha": "20e9825018aeb30b5b2b12c122c7c95c84b3a646",
+      "date": "2026-07-09T15:03:59-04:00",
+      "message": "Ship the flagship e2e suite (bead mye.5)",
+      "beads_added": [
+        "frankensim-epic-flagships-mye.5"
+      ]
+    },
+    {
+      "sha": "e8c496e4ddf2486a6bdcf3cba9c605adc8e4e5ef",
+      "date": "2026-07-09T15:17:18-04:00",
+      "message": "Add the CutFEM-octree topology marquee: evolve topology, never remesh",
+      "beads_added": [
+        "frankensim-b7d0"
+      ]
+    },
+    {
+      "sha": "29fb1ea4f4fbe84d9181e804edead61f8925e4dc",
+      "date": "2026-07-09T15:20:28-04:00",
+      "message": "Add the SME2 streaming-mode GEMM prototype to fs-simd (bead wf9.3)",
+      "beads_added": [
+        "frankensim-epic-substrate-wf9.3"
+      ]
+    },
+    {
+      "sha": "151a6431f338b8e045f1ea7dd17b6f2664bf766e",
+      "date": "2026-07-09T16:14:58-04:00",
+      "message": "Add hex-dominant meshing: SH9 frame fields, MBO, polycube fallback",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.18"
+      ]
+    },
+    {
+      "sha": "4b771496e1b68bedddb6d5ecd292aca34f332cbf",
+      "date": "2026-07-09T16:36:45-04:00",
+      "message": "Decide fs-mesh boundary-layer quality by measurement; v3 resolved",
+      "beads_added": [
+        "frankensim-iw3l"
+      ]
+    },
+    {
+      "sha": "d2332b5427cd1120b2005e39d66491b86f0ae41d",
+      "date": "2026-07-09T16:57:45-04:00",
+      "message": "Add fs-rand perf evidence: ziggurat 2.86x measured, admission armed",
+      "beads_added": [
+        "frankensim-1za9"
+      ]
+    },
+    {
+      "sha": "4456672ff6be7b974c81ac092d11f30b9f391479",
+      "date": "2026-07-09T17:44:53-04:00",
+      "message": "Land fs-feec high-order perf: 44% of peak sum-factorized apply (cwjn)",
+      "beads_added": [
+        "frankensim-cwjn",
+        "frankensim-tzeh"
+      ]
+    },
+    {
+      "sha": "3d340a3de2e987619782b444a3fdc5df85da9d3a",
+      "date": "2026-07-09T18:08:39-04:00",
+      "message": "Land fs-la GEMM slice 1: NEON microkernel capsule, 87% of peak (xdgf)",
+      "beads_added": [
+        "frankensim-xdgf"
+      ]
+    },
+    {
+      "sha": "ba9ab8a6f41787b8cc985b9a12a25e15443b2362",
+      "date": "2026-07-09T21:05:18-04:00",
+      "message": "fs-fft radix-4 + NEON stage kernels + hardened STREAM axis (27d3, partial)",
+      "beads_added": [
+        "frankensim-a2g2",
+        "frankensim-xlvx"
+      ]
+    },
+    {
+      "sha": "d2d3aec4061ee7923adde943e424ede4e4799637",
+      "date": "2026-07-09T22:26:02-04:00",
+      "message": "Make fs-race elimination anytime-valid (7tv.7.1)",
+      "beads_added": [
+        "frankensim-epic-ascent-7tv.7.1"
+      ]
+    },
+    {
+      "sha": "417fc67cdb5968ef4a7d2197a678debc87135926",
+      "date": "2026-07-09T22:39:46-04:00",
+      "message": "Fail closed on malformed regress evidence (fz2.4.1)",
+      "beads_added": [
+        "frankensim-epic-perf-fz2.4.1"
+      ]
+    },
+    {
+      "sha": "9071fe1cfbb0ecfaeda1ecd67298a188d534cffd",
+      "date": "2026-07-09T22:51:27-04:00",
+      "message": "Split governance audits into schema vs live-operation verdicts (xpck.9)",
+      "beads_added": [
+        "frankensim-epic-addendum-xpck.9"
+      ]
+    },
+    {
+      "sha": "30808a47d30f25083c5e15ea6a0e738bd34c24cc",
+      "date": "2026-07-09T22:59:55-04:00",
+      "message": "Authenticate ledger waivers; annotations no longer authorize (qmao.1.1)",
+      "beads_added": [
+        "frankensim-a2g2",
+        "frankensim-epic-epistype-qmao.1.1"
+      ]
+    },
+    {
+      "sha": "d31573bd7ddcb82a1cac0906d471af303ca8c38f",
+      "date": "2026-07-10T00:04:07-04:00",
+      "message": "Make races panic-total and cancellation wiring mandatory (wf9.8.1)",
+      "beads_added": [
+        "frankensim-9ekv",
+        "frankensim-epic-substrate-wf9.8.1"
+      ]
+    },
+    {
+      "sha": "921c486e400ad918b9853e2ffd5a9a6f681d4658",
+      "date": "2026-07-10T00:29:24-04:00",
+      "message": "Bind RNG streams to declared run identity, not pool history (wf9.7.1)",
+      "beads_added": [
+        "frankensim-powi-build-mode-determinism-4xnt",
+        "frankensim-epic-substrate-wf9.7.1"
+      ]
+    },
+    {
+      "sha": "b2cb2c24796f1f43be972c1b59b456fee6f5cd3d",
+      "date": "2026-07-10T00:40:49-04:00",
+      "message": "Wrap solver snapshots in a versioned self-authenticating envelope (wf9.8.2)",
+      "beads_added": [
+        "frankensim-9sf6",
+        "frankensim-epic-substrate-wf9.8.2"
+      ]
+    },
+    {
+      "sha": "4fbdefc124c4b7e98617c467be24757fd6c51391",
+      "date": "2026-07-10T00:43:43-04:00",
+      "message": "Accept legal face-before-vertex PLY element order (wqd.25.1)",
+      "beads_added": [
+        "frankensim-epic-morph-wqd.25.1"
+      ]
+    },
+    {
+      "sha": "10bdac0a123543d8c14512a5244470447af02cb0",
+      "date": "2026-07-10T01:00:47-04:00",
+      "message": "Golden coupling registry + justified-bump protocol (y4pt)",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.13",
+        "frankensim-golden-coupling-discipline-y4pt"
+      ]
+    },
+    {
+      "sha": "a2a2b1039ebfec3bfd3ba0210b8db5eb66a1d218",
+      "date": "2026-07-10T01:03:29-04:00",
+      "message": "fix(4xnt): four-quadrant powi golden, underflow-doc sync, fs-ad bitwise lint fix",
+      "beads_added": [
+        "frankensim-powi-build-mode-determinism-4xnt"
+      ]
+    },
+    {
+      "sha": "2ca177ee8bd6157048e6d3cd3a06cfb858cc65cf",
+      "date": "2026-07-10T01:06:25-04:00",
+      "message": "chore(xtask): add README claim-state drift checks",
+      "beads_added": [
+        "frankensim-q2tf",
+        "frankensim-claim-state-lint-06yc"
+      ]
+    },
+    {
+      "sha": "6434aeed5c56eca00e39bd0196752ca18999ce10",
+      "date": "2026-07-10T01:08:09-04:00",
+      "message": "feat(xtask): claim-state lint (06yc) + wire golden-couplings check (y4pt)",
+      "beads_added": [
+        "frankensim-claim-state-lint-06yc"
+      ]
+    },
+    {
+      "sha": "f4562ebc1a66a3dd00ab50e1b1f0e5a2e8eb55f1",
+      "date": "2026-07-10T01:50:01-04:00",
+      "message": "Split the NEON capsule under the 300-line cap (8nfp)",
+      "beads_added": [
+        "frankensim-wa8i",
+        "frankensim-epic-helm-gp3.2.1",
+        "frankensim-neon-capsule-size-8nfp"
+      ]
+    },
+    {
+      "sha": "42323ce6430e606ed2968c3f0ae09aa05dc88c74",
+      "date": "2026-07-10T02:49:57-04:00",
+      "message": "Evidence packages: strict v2 round trip and solver-free reverification (qmao.6.1)",
+      "beads_added": [
+        "frankensim-f5pr",
+        "frankensim-epic-helm-gp3.2.1",
+        "frankensim-epic-gauntlet-6nb.9",
+        "frankensim-84ib",
+        "frankensim-epic-helm-gp3.14",
+        "frankensim-epic-helm-gp3.12",
+        "frankensim-epic-epistype-qmao.6.1"
+      ]
+    },
+    {
+      "sha": "81c11df36fb421d0e7bbfede4c094c96602dce6f",
+      "date": "2026-07-10T02:52:22-04:00",
+      "message": "feat(fs-bisect): Gauntlet failure-compounding workflow (6nb.9)",
+      "beads_added": [
+        "frankensim-epic-gauntlet-6nb.9"
+      ]
+    },
+    {
+      "sha": "6fb85130c893b2e9de652adec124f6fd38d48083",
+      "date": "2026-07-10T03:08:45-04:00",
+      "message": "Constellation bootstrap from the lock; fix crosswalk layer inversion (huq.17)",
+      "beads_added": [
+        "frankensim-epic-foundations-huq.17"
+      ]
+    },
+    {
+      "sha": "dc990942c6aca864644df5b5860061482e964ab4",
+      "date": "2026-07-10T03:27:07-04:00",
+      "message": "FrankenNumpy array interop for fs-sparse (gtql item c)",
+      "beads_added": [
+        "frankensim-gtql"
+      ]
+    },
+    {
+      "sha": "dfa7d434f1f373c7d8778f9813d32b1f4e2b7620",
+      "date": "2026-07-10T03:32:37-04:00",
+      "message": "fix(fs-vessel,fs-lbm): purge platform libm from the pour chain (xo2k)",
+      "beads_added": [
+        "frankensim-xo2k"
+      ]
+    },
+    {
+      "sha": "05c492141c401e890cf4251f38a059ac79b2555d",
+      "date": "2026-07-10T03:36:14-04:00",
+      "message": "test(fs-flagship-e2e): envelope-gate ornith ROA divergence",
+      "beads_added": [
+        "frankensim-6ure"
+      ]
+    },
+    {
+      "sha": "538b82bd26af1342de02095be530476311a3edf9",
+      "date": "2026-07-10T03:55:52-04:00",
+      "message": "Route the fs-bem panel kernel through det:: to fix ROA cross-ISA drift (6ure)",
+      "beads_added": [
+        "frankensim-6ure"
+      ]
+    },
+    {
+      "sha": "b24b0dc914c74b39f95a8ef2c20693a99dd87edc",
+      "date": "2026-07-10T04:14:23-04:00",
+      "message": "fix(fs-bem): finish det:: routing; four-quadrant flagship goldens (6ure)",
+      "beads_added": [
+        "frankensim-epic-helm-gp3.14"
+      ]
+    },
+    {
+      "sha": "e00858c2b97451baef410681e422199cc0963cb4",
+      "date": "2026-07-10T12:26:21-04:00",
+      "message": "Evidence package schema v3: composition receipts, falsifiers, anchors (xfxq)",
+      "beads_added": [
+        "frankensim-epic-foundations-huq.18",
+        "frankensim-xfxq",
+        "frankensim-epic-perf-fz2.2",
+        "frankensim-27d3",
+        "frankensim-84ib"
+      ]
+    },
+    {
+      "sha": "f96156dd91662856971bb2494cca7b1f190a1bc3",
+      "date": "2026-07-10T13:07:00-04:00",
+      "message": "feat(ci): feature-matrix + fs-wasm DSR lanes, visible skips, derived counts (huq.18)",
+      "beads_added": [
+        "frankensim-epic-foundations-huq.18"
+      ]
+    },
+    {
+      "sha": "535aa8393aa1484cdef4df4edd36dfe21bf951ac",
+      "date": "2026-07-10T15:42:52-04:00",
+      "message": "perf(fs-fft): mixed radix-8/4/2 Stockham — +11-18% throughput (27d3)",
+      "beads_added": [
+        "frankensim-27d3",
+        "frankensim-1n61"
+      ]
+    },
+    {
+      "sha": "497aaa6356bcfccfa1280a2a20b3525cc22b3da0",
+      "date": "2026-07-10T17:43:34-04:00",
+      "message": "feat(fs-fft): cache-blocked six-step FFT, gated [F] after honest measurement (27d3)",
+      "beads_added": [
+        "frankensim-7uq9",
+        "frankensim-rpgc"
+      ]
+    },
+    {
+      "sha": "504d2a89003913e04efad13a6e9d0c464f3dd04e",
+      "date": "2026-07-10T18:29:53-04:00",
+      "message": "feat(xtask): closure-evidence lint — bugs cannot close without regression evidence (hx4p)",
+      "beads_added": [
+        "frankensim-a55x",
+        "frankensim-yqug",
+        "frankensim-hx4p"
+      ]
+    },
+    {
+      "sha": "eda511030a3896760d9c922e5be0efbe9bc459a3",
+      "date": "2026-07-11T00:10:32-04:00",
+      "message": "feat(perf): both-ISA citable gate PASS for the FEEC apply; ts1 baseline store (cwjn, c40j)",
+      "beads_added": [
+        "frankensim-cwjn",
+        "frankensim-roofline-baseline-bootstrap-c40j"
+      ]
+    },
+    {
+      "sha": "806a9ed1ce447620c2a2f3fee184f6f21550b4c1",
+      "date": "2026-07-12T15:42:42-04:00",
+      "message": "chore: refresh README catalog wording, workspace lockfile, and bead ledger",
+      "beads_added": [
+        "frankensim-xmqp",
+        "frankensim-oaxj",
+        "frankensim-8ll9",
+        "frankensim-pifg",
+        "frankensim-gmik",
+        "frankensim-40p2"
+      ]
+    },
+    {
+      "sha": "4c1bc522736449ea35868133d579c27ca571fbda",
+      "date": "2026-07-12T16:18:31-04:00",
+      "message": "chore: capture continued in-flight fleet deltas (fs-adjoint, fs-cutfem, beads)",
+      "beads_added": [
+        "frankensim-4nh8",
+        "frankensim-blfm",
+        "frankensim-ru03"
+      ]
+    }
+  ]
+}

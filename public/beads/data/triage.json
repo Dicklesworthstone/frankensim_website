@@ -1,19 +1,255 @@
 {
   "meta": {
     "version": "1.0.0",
-    "generated_at": "2026-07-07T21:37:36.471387-04:00",
+    "generated_at": "2026-07-15T18:06:23.22594-04:00",
     "phase2_ready": true,
-    "issue_count": 248,
-    "compute_time_ms": 0
+    "issue_count": 1741,
+    "compute_time_ms": 30
+  },
+  "status": {
+    "PageRank": {
+      "state": "computed",
+      "ms": 12.231292
+    },
+    "Betweenness": {
+      "state": "computed",
+      "reason": "approximate",
+      "sample": 100,
+      "ms": 8.752166
+    },
+    "Eigenvector": {
+      "state": "computed",
+      "ms": 2.619791
+    },
+    "HITS": {
+      "state": "computed",
+      "ms": 3.444583
+    },
+    "Critical": {
+      "state": "computed",
+      "ms": 1.765084
+    },
+    "Cycles": {
+      "state": "computed",
+      "ms": 0.641791
+    },
+    "KCore": {
+      "state": "computed",
+      "ms": 5.053458
+    },
+    "Articulation": {
+      "state": "computed"
+    },
+    "Slack": {
+      "state": "computed",
+      "ms": 1.618333
+    }
   },
   "quick_ref": {
-    "open_count": 132,
-    "actionable_count": 71,
-    "blocked_count": 61,
-    "in_progress_count": 4,
-    "top_picks": []
+    "open_count": 1235,
+    "actionable_count": 144,
+    "blocked_count": 0,
+    "in_progress_count": 120,
+    "not_closed_count": 1355,
+    "not_actionable_count": 1211,
+    "top_picks": [
+      {
+        "id": "frankensim-o582",
+        "title": "Certify fftnd floor gate in a quiet m4 window ([1024,1024] already clears 0.40 on ts2 parked-crew lane)",
+        "score": 0.10448457317630414,
+        "reasons": [
+          "✅ Currently unclaimed - available for work"
+        ],
+        "unblocks": 0
+      },
+      {
+        "id": "frankensim-y46hi",
+        "title": "frankensqlite sibling fails constellation ignore-policy: ~90 untracked .gitignore files in beads-recovery snapshot trees",
+        "score": 0.09274340153213713,
+        "reasons": [
+          "✅ Currently unclaimed - available for work"
+        ],
+        "unblocks": 0
+      }
+    ]
   },
   "recommendations": [
+    {
+      "id": "frankensim-ext-qty-six-base-9qwi",
+      "title": "fs-qty: six-base dimension migration (mole) plus semantic quantity kinds",
+      "type": "task",
+      "status": "in_progress",
+      "assignee": "CopperOx",
+      "priority": 0,
+      "labels": [
+        "new-domains",
+        "phase-e0a",
+        "qty"
+      ],
+      "score": 0.49845350404668964,
+      "breakdown": {
+        "pagerank": 0.22,
+        "betweenness": 0,
+        "blocker_ratio": 0.036000000000000004,
+        "staleness": 0.0013865147849151235,
+        "priority_boost": 0.1,
+        "time_to_impact": 0.09625,
+        "urgency": 0.012154205281784448,
+        "risk": 0.032,
+        "pagerank_norm": 1,
+        "betweenness_norm": 0,
+        "blocker_ratio_norm": 0.27692307692307694,
+        "staleness_norm": 0.02773029569830247,
+        "priority_boost_norm": 1,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.12154205281784447,
+        "risk_norm": 0.32,
+        "time_to_impact_explanation": "Deep in critical path (depth 59), median estimate 60m",
+        "urgency_explanation": "moderate time pressure",
+        "risk_explanation": "Risk factors: high activity churn",
+        "risk_signals": {
+          "fan_variance": 0,
+          "activity_churn": 1,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.32,
+          "explanation": "Risk factors: high activity churn"
+        }
+      },
+      "action": "Contact CopperOx if you want to help",
+      "reasons": [
+        "🎯 Completing this unblocks 7 downstream issues (frankensim-ext-couple-port-schema-3feh, frankensim-ext-machine-ir-6iq3, +5 more)",
+        "📊 High centrality in dependency graph (PageRank: 100%)",
+        "👤 Claimed by CopperOx",
+        "🚨 High priority (P0) - prioritize this work"
+      ],
+      "unblocks_ids": [
+        "frankensim-ext-couple-port-schema-3feh",
+        "frankensim-ext-machine-ir-6iq3",
+        "frankensim-ext-matdb-core-5hmy",
+        "frankensim-ext-scenario-payloads-40eu",
+        "frankensim-leapfrog-2026-program-i94v.1.1.1",
+        "frankensim-sj31i.11",
+        "frankensim-sj31i.7"
+      ]
+    },
+    {
+      "id": "frankensim-ext-theorem-foundry-infra-zxob",
+      "title": "Theorem Foundry authoring/schema and core checker infrastructure",
+      "type": "feature",
+      "status": "open",
+      "priority": 1,
+      "labels": [
+        "new-domains",
+        "phase-e0d",
+        "theorem"
+      ],
+      "score": 0.41914716198466206,
+      "breakdown": {
+        "pagerank": 0.056157341649093355,
+        "betweenness": 0.2,
+        "blocker_ratio": 0.058,
+        "staleness": 0.001489600451388889,
+        "priority_boost": 0.07500000000000001,
+        "time_to_impact": 0.09625,
+        "urgency": 0.012141633608450282,
+        "risk": 0.03851859447323775,
+        "pagerank_norm": 0.25526064385951525,
+        "betweenness_norm": 1,
+        "blocker_ratio_norm": 0.4461538461538462,
+        "staleness_norm": 0.029792009027777778,
+        "priority_boost_norm": 0.75,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.12141633608450281,
+        "risk_norm": 0.3851859447323775,
+        "time_to_impact_explanation": "Deep in critical path (depth 39), median estimate 60m",
+        "urgency_explanation": "moderate time pressure",
+        "risk_explanation": "Risk factors: high activity churn",
+        "risk_signals": {
+          "fan_variance": 0.38461538461538464,
+          "activity_churn": 0.8326710978258736,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.3851859447323775,
+          "explanation": "Risk factors: high activity churn"
+        }
+      },
+      "action": "Work on frankensim-ext-epic-gov-rjoq.7.2 first to unblock this",
+      "reasons": [
+        "🔓 Unblocks 2 item(s): frankensim-leapfrog-2026-program-i94v.5.5.1.1, frankensim-leapfrog-2026-program-i94v.5.6.1",
+        "🔀 Critical path bottleneck (betweenness: 100%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by 2 items - need to clear dependencies",
+        "🚨 High priority (P1) - prioritize this work"
+      ],
+      "unblocks_ids": [
+        "frankensim-leapfrog-2026-program-i94v.5.5.1.1",
+        "frankensim-leapfrog-2026-program-i94v.5.6.1"
+      ],
+      "blocked_by": [
+        "frankensim-ext-epic-gov-rjoq.7.2",
+        "frankensim-ext-ledger-package-migration-h61n"
+      ]
+    },
+    {
+      "id": "frankensim-ext-machine-ir-6iq3",
+      "title": "fs-ir: versioned L6 machine-graph IR with stable identity and lineage",
+      "type": "task",
+      "status": "open",
+      "priority": 1,
+      "labels": [
+        "helm",
+        "new-domains",
+        "phase-e0a"
+      ],
+      "score": 0.3622805423420736,
+      "breakdown": {
+        "pagerank": 0.09941316091838857,
+        "betweenness": 0.003736485848373345,
+        "blocker_ratio": 0.044000000000000004,
+        "staleness": 0.0029997818977430557,
+        "priority_boost": 0.07500000000000001,
+        "time_to_impact": 0.09625,
+        "urgency": 0.012154194976438222,
+        "risk": 0.0121541971437917,
+        "pagerank_norm": 0.45187800417449353,
+        "betweenness_norm": 0.018682429241866725,
+        "blocker_ratio_norm": 0.3384615384615385,
+        "staleness_norm": 0.05999563795486111,
+        "priority_boost_norm": 0.75,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.1215419497643822,
+        "risk_norm": 0.12154197143791699,
+        "time_to_impact_explanation": "Deep in critical path (depth 55), median estimate 60m",
+        "urgency_explanation": "moderate time pressure",
+        "risk_explanation": "Low risk - stable dependency structure",
+        "risk_signals": {
+          "fan_variance": 0,
+          "activity_churn": 0.33847323812638996,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.12154197143791699,
+          "explanation": "Low risk - stable dependency structure"
+        }
+      },
+      "action": "Work on frankensim-ext-qty-six-base-9qwi first to unblock this",
+      "reasons": [
+        "🎯 Completing this unblocks 4 downstream issues (frankensim-ext-adaptivity-remap-u7ay, frankensim-ext-asbuilt-manufacturing-r58b, +2 more)",
+        "📊 High centrality in dependency graph (PageRank: 45%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by frankensim-ext-qty-six-base-9qwi - complete that first",
+        "🚨 High priority (P1) - prioritize this work"
+      ],
+      "unblocks_ids": [
+        "frankensim-ext-adaptivity-remap-u7ay",
+        "frankensim-ext-asbuilt-manufacturing-r58b",
+        "frankensim-ext-cad-step-interchange-8uxb",
+        "frankensim-ext-traceability-ledger-ziso"
+      ],
+      "blocked_by": [
+        "frankensim-ext-qty-six-base-9qwi"
+      ]
+    },
     {
       "id": "frankensim-epic-gauntlet-6nb.1",
       "title": "G0 harness: in-house property-based testing + algebraic law suites",
@@ -25,571 +261,444 @@
         "area:gauntlet",
         "phase:P0"
       ],
-      "score": 0.33294421549232395,
+      "score": 0.3442624764166646,
       "breakdown": {
-        "pagerank": 0.009882938054096376,
-        "betweenness": 0.01187535505915802,
-        "blocker_ratio": 0.065,
-        "staleness": 0.0031769708940779327,
+        "pagerank": 0.015815977274257965,
+        "betweenness": 0.01240327759501215,
+        "blocker_ratio": 0.032,
+        "staleness": 0.006302149409201388,
         "priority_boost": 0.1,
-        "time_to_impact": 0.06999999999999999,
-        "urgency": 0.012302394952677232,
-        "risk": 0.011687961696422394,
-        "pagerank_norm": 0.044922445700438074,
-        "betweenness_norm": 0.059376775295790094,
-        "blocker_ratio_norm": 0.5,
-        "staleness_norm": 0.06353941788155865,
+        "time_to_impact": 0.09625,
+        "urgency": 0.03772341409613758,
+        "risk": 0.015664673990467507,
+        "pagerank_norm": 0.07189080579208167,
+        "betweenness_norm": 0.06201638797506075,
+        "blocker_ratio_norm": 0.24615384615384617,
+        "staleness_norm": 0.12604298818402776,
         "priority_boost_norm": 1,
-        "time_to_impact_norm": 0.7,
-        "urgency_norm": 0.12302394952677231,
-        "risk_norm": 0.11687961696422393,
-        "time_to_impact_explanation": "Deep in critical path (depth 10), explicit estimate 1440m",
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.37723414096137575,
+        "risk_norm": 0.15664673990467506,
+        "time_to_impact_explanation": "Deep in critical path (depth 47), median estimate 60m",
         "urgency_explanation": "moderate time pressure",
         "risk_explanation": "Low risk - stable dependency structure",
         "risk_signals": {
-          "fan_variance": 0.3086066999241838,
-          "activity_churn": 0.014325356623229247,
+          "fan_variance": 0.1483159528800453,
+          "activity_churn": 0.3071731801355383,
           "cross_repo_risk": 0,
           "status_risk": 0.1,
-          "composite_risk": 0.11687961696422393,
+          "composite_risk": 0.15664673990467506,
           "explanation": "Low risk - stable dependency structure"
         }
       },
       "action": "Work on frankensim-epic-foundations-huq.16 first to unblock this",
       "reasons": [
-        "🎯 Completing this unblocks 4 downstream issues (frankensim-epic-gauntlet-6nb.2, frankensim-epic-gauntlet-6nb.4, +2 more)",
-        "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by 3 items - need to clear dependencies",
-        "🚨 High priority (P0) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-gauntlet-6nb.2",
-        "frankensim-epic-gauntlet-6nb.4",
-        "frankensim-epic-gauntlet-6nb.5",
-        "frankensim-epic-gauntlet-6nb.6"
-      ],
-      "blocked_by": [
-        "frankensim-epic-foundations-huq.16",
-        "frankensim-epic-foundations-huq.5",
-        "frankensim-epic-gauntlet-6nb"
-      ]
-    },
-    {
-      "id": "frankensim-epic-ascent-7tv.16",
-      "title": "Multi-objective/robust: NSGA-II/III, MOEA/D, WFG hypervolume, knee detection, fork-based steering, CVaR-RU, Wasserstein DRO + Sinkhorn OT",
-      "type": "feature",
-      "status": "open",
-      "priority": 1,
-      "labels": [
-        "ambition:F",
-        "crate:fs-opt",
-        "layer:L4",
-        "phase:P4"
-      ],
-      "score": 0.2830887788023229,
-      "breakdown": {
-        "pagerank": 0.004329551865146872,
-        "betweenness": 0.05252402975404094,
-        "blocker_ratio": 0.050555555555555555,
-        "staleness": 0.00326265393275463,
-        "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.055999999999999994,
-        "urgency": 0.012198104824366519,
-        "risk": 0.008587490894397747,
-        "pagerank_norm": 0.019679781205213052,
-        "betweenness_norm": 0.2626201487702047,
-        "blocker_ratio_norm": 0.3888888888888889,
-        "staleness_norm": 0.0652530786550926,
-        "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.5599999999999999,
-        "urgency_norm": 0.12198104824366518,
-        "risk_norm": 0.08587490894397747,
-        "time_to_impact_explanation": "Deep in critical path (depth 8), explicit estimate 2880m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Low risk - stable dependency structure",
-        "risk_signals": {
-          "fan_variance": 0.21957199404840738,
-          "activity_churn": 0.000011035764850820933,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.08587490894397747,
-          "explanation": "Low risk - stable dependency structure"
-        }
-      },
-      "action": "Work on frankensim-epic-ascent-7tv first to unblock this",
-      "reasons": [
-        "🔓 Unblocks 2 item(s): frankensim-epic-ascent-7tv.17, frankensim-epic-helm-gp3.10",
-        "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-ascent-7tv - complete that first",
-        "🚨 High priority (P1) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.17",
-        "frankensim-epic-helm-gp3.10"
-      ],
-      "blocked_by": [
-        "frankensim-epic-ascent-7tv"
-      ]
-    },
-    {
-      "id": "frankensim-epic-foundations-huq.5",
-      "title": "Contract \u0026 conformance infrastructure: CONTRACT.md lint + shared conformance harness",
-      "type": "task",
-      "status": "open",
-      "priority": 0,
-      "labels": [
-        "ambition:S",
-        "area:foundations",
-        "area:gauntlet",
-        "phase:P0"
-      ],
-      "score": 0.25379797727127046,
-      "breakdown": {
-        "pagerank": 0.0065190692708531756,
-        "betweenness": 0.0023180821424714348,
-        "blocker_ratio": 0.036111111111111115,
-        "staleness": 0.003176968173707562,
-        "priority_boost": 0.1,
-        "time_to_impact": 0.06999999999999999,
-        "urgency": 0.012309621515557301,
-        "risk": 0.011812619375387514,
-        "pagerank_norm": 0.029632133049332616,
-        "betweenness_norm": 0.011590410712357174,
-        "blocker_ratio_norm": 0.2777777777777778,
-        "staleness_norm": 0.06353936347415123,
-        "priority_boost_norm": 1,
-        "time_to_impact_norm": 0.7,
-        "urgency_norm": 0.12309621515557301,
-        "risk_norm": 0.11812619375387513,
-        "time_to_impact_explanation": "Deep in critical path (depth 11), explicit estimate 720m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Low risk - stable dependency structure",
-        "risk_signals": {
-          "fan_variance": 0.3125,
-          "activity_churn": 0.014587312512917082,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.11812619375387513,
-          "explanation": "Low risk - stable dependency structure"
-        }
-      },
-      "action": "Work on frankensim-epic-foundations-huq first to unblock this",
-      "reasons": [
-        "🔓 Unblocks 2 item(s): frankensim-epic-gauntlet-6nb.8, frankensim-epic-helm-gp3.6",
+        "🎯 Completing this unblocks 5 downstream issues (frankensim-epic-ascent-7tv.21, frankensim-epic-gauntlet-6nb.2, +3 more)",
         "✅ Currently unclaimed - available for work",
         "⏳ Blocked by 2 items - need to clear dependencies",
         "🚨 High priority (P0) - prioritize this work"
       ],
       "unblocks_ids": [
-        "frankensim-epic-gauntlet-6nb.8",
-        "frankensim-epic-helm-gp3.6"
+        "frankensim-epic-ascent-7tv.21",
+        "frankensim-epic-gauntlet-6nb.2",
+        "frankensim-epic-gauntlet-6nb.4",
+        "frankensim-epic-gauntlet-6nb.5",
+        "frankensim-epic-gauntlet-6nb.6"
       ],
       "blocked_by": [
-        "frankensim-epic-foundations-huq",
-        "frankensim-epic-foundations-huq.16"
+        "frankensim-epic-foundations-huq.16",
+        "frankensim-epic-foundations-huq.5"
       ]
     },
     {
-      "id": "frankensim-epic-lumen-qfx.1",
-      "title": "fs-render core: hero-wavelength spectral PT, NEE+MIS, light BVH, 8-wide SIMD BVH, ray streams, progressive tiles, deterministic",
-      "type": "feature",
+      "id": "frankensim-leapfrog-2026-program-i94v.7.5.7",
+      "title": "V.5.7 Independently adjudicate MAX expert/research UX, recovery, accessibility, and representative-user safety",
+      "type": "task",
       "status": "open",
       "priority": 1,
       "labels": [
-        "ambition:S",
-        "crate:fs-render",
-        "layer:L5",
-        "phase:P1"
+        "accessibility",
+        "adjudication",
+        "ambition-s",
+        "e2e",
+        "execution-leaf",
+        "experience",
+        "leapfrog-2026",
+        "max",
+        "no-mock",
+        "test",
+        "ux",
+        "verification-experience"
       ],
-      "score": 0.24896313332213593,
+      "score": 0.33123777268339166,
       "breakdown": {
-        "pagerank": 0.004900636670278546,
-        "betweenness": 0.022782604630033055,
-        "blocker_ratio": 0.043333333333333335,
-        "staleness": 0.003260676239313272,
+        "pagerank": 0.012628100782818076,
+        "betweenness": 0.1711277020439402,
+        "blocker_ratio": 0.098,
+        "staleness": 0.0023634437492862656,
         "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.055999999999999994,
-        "urgency": 0.012191492035100494,
-        "risk": 0.004840825706218861,
-        "pagerank_norm": 0.022275621228538846,
-        "betweenness_norm": 0.11391302315016527,
-        "blocker_ratio_norm": 0.3333333333333333,
-        "staleness_norm": 0.06521352478626544,
+        "time_to_impact": 0.09625,
+        "urgency": 0.009875560553355957,
+        "risk": 0.007952010989730397,
+        "pagerank_norm": 0.05740045810371853,
+        "betweenness_norm": 0.8556385102197009,
+        "blocker_ratio_norm": 0.7538461538461538,
+        "staleness_norm": 0.04726887498572531,
         "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.5599999999999999,
-        "urgency_norm": 0.12191492035100493,
-        "risk_norm": 0.048408257062188605,
-        "time_to_impact_explanation": "Deep in critical path (depth 8), explicit estimate 2880m",
-        "urgency_explanation": "moderate time pressure",
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.09875560553355955,
+        "risk_norm": 0.07952010989730397,
+        "time_to_impact_explanation": "Deep in critical path (depth 28), median estimate 60m",
         "risk_explanation": "Low risk - stable dependency structure",
         "risk_signals": {
-          "fan_variance": 0.09469087716753373,
-          "activity_churn": 0.000003313039761609679,
+          "fan_variance": 0.16666666666666666,
+          "activity_churn": 0.03173369965767992,
           "cross_repo_risk": 0,
           "status_risk": 0.1,
-          "composite_risk": 0.048408257062188605,
+          "composite_risk": 0.07952010989730397,
           "explanation": "Low risk - stable dependency structure"
         }
       },
-      "action": "Work on frankensim-epic-lumen-qfx first to unblock this",
+      "action": "Work on frankensim-epic-helm-gp3.11 first to unblock this",
       "reasons": [
-        "🔓 Unblocks 2 item(s): frankensim-epic-lumen-qfx.2, frankensim-epic-lumen-qfx.4",
+        "🔀 Critical path bottleneck (betweenness: 86%)",
         "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-lumen-qfx - complete that first",
+        "⏳ Blocked by 2 items - need to clear dependencies",
         "🚨 High priority (P1) - prioritize this work"
       ],
-      "unblocks_ids": [
-        "frankensim-epic-lumen-qfx.2",
-        "frankensim-epic-lumen-qfx.4"
-      ],
       "blocked_by": [
-        "frankensim-epic-lumen-qfx"
+        "frankensim-epic-helm-gp3.11",
+        "frankensim-leapfrog-2026-program-i94v.7.5.6"
       ]
     },
     {
-      "id": "frankensim-epic-ascent-7tv.8",
-      "title": "fs-surrogate: FNO/DeepONet + POD-DEIM/balanced-truncation/Koopman, ledger-trained, conformal e-prediction, certify-or-escalate",
-      "type": "feature",
+      "id": "frankensim-leapfrog-2026-program-i94v.7.4.5",
+      "title": "V.4.5 Independently adjudicate the CORE production-path E2E runner receipt",
+      "type": "task",
       "status": "open",
-      "priority": 1,
-      "labels": [
-        "ambition:F",
-        "crate:fs-surrogate",
-        "layer:L4",
-        "phase:P5"
-      ],
-      "score": 0.23148352587238807,
-      "breakdown": {
-        "pagerank": 0.0038971554699838737,
-        "betweenness": 0.026685567678104583,
-        "blocker_ratio": 0.036111111111111115,
-        "staleness": 0.0032660285932098764,
-        "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.034999999999999996,
-        "urgency": 0.012209013887215577,
-        "risk": 0.009576447816125646,
-        "pagerank_norm": 0.017714343045381244,
-        "betweenness_norm": 0.1334278383905229,
-        "blocker_ratio_norm": 0.2777777777777778,
-        "staleness_norm": 0.06532057186419753,
-        "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.35,
-        "urgency_norm": 0.12209013887215575,
-        "risk_norm": 0.09576447816125645,
-        "time_to_impact_explanation": "Deep in critical path (depth 5), explicit estimate 2880m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Low risk - stable dependency structure",
-        "risk_signals": {
-          "fan_variance": 0.2525381361380527,
-          "activity_churn": 0.000010124399468792905,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.09576447816125645,
-          "explanation": "Low risk - stable dependency structure"
-        }
-      },
-      "action": "Work on frankensim-epic-ascent-7tv first to unblock this",
-      "reasons": [
-        "🔓 Unblocks 2 item(s): frankensim-epic-ascent-7tv.9, frankensim-epic-selfknow-knh1.4",
-        "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-ascent-7tv - complete that first",
-        "🚨 High priority (P1) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.9",
-        "frankensim-epic-selfknow-knh1.4"
-      ],
-      "blocked_by": [
-        "frankensim-epic-ascent-7tv"
-      ]
-    },
-    {
-      "id": "frankensim-epic-flux-tfz.20",
-      "title": "fs-bem/fs-fmm: Chebyshev bbFMM + Laplace BEM panels, Kutta condition, free wakes, BEM adjoints [F]",
-      "type": "feature",
-      "status": "open",
-      "priority": 1,
-      "labels": [
-        "ambition:F",
-        "crate:fs-bem",
-        "layer:L3",
-        "phase:P5"
-      ],
-      "score": 0.23001239886412467,
-      "breakdown": {
-        "pagerank": 0.003733681273754116,
-        "betweenness": 0.03202968104885705,
-        "blocker_ratio": 0.028888888888888888,
-        "staleness": 0.0032693064070794756,
-        "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.034999999999999996,
-        "urgency": 0.012219506227979161,
-        "risk": 0.009873523052411482,
-        "pagerank_norm": 0.016971278517064165,
-        "betweenness_norm": 0.16014840524428522,
-        "blocker_ratio_norm": 0.2222222222222222,
-        "staleness_norm": 0.0653861281415895,
-        "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.35,
-        "urgency_norm": 0.1221950622797916,
-        "risk_norm": 0.09873523052411481,
-        "time_to_impact_explanation": "Deep in critical path (depth 5), explicit estimate 2880m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Low risk - stable dependency structure",
-        "risk_signals": {
-          "fan_variance": 0.2624453295839119,
-          "activity_churn": 0.000005438829804121901,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.09873523052411481,
-          "explanation": "Low risk - stable dependency structure"
-        }
-      },
-      "action": "Work on frankensim-epic-flux-tfz first to unblock this",
-      "reasons": [
-        "🔓 Unblocks 2 item(s): frankensim-epic-flux-tfz.21, frankensim-epic-selfknow-knh1.5",
-        "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-flux-tfz - complete that first",
-        "🚨 High priority (P1) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-flux-tfz.21",
-        "frankensim-epic-selfknow-knh1.5"
-      ],
-      "blocked_by": [
-        "frankensim-epic-flux-tfz"
-      ]
-    },
-    {
-      "id": "frankensim-epic-flux-tfz.18",
-      "title": "fs-lbm core: cumulant D3Q19/27 on sparse VDB tiles, Bouzidi SDF boundaries, lattice-scaling assistant, \u003e=1.0/0.6 GLUP/s",
-      "type": "feature",
-      "status": "open",
-      "priority": 1,
-      "labels": [
-        "ambition:S",
-        "crate:fs-lbm",
-        "layer:L3",
-        "phase:P3"
-      ],
-      "score": 0.21597169198299354,
-      "breakdown": {
-        "pagerank": 0.004959603466483371,
-        "betweenness": 0.031398061076577055,
-        "blocker_ratio": 0.036111111111111115,
-        "staleness": 0.0032716705784722223,
-        "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.048999999999999995,
-        "urgency": 0.012227758085932872,
-        "risk": 0.006822021543768724,
-        "pagerank_norm": 0.022543652120378958,
-        "betweenness_norm": 0.15699030538288528,
-        "blocker_ratio_norm": 0.2777777777777778,
-        "staleness_norm": 0.06543341156944445,
-        "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.48999999999999994,
-        "urgency_norm": 0.12227758085932872,
-        "risk_norm": 0.06822021543768723,
-        "time_to_impact_explanation": "Deep in critical path (depth 7), explicit estimate 4320m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Low risk - stable dependency structure",
-        "risk_signals": {
-          "fan_variance": 0.16070608663330624,
-          "activity_churn": 0.00002796482565121263,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.06822021543768723,
-          "explanation": "Low risk - stable dependency structure"
-        }
-      },
-      "action": "Work on frankensim-epic-flux-tfz first to unblock this",
-      "reasons": [
-        "🔓 Unblocks 1 item(s): frankensim-epic-perf-fz2.2",
-        "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-flux-tfz - complete that first",
-        "🚨 High priority (P1) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-perf-fz2.2"
-      ],
-      "blocked_by": [
-        "frankensim-epic-flux-tfz"
-      ]
-    },
-    {
-      "id": "frankensim-epic-foundations-huq.16",
-      "title": "Observability standard: one structured event schema for kernels/tests/ledger, tracing on scope trees, log-replay lint",
-      "type": "feature",
-      "status": "in_progress",
       "priority": 0,
       "labels": [
-        "ambition:S",
-        "area:foundations",
-        "area:testing",
-        "crate:fs-obs",
-        "phase:P0"
+        "adjudication",
+        "ambition-s",
+        "core",
+        "e2e",
+        "execution-leaf",
+        "experience",
+        "leapfrog-2026",
+        "no-mock",
+        "test",
+        "verification-experience"
       ],
-      "score": 0.19477529260345575,
+      "score": 0.3211738579501279,
       "breakdown": {
-        "pagerank": 0.007622652636241799,
-        "betweenness": 0.00004033510380963602,
-        "blocker_ratio": 0.021666666666666667,
-        "staleness": 0.003147600721932871,
+        "pagerank": 0.026124153955847478,
+        "betweenness": 0.10826564663557901,
+        "blocker_ratio": 0.09,
+        "staleness": 0.0023634475323881174,
         "priority_boost": 0.1,
-        "time_to_impact": 0.06999999999999999,
-        "urgency": 0.011919184082403412,
-        "risk": 0.020996835936739525,
-        "pagerank_norm": 0.03464842107382636,
-        "betweenness_norm": 0.00020167551904818007,
-        "blocker_ratio_norm": 0.16666666666666666,
-        "staleness_norm": 0.06295201443865742,
+        "time_to_impact": 0.09625,
+        "urgency": 0.00987988102638805,
+        "risk": 0.0259366679214086,
+        "pagerank_norm": 0.11874615434476127,
+        "betweenness_norm": 0.541328233177895,
+        "blocker_ratio_norm": 0.6923076923076923,
+        "staleness_norm": 0.04726895064776234,
         "priority_boost_norm": 1,
-        "time_to_impact_norm": 0.7,
-        "urgency_norm": 0.11919184082403411,
-        "risk_norm": 0.20996835936739522,
-        "time_to_impact_explanation": "Deep in critical path (depth 12), explicit estimate 1440m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Risk factors: high activity churn",
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.09879881026388049,
+        "risk_norm": 0.25936667921408596,
+        "time_to_impact_explanation": "Deep in critical path (depth 40), median estimate 60m",
+        "risk_explanation": "Risk factors: high dependency variance",
         "risk_signals": {
-          "fan_variance": 0,
-          "activity_churn": 0.6332278645579841,
+          "fan_variance": 0.7659756849926764,
+          "activity_churn": 0.03191324572094344,
           "cross_repo_risk": 0,
           "status_risk": 0.1,
-          "composite_risk": 0.20996835936739522,
-          "explanation": "Risk factors: high activity churn"
+          "composite_risk": 0.25936667921408596,
+          "explanation": "Risk factors: high dependency variance"
         }
       },
-      "action": "Work on frankensim-epic-foundations-huq first to unblock this",
+      "action": "Work on frankensim-leapfrog-2026-program-i94v.7.3.5 first to unblock this",
       "reasons": [
-        "🔓 Unblocks 1 item(s): frankensim-epic-foundations-huq.5",
-        "🚧 In progress - already being worked",
-        "⏳ Blocked by frankensim-epic-foundations-huq - complete that first",
+        "🔀 Critical path bottleneck (betweenness: 54%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by 5 items - need to clear dependencies",
         "🚨 High priority (P0) - prioritize this work"
       ],
-      "unblocks_ids": [
-        "frankensim-epic-foundations-huq.5"
-      ],
       "blocked_by": [
-        "frankensim-epic-foundations-huq"
+        "frankensim-leapfrog-2026-program-i94v.7.3.5",
+        "frankensim-leapfrog-2026-program-i94v.7.4.2",
+        "frankensim-leapfrog-2026-program-i94v.7.4.3",
+        "frankensim-leapfrog-2026-program-i94v.7.4.4",
+        "frankensim-leapfrog-2026-program-i94v.7.4.9"
       ]
     },
     {
-      "id": "frankensim-epic-flywheel-lmp4.4",
-      "title": "Proposal 9 — Certified speculation: DWR goal-oriented accept test (estimated-color unless equilibrated-bracketed)",
+      "id": "frankensim-leapfrog-2026-program-i94v.7.4.8",
+      "title": "V.4.8 Independently adjudicate the MAX E2E runner, legacy adapters, and failure semantics",
+      "type": "task",
+      "status": "open",
+      "priority": 0,
+      "labels": [
+        "adjudication",
+        "ambition-s",
+        "e2e",
+        "execution-leaf",
+        "experience",
+        "leapfrog-2026",
+        "max",
+        "no-mock",
+        "test",
+        "verification-experience"
+      ],
+      "score": 0.31563614398504763,
+      "breakdown": {
+        "pagerank": 0.013851316617610517,
+        "betweenness": 0.11079854625877042,
+        "blocker_ratio": 0.096,
+        "staleness": 0.002363446469579476,
+        "priority_boost": 0.1,
+        "time_to_impact": 0.09625,
+        "urgency": 0.009878314990696897,
+        "risk": 0.021767152784839358,
+        "pagerank_norm": 0.0629605300800478,
+        "betweenness_norm": 0.5539927312938521,
+        "blocker_ratio_norm": 0.7384615384615385,
+        "staleness_norm": 0.04726892939158951,
+        "priority_boost_norm": 1,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.09878314990696896,
+        "risk_norm": 0.21767152784839358,
+        "time_to_impact_explanation": "Deep in critical path (depth 30), median estimate 60m",
+        "risk_explanation": "Risk factors: high dependency variance",
+        "risk_signals": {
+          "fan_variance": 0.6270569569012779,
+          "activity_churn": 0.03184813592670068,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.21767152784839358,
+          "explanation": "Risk factors: high dependency variance"
+        }
+      },
+      "action": "Work on frankensim-leapfrog-2026-program-i94v.7.3.7 first to unblock this",
+      "reasons": [
+        "🔀 Critical path bottleneck (betweenness: 55%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by 3 items - need to clear dependencies",
+        "🚨 High priority (P0) - prioritize this work"
+      ],
+      "blocked_by": [
+        "frankensim-leapfrog-2026-program-i94v.7.3.7",
+        "frankensim-leapfrog-2026-program-i94v.7.4.6",
+        "frankensim-leapfrog-2026-program-i94v.7.4.7"
+      ]
+    },
+    {
+      "id": "frankensim-leapfrog-2026-program-i94v.7.2.9",
+      "title": "V.2.9 Independently adjudicate the MAX test runner and certifier hardening receipt",
+      "type": "task",
+      "status": "open",
+      "priority": 0,
+      "labels": [
+        "adjudication",
+        "ambition-s",
+        "e2e",
+        "execution-leaf",
+        "experience",
+        "leapfrog-2026",
+        "max",
+        "no-mock",
+        "test",
+        "unit-test",
+        "verification-experience"
+      ],
+      "score": 0.31345752870340376,
+      "breakdown": {
+        "pagerank": 0.007712992189148611,
+        "betweenness": 0.1575647830684095,
+        "blocker_ratio": 0.054000000000000006,
+        "staleness": 0.002363450697125772,
+        "priority_boost": 0.1,
+        "time_to_impact": 0.09625,
+        "urgency": 0.009895328478134813,
+        "risk": 0.02000991514347251,
+        "pagerank_norm": 0.03505905540522096,
+        "betweenness_norm": 0.7878239153420474,
+        "blocker_ratio_norm": 0.4153846153846154,
+        "staleness_norm": 0.04726901394251544,
+        "priority_boost_norm": 1,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.09895328478134813,
+        "risk_norm": 0.2000991514347251,
+        "time_to_impact_explanation": "Deep in critical path (depth 29), median estimate 60m",
+        "risk_explanation": "Risk factors: high dependency variance",
+        "risk_signals": {
+          "fan_variance": 0.567774973957669,
+          "activity_churn": 0.03255553082474813,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.2000991514347251,
+          "explanation": "Risk factors: high dependency variance"
+        }
+      },
+      "action": "Work on frankensim-leapfrog-2026-program-i94v.7.2.6 first to unblock this",
+      "reasons": [
+        "🔀 Critical path bottleneck (betweenness: 79%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by 3 items - need to clear dependencies",
+        "🚨 High priority (P0) - prioritize this work"
+      ],
+      "blocked_by": [
+        "frankensim-leapfrog-2026-program-i94v.7.2.6",
+        "frankensim-leapfrog-2026-program-i94v.7.2.7",
+        "frankensim-leapfrog-2026-program-i94v.7.2.8"
+      ]
+    },
+    {
+      "id": "frankensim-leapfrog-2026-program-i94v.7.2.6",
+      "title": "V.2.6 Independently adjudicate the CORE unit/property/conformance runner receipt",
+      "type": "task",
+      "status": "open",
+      "priority": 0,
+      "labels": [
+        "adjudication",
+        "ambition-s",
+        "core",
+        "e2e",
+        "execution-leaf",
+        "experience",
+        "leapfrog-2026",
+        "no-mock",
+        "test",
+        "unit-test",
+        "verification-experience"
+      ],
+      "score": 0.3125702957693744,
+      "breakdown": {
+        "pagerank": 0.01647281584702871,
+        "betweenness": 0.13363622084854873,
+        "blocker_ratio": 0.066,
+        "staleness": 0.0023634518010030863,
+        "priority_boost": 0.1,
+        "time_to_impact": 0.09625,
+        "urgency": 0.009896462803761958,
+        "risk": 0.021910042655906736,
+        "pagerank_norm": 0.07487643566831231,
+        "betweenness_norm": 0.6681811042427437,
+        "blocker_ratio_norm": 0.5076923076923077,
+        "staleness_norm": 0.047269036020061724,
+        "priority_boost_norm": 1,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.09896462803761957,
+        "risk_norm": 0.21910042655906733,
+        "time_to_impact_explanation": "Deep in critical path (depth 43), median estimate 60m",
+        "risk_explanation": "Risk factors: high dependency variance",
+        "risk_signals": {
+          "fan_variance": 0.6310656080415826,
+          "activity_churn": 0.03260248048864188,
+          "cross_repo_risk": 0,
+          "status_risk": 0.1,
+          "composite_risk": 0.21910042655906733,
+          "explanation": "Risk factors: high dependency variance"
+        }
+      },
+      "action": "Work on frankensim-leapfrog-2026-program-i94v.7.1.6 first to unblock this",
+      "reasons": [
+        "🔀 Critical path bottleneck (betweenness: 67%)",
+        "✅ Currently unclaimed - available for work",
+        "⏳ Blocked by 5 items - need to clear dependencies",
+        "🚨 High priority (P0) - prioritize this work"
+      ],
+      "blocked_by": [
+        "frankensim-leapfrog-2026-program-i94v.7.1.6",
+        "frankensim-leapfrog-2026-program-i94v.7.2.2",
+        "frankensim-leapfrog-2026-program-i94v.7.2.3",
+        "frankensim-leapfrog-2026-program-i94v.7.2.4",
+        "frankensim-leapfrog-2026-program-i94v.7.2.5"
+      ]
+    },
+    {
+      "id": "frankensim-ext-epic-gov-rjoq.7.2",
+      "title": "Phase 0B-B: canonical evidence schema, exact-instance admission, and immutable receipts",
       "type": "feature",
       "status": "open",
-      "priority": 1,
+      "priority": 0,
       "labels": [
-        "add-layer:L1",
-        "addendum",
-        "ambition:F",
-        "crate:fs-adjoint",
-        "phase:flywheel",
-        "proposal:9"
+        "admission",
+        "authority",
+        "evidence",
+        "phase:0B",
+        "schema",
+        "testing"
       ],
-      "score": 0.17871458320598438,
+      "score": 0.31220711479453717,
       "breakdown": {
-        "pagerank": 0.002874731343217897,
-        "betweenness": 0.022668328341015447,
-        "blocker_ratio": 0.014444444444444444,
-        "staleness": 0.0004905172318672839,
-        "priority_boost": 0.07500000000000001,
-        "time_to_impact": 0.048999999999999995,
-        "urgency": 0.002711081053735226,
-        "risk": 0.0077692307692307705,
-        "pagerank_norm": 0.013066960650990441,
-        "betweenness_norm": 0.11334164170507723,
-        "blocker_ratio_norm": 0.1111111111111111,
-        "staleness_norm": 0.009810344637345678,
-        "priority_boost_norm": 0.75,
-        "time_to_impact_norm": 0.48999999999999994,
-        "urgency_norm": 0.02711081053735226,
-        "risk_norm": 0.0776923076923077,
-        "time_to_impact_explanation": "Deep in critical path (depth 7), median estimate 2400m",
+        "pagerank": 0.026761466842324454,
+        "betweenness": 0.18958428397233884,
+        "blocker_ratio": 0.006,
+        "staleness": 0.0014914243517939818,
+        "priority_boost": 0.1,
+        "time_to_impact": 0.09625,
+        "urgency": 0.006006515958569836,
+        "risk": 0.019916472867168918,
+        "pagerank_norm": 0.12164303110147479,
+        "betweenness_norm": 0.9479214198616941,
+        "blocker_ratio_norm": 0.046153846153846156,
+        "staleness_norm": 0.029828487035879633,
+        "priority_boost_norm": 1,
+        "time_to_impact_norm": 0.9624999999999999,
+        "urgency_norm": 0.06006515958569836,
+        "risk_norm": 0.19916472867168916,
+        "time_to_impact_explanation": "Deep in critical path (depth 40), median estimate 60m",
         "risk_explanation": "Low risk - stable dependency structure",
         "risk_signals": {
-          "fan_variance": 0.19230769230769232,
+          "fan_variance": 0.5972157622389639,
           "activity_churn": 0,
           "cross_repo_risk": 0,
           "status_risk": 0.1,
-          "composite_risk": 0.0776923076923077,
+          "composite_risk": 0.19916472867168916,
           "explanation": "Low risk - stable dependency structure"
         }
       },
-      "action": "Work on frankensim-epic-flywheel-lmp4 first to unblock this",
+      "action": "Work on frankensim-ext-epic-gov-rjoq.7 first to unblock this",
       "reasons": [
-        "🔓 Unblocks 1 item(s): frankensim-epic-flywheel-lmp4.16",
+        "🔀 Critical path bottleneck (betweenness: 95%)",
         "✅ Currently unclaimed - available for work",
-        "⏳ Blocked by frankensim-epic-flywheel-lmp4 - complete that first",
-        "🚨 High priority (P1) - prioritize this work"
-      ],
-      "unblocks_ids": [
-        "frankensim-epic-flywheel-lmp4.16"
-      ],
-      "blocked_by": [
-        "frankensim-epic-flywheel-lmp4"
-      ]
-    },
-    {
-      "id": "frankensim-epic-ascent-7tv.11",
-      "title": "Topology opt SIMP: Helmholtz filter, Heaviside projection, robust erode/dilate, stress p-norm, eigenfrequency — on CutFEM octrees",
-      "type": "feature",
-      "status": "in_progress",
-      "priority": 0,
-      "labels": [
-        "ambition:S",
-        "crate:fs-topo",
-        "layer:L4",
-        "phase:P2"
-      ],
-      "score": 0.17762764234075074,
-      "breakdown": {
-        "pagerank": 0.0034321709038800316,
-        "betweenness": 0.027206883112710602,
-        "blocker_ratio": 0.036111111111111115,
-        "staleness": 0.00002870950326003087,
-        "priority_boost": 0.1,
-        "time_to_impact": 0.048999999999999995,
-        "urgency": 0.012198145996845756,
-        "risk": 0.025776754144693517,
-        "pagerank_norm": 0.015600776835818325,
-        "betweenness_norm": 0.136034415563553,
-        "blocker_ratio_norm": 0.2777777777777778,
-        "staleness_norm": 0.0005741900652006174,
-        "priority_boost_norm": 1,
-        "time_to_impact_norm": 0.48999999999999994,
-        "urgency_norm": 0.12198145996845755,
-        "risk_norm": 0.25776754144693514,
-        "time_to_impact_explanation": "Deep in critical path (depth 7), explicit estimate 2880m",
-        "urgency_explanation": "moderate time pressure",
-        "risk_explanation": "Risk factors: high activity churn",
-        "risk_signals": {
-          "fan_variance": 0.08958883487425227,
-          "activity_churn": 0.7029696366155316,
-          "cross_repo_risk": 0,
-          "status_risk": 0.1,
-          "composite_risk": 0.25776754144693514,
-          "explanation": "Risk factors: high activity churn"
-        }
-      },
-      "action": "Work on frankensim-epic-ascent-7tv first to unblock this",
-      "reasons": [
-        "🚧 In progress - already being worked",
-        "⏳ Blocked by frankensim-epic-ascent-7tv - complete that first",
+        "⏳ Blocked by 5 items - need to clear dependencies",
         "🚨 High priority (P0) - prioritize this work"
       ],
       "blocked_by": [
-        "frankensim-epic-ascent-7tv"
+        "frankensim-ext-epic-gov-rjoq.7",
+        "frankensim-ext-epic-gov-rjoq.7.1",
+        "frankensim-ext-ledger-package-migration-h61n",
+        "frankensim-sj31i.52.6",
+        "frankensim-sj31i.52.7"
       ]
     }
   ],
   "quick_wins": [
     {
+      "id": "frankensim-ext-qty-six-base-9qwi",
+      "title": "fs-qty: six-base dimension migration (mole) plus semantic quantity kinds",
+      "score": 1.5000000000000002,
+      "reason": "Unblocks 7 items, high priority",
+      "unblocks_ids": [
+        "frankensim-ext-couple-port-schema-3feh",
+        "frankensim-ext-machine-ir-6iq3",
+        "frankensim-ext-matdb-core-5hmy",
+        "frankensim-ext-scenario-payloads-40eu",
+        "frankensim-leapfrog-2026-program-i94v.1.1.1",
+        "frankensim-sj31i.11",
+        "frankensim-sj31i.7"
+      ]
+    },
+    {
       "id": "frankensim-epic-gauntlet-6nb.1",
       "title": "G0 harness: in-house property-based testing + algebraic law suites",
-      "score": 1.028771237954945,
-      "reason": "Unblocks 4 items, high priority",
+      "score": 1.3339850002884626,
+      "reason": "Unblocks 5 items, high priority",
       "unblocks_ids": [
+        "frankensim-epic-ascent-7tv.21",
         "frankensim-epic-gauntlet-6nb.2",
         "frankensim-epic-gauntlet-6nb.4",
         "frankensim-epic-gauntlet-6nb.5",
@@ -597,52 +706,62 @@
       ]
     },
     {
-      "id": "frankensim-epic-ascent-7tv.16",
-      "title": "Multi-objective/robust: NSGA-II/III, MOEA/D, WFG hypervolume, knee detection, fork-based steering, CVaR-RU, Wasserstein DRO + Sinkhorn OT",
-      "score": 0.9339850002884625,
-      "reason": "Unblocks 2 items, high priority",
+      "id": "frankensim-sj31i.36",
+      "title": "New-domain evidence: bind semantic identity and context of use",
+      "score": 1.3000000000000003,
+      "reason": "Unblocks 3 items, high priority",
       "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.17",
-        "frankensim-epic-helm-gp3.10"
+        "frankensim-sj31i.15",
+        "frankensim-sj31i.16",
+        "frankensim-sj31i.20"
       ]
     },
     {
-      "id": "frankensim-epic-ascent-7tv.8",
-      "title": "fs-surrogate: FNO/DeepONet + POD-DEIM/balanced-truncation/Koopman, ledger-trained, conformal e-prediction, certify-or-escalate",
-      "score": 0.9339850002884625,
-      "reason": "Unblocks 2 items, high priority",
+      "id": "frankensim-sjro",
+      "title": "WS1: sparse active-tile infrastructure — Morton tiles, TilePool parallel sweep, deterministic",
+      "score": 1.3000000000000003,
+      "reason": "Unblocks 3 items, high priority",
       "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.9",
-        "frankensim-epic-selfknow-knh1.4"
+        "frankensim-712t",
+        "frankensim-ei3b",
+        "frankensim-sxnm"
       ]
     },
     {
-      "id": "frankensim-epic-flux-tfz.20",
-      "title": "fs-bem/fs-fmm: Chebyshev bbFMM + Laplace BEM panels, Kutta condition, free wakes, BEM adjoints [F]",
-      "score": 0.9339850002884625,
-      "reason": "Unblocks 2 items, high priority",
+      "id": "frankensim-ext-machine-ir-6iq3",
+      "title": "fs-ir: versioned L6 machine-graph IR with stable identity and lineage",
+      "score": 1.228771237954945,
+      "reason": "Unblocks 4 items, high priority",
       "unblocks_ids": [
-        "frankensim-epic-flux-tfz.21",
-        "frankensim-epic-selfknow-knh1.5"
-      ]
-    },
-    {
-      "id": "frankensim-epic-foundations-huq.5",
-      "title": "Contract \u0026 conformance infrastructure: CONTRACT.md lint + shared conformance harness",
-      "score": 0.9339850002884625,
-      "reason": "Unblocks 2 items, high priority",
-      "unblocks_ids": [
-        "frankensim-epic-gauntlet-6nb.8",
-        "frankensim-epic-helm-gp3.6"
+        "frankensim-ext-adaptivity-remap-u7ay",
+        "frankensim-ext-asbuilt-manufacturing-r58b",
+        "frankensim-ext-cad-step-interchange-8uxb",
+        "frankensim-ext-traceability-ledger-ziso"
       ]
     }
   ],
   "blockers_to_clear": [
     {
+      "id": "frankensim-ext-qty-six-base-9qwi",
+      "title": "fs-qty: six-base dimension migration (mole) plus semantic quantity kinds",
+      "unblocks_count": 7,
+      "unblocks_ids": [
+        "frankensim-ext-couple-port-schema-3feh",
+        "frankensim-ext-machine-ir-6iq3",
+        "frankensim-ext-matdb-core-5hmy",
+        "frankensim-ext-scenario-payloads-40eu",
+        "frankensim-leapfrog-2026-program-i94v.1.1.1",
+        "frankensim-sj31i.11",
+        "frankensim-sj31i.7"
+      ],
+      "actionable": true
+    },
+    {
       "id": "frankensim-epic-gauntlet-6nb.1",
       "title": "G0 harness: in-house property-based testing + algebraic law suites",
-      "unblocks_count": 4,
+      "unblocks_count": 5,
       "unblocks_ids": [
+        "frankensim-epic-ascent-7tv.21",
         "frankensim-epic-gauntlet-6nb.2",
         "frankensim-epic-gauntlet-6nb.4",
         "frankensim-epic-gauntlet-6nb.5",
@@ -651,96 +770,99 @@
       "actionable": false,
       "blocked_by": [
         "frankensim-epic-foundations-huq.16",
-        "frankensim-epic-foundations-huq.5",
-        "frankensim-epic-gauntlet-6nb"
+        "frankensim-epic-foundations-huq.5"
       ]
     },
     {
-      "id": "frankensim-epic-ascent-7tv.16",
-      "title": "Multi-objective/robust: NSGA-II/III, MOEA/D, WFG hypervolume, knee detection, fork-based steering, CVaR-RU, Wasserstein DRO + Sinkhorn OT",
-      "unblocks_count": 2,
+      "id": "frankensim-ext-machine-ir-6iq3",
+      "title": "fs-ir: versioned L6 machine-graph IR with stable identity and lineage",
+      "unblocks_count": 4,
       "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.17",
-        "frankensim-epic-helm-gp3.10"
-      ],
-      "actionable": true
-    },
-    {
-      "id": "frankensim-epic-ascent-7tv.8",
-      "title": "fs-surrogate: FNO/DeepONet + POD-DEIM/balanced-truncation/Koopman, ledger-trained, conformal e-prediction, certify-or-escalate",
-      "unblocks_count": 2,
-      "unblocks_ids": [
-        "frankensim-epic-ascent-7tv.9",
-        "frankensim-epic-selfknow-knh1.4"
-      ],
-      "actionable": true
-    },
-    {
-      "id": "frankensim-epic-flux-tfz.20",
-      "title": "fs-bem/fs-fmm: Chebyshev bbFMM + Laplace BEM panels, Kutta condition, free wakes, BEM adjoints [F]",
-      "unblocks_count": 2,
-      "unblocks_ids": [
-        "frankensim-epic-flux-tfz.21",
-        "frankensim-epic-selfknow-knh1.5"
-      ],
-      "actionable": true
-    },
-    {
-      "id": "frankensim-epic-foundations-huq.5",
-      "title": "Contract \u0026 conformance infrastructure: CONTRACT.md lint + shared conformance harness",
-      "unblocks_count": 2,
-      "unblocks_ids": [
-        "frankensim-epic-gauntlet-6nb.8",
-        "frankensim-epic-helm-gp3.6"
+        "frankensim-ext-adaptivity-remap-u7ay",
+        "frankensim-ext-asbuilt-manufacturing-r58b",
+        "frankensim-ext-cad-step-interchange-8uxb",
+        "frankensim-ext-traceability-ledger-ziso"
       ],
       "actionable": false,
       "blocked_by": [
-        "frankensim-epic-foundations-huq",
-        "frankensim-epic-foundations-huq.16"
+        "frankensim-ext-qty-six-base-9qwi"
+      ]
+    },
+    {
+      "id": "frankensim-sj31i.52.1",
+      "title": "Identity core: non-confusable typed IDs, canonical preimages, and authority separation",
+      "unblocks_count": 4,
+      "unblocks_ids": [
+        "frankensim-sj31i.50.1",
+        "frankensim-sj31i.52.2",
+        "frankensim-sj31i.52.3",
+        "frankensim-sj31i.52.5"
+      ],
+      "actionable": true
+    },
+    {
+      "id": "frankensim-8ll9",
+      "title": "WS3: un-gate and harden the LUMEN geometry backends — SDF sphere tracing + BVH by default",
+      "unblocks_count": 3,
+      "unblocks_ids": [
+        "frankensim-8ll9.1",
+        "frankensim-iqh9",
+        "frankensim-ok84"
+      ],
+      "actionable": false,
+      "blocked_by": [
+        "frankensim-8ll9.1"
       ]
     }
   ],
   "project_health": {
     "counts": {
-      "total": 248,
-      "open": 132,
-      "closed": 116,
-      "blocked": 61,
-      "actionable": 71,
+      "total": 1741,
+      "open": 1235,
+      "closed": 386,
+      "blocked": 0,
+      "actionable": 144,
+      "not_closed": 1355,
+      "dependency_blocked": 1211,
       "by_status": {
-        "closed": 116,
-        "in_progress": 4,
-        "open": 128
+        "closed": 386,
+        "in_progress": 120,
+        "open": 1235
       },
       "by_type": {
-        "bug": 1,
-        "epic": 17,
-        "feature": 177,
+        "bug": 221,
+        "chore": 5,
+        "epic": 242,
+        "feature": 477,
         "milestone": 8,
-        "task": 45
+        "task": 788
       },
       "by_priority": {
-        "0": 65,
-        "1": 121,
-        "2": 50,
-        "3": 12
+        "0": 325,
+        "1": 531,
+        "2": 742,
+        "3": 143
       }
     },
     "graph": {
-      "node_count": 248,
-      "edge_count": 853,
-      "density": 0.01392516651430064,
+      "node_count": 1741,
+      "edge_count": 5754,
+      "density": 0.0018994236368317851,
       "has_cycles": false,
       "phase2_ready": true
     },
     "velocity": {
-      "closed_last_7_days": 116,
-      "closed_last_30_days": 116,
-      "avg_days_to_close": 0.8027828107083134,
+      "closed_last_7_days": 213,
+      "closed_last_30_days": 386,
+      "avg_days_to_close": 1.1321137251474946,
       "weekly": [
         {
+          "week_start": "2026-07-13T00:00:00Z",
+          "closed": 67
+        },
+        {
           "week_start": "2026-07-06T00:00:00Z",
-          "closed": 116
+          "closed": 319
         },
         {
           "week_start": "2026-06-29T00:00:00Z",
@@ -765,17 +887,14 @@
         {
           "week_start": "2026-05-25T00:00:00Z",
           "closed": 0
-        },
-        {
-          "week_start": "2026-05-18T00:00:00Z",
-          "closed": 0
         }
-      ]
+      ],
+      "estimated": true
     }
   },
   "commands": {
-    "claim_top": "CI=1 br ready --json  # No top pick available",
-    "show_top": "CI=1 br ready --json  # No top pick available",
+    "claim_top": "CI=1 br update frankensim-o582 --status in_progress --json",
+    "show_top": "CI=1 br show frankensim-o582 --json",
     "list_ready": "CI=1 br ready --json",
     "list_blocked": "CI=1 br blocked --json",
     "refresh_triage": "bv --robot-triage"

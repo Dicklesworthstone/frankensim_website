@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5">
   <base href="/beads/">
   <title>FrankenSim · Project Graph</title>
+  <link rel="icon" href="/icon">
 
   <!-- Mobile Web App Optimizations -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -610,7 +611,9 @@
   </div>
 
   <!-- Alpine.js app -->
-  <div x-data="beadsApp()" x-init="init()" x-cloak>
+  <!-- Alpine automatically invokes an init() method returned by x-data. Calling
+       it again through x-init races database caching and graph startup. -->
+  <div x-data="beadsApp()" x-cloak>
     <!-- Navigation header -->
     <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -4500,15 +4503,15 @@
   <script src="vendor/chart.umd.min.js"></script>
 
   <!-- Charts module -->
-  <script src="charts.js?v=1783474656"></script>
+  <script src="charts.js?v=1783999445"></script>
 
   <!-- Optional WASM hybrid scorer loader -->
-  <script src="wasm_loader.js?v=1783474656"></script>
+  <script src="wasm_loader.js?v=1783999445"></script>
 
   <!-- Hybrid scoring (web search re-ranking) -->
-  <script src="hybrid_scorer.js?v=1783474656"></script>
+  <script src="hybrid_scorer.js?v=1783999445"></script>
 
   <!-- Viewer application -->
-  <script src="viewer.js?v=1783474656"></script>
+  <script src="viewer.js?v=1783999445"></script>
 </body>
 </html>

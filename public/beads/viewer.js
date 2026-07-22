@@ -1067,9 +1067,14 @@ function parseLabelsJSON(labelsStr) {
 }
 
 function getGraphViewData() {
+  // Pull from issue_overview_mv so the graph sees the same active-blocker
+  // counts the issues view does — closing a blocker drops its dependents'
+  // blocker_count to 0 here too, which getNodeColor uses to derive the
+  // effective "blocked" colouring (bv-issue#143/#144).
   const issues = execQuery(`
-    SELECT id, title, description, status, priority, issue_type, assignee, labels, created_at, updated_at
-    FROM issues
+    SELECT id, title, description, status, priority, issue_type, assignee, labels,
+           created_at, updated_at, blocker_count, dependent_count
+    FROM issue_overview_mv
   `).map(row => ({
     id: row.id,
     title: row.title || '',
@@ -1081,6 +1086,10 @@ function getGraphViewData() {
     labels: parseLabelsJSON(row.labels),
     created_at: row.created_at,
     updated_at: row.updated_at,
+    // Pre-computed active-blocker / active-dependent counts from the
+    // materialized view (which excludes closed/tombstoned endpoints).
+    blocker_count: row.blocker_count ?? 0,
+    dependent_count: row.dependent_count ?? 0,
   }));
 
   const dependencies = execQuery(`
@@ -1914,6 +1923,26 @@ const ROUTES = [
   { pattern: '/graph', view: 'graph' },
 ];
 
+const DIRECT_VIEW_ROUTES = new Set(['issues', 'insights', 'graph']);
+
+/**
+ * Resolve a static view from the final URL path segment.
+ *
+ * Static hosts can rewrite paths such as /project/graph to index.html. The
+ * viewer keeps hash routing for in-app navigation, but honors that clean path
+ * on the initial load when no hash route is present.
+ */
+function routeHashFromPathname(pathname) {
+  const segments = (pathname || '/').split('/').filter(Boolean);
+  const finalSegment = segments[segments.length - 1] || '';
+
+  if (DIRECT_VIEW_ROUTES.has(finalSegment)) {
+    return `#/${finalSegment}`;
+  }
+
+  return '#/';
+}
+
 /**
  * Parse hash into view and params
  */
@@ -2552,11 +2581,6 @@ function beadsApp() {
         // Load issues for list view (initial data)
         this.loadIssues();
 
-        // Handle initial route from URL hash
-        if (window.location.hash) {
-          this.handleHashChange();
-        }
-
         // Initialize WASM graph engine (non-blocking)
         this.loadingMessage = 'Loading graph engine...';
         this.graphReady = await initGraphEngine();
@@ -2574,6 +2598,11 @@ function beadsApp() {
           this.articulationPoints = getArticulationPoints();
           this.criticalPathSlack = getIssuesBySlack(10, true); // Zero slack = critical path
         }
+
+        // Handle the initial hash route or a host-rewritten clean path after
+        // the graph engine is ready, so direct graph entry cannot start a
+        // second concurrent WASM initialization.
+        this.handleHashChange();
 
         // Listen for hash changes (browser back/forward)
         window.addEventListener('hashchange', () => this.handleHashChange());
@@ -2623,7 +2652,7 @@ function beadsApp() {
       const hash = window.location.hash;
 
       // Parse route
-      const route = parseRoute(hash);
+      const route = parseRoute(hash || routeHashFromPathname(window.location.pathname));
 
       // Handle route
       switch (route.view) {
@@ -3483,6 +3512,7 @@ window.beadsViewer = {
   filtersFromURL,
   syncFiltersToURL,
   parseRoute,
+  routeHashFromPathname,
   matchPattern,
   navigate,
   navigateToIssue,
