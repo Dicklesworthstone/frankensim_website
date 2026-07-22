@@ -450,7 +450,7 @@ export default function HomePage() {
           </GlitchText>
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-400 md:text-xl font-medium">
-            FrankenSim is a large, working Rust workspace: 100+ crates, 160K+ lines, 1,300+ tests.
+            FrankenSim is a large, working Rust workspace: 100+ crates, 200K+ lines, 1,800+ tests.
             There is no crates.io release yet; build it from source and read the plan.
           </p>
 

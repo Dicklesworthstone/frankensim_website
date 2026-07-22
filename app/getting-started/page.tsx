@@ -14,7 +14,7 @@ import { faq, codeExample, codeExampleStudy, fiveExplicits, siteConfig } from "@
 export const metadata: Metadata = {
   title: "Get Started",
   description:
-    "FrankenSim is a large, working Rust workspace: 100+ crates, 160K+ lines, 1,300+ tests, though not yet a packaged simulator. No stable public API, no CLI, no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.",
+    "FrankenSim is a large, working Rust workspace: 100+ crates, 200K+ lines, 1,800+ tests, though not yet a packaged simulator. No stable public API, no CLI, no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -72,7 +72,7 @@ const STEPS: {
     n: "04",
     Icon: FlaskConical,
     title: "Run the test suite",
-    body: "1,300+ inline tests plus 150+ conformance suites. This is the fastest way to confirm your machine reproduces the reference behavior.",
+    body: "1,800+ inline tests plus 200+ conformance suites. This is the fastest way to confirm your machine reproduces the reference behavior.",
     command: "cargo test --workspace",
   },
   {
@@ -120,7 +120,7 @@ export default function GettingStartedPage() {
 
           <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-slate-400">
             An honest status: FrankenSim is a large, working Rust workspace of{" "}
-            <span className="text-slate-200">100+ crates, 160K+ lines, 1,300+ tests</span>, but it is not yet a
+            <span className="text-slate-200">100+ crates, 200K+ lines, 1,800+ tests</span>, but it is not yet a
             packaged simulator. There is no stable public API, no CLI, and no crates.io release. You build it
             from source and read the plan.
           </p>
@@ -128,8 +128,8 @@ export default function GettingStartedPage() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             {[
               { label: "100+ crates" },
-              { label: "160K+ lines of Rust" },
-              { label: "1,300+ inline tests" },
+              { label: "200K+ lines of Rust" },
+              { label: "1,800+ inline tests" },
               { label: "Pure, memory-safe Rust" },
             ].map((chip) => (
               <span

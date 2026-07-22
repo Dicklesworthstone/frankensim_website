@@ -103,9 +103,9 @@ export interface Flagship {
 
 export const heroStats: Stat[] = [
   { label: "Kernel Layers", value: "7", helper: "L0 Substrate → L6 Helm" },
-  { label: "Rust Crates", value: "104", helper: "one acyclic workspace" },
-  { label: "Lines of Rust", value: "171K", helper: "pure, memory-safe, Franken-only deps" },
-  { label: "Inline Tests", value: "1458", helper: "+ 175 conformance suites" },
+  { label: "Rust Crates", value: "109", helper: "one acyclic workspace" },
+  { label: "Lines of Rust", value: "213K", helper: "pure, memory-safe, Franken-only deps" },
+  { label: "Inline Tests", value: "1838", helper: "+ 241 conformance suites" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -143,7 +143,7 @@ export const layers: Layer[] = [
     id: "L6", code: "HELM", name: "Helm", color: "#f97316",
     tagline: "Orchestration, ledger & agent interface",
     responsibility: "FrankenScript IR, sessions & capabilities, the Design Ledger, the plan-cost oracle, reports, and the agent API. The one true interface.",
-    crates: ["fs-bisect", "fs-checker", "fs-frame", "fs-ir", "fs-ledger", "fs-marquee", "fs-package", "fs-plan", "fs-recompute", "fs-report", "fs-roofline", "fs-session", "fs-spececo", "fs-vskeleton", "fs-wasm"],
+    crates: ["fs-bisect", "fs-checker", "fs-frame", "fs-ir", "fs-ledger", "fs-marquee", "fs-ornith", "fs-package", "fs-plan", "fs-recompute", "fs-report", "fs-roofline", "fs-session", "fs-spececo", "fs-vessel", "fs-vskeleton", "fs-wasm"],
   },
   {
     id: "L5", code: "LUMEN", name: "Lumen", color: "#a855f7",
@@ -155,7 +155,7 @@ export const layers: Layer[] = [
     id: "L4", code: "ASCENT", name: "Ascent", color: "#3b82f6",
     tagline: "Optimization & uncertainty",
     responsibility: "Shape / topology / global / derivative-free optimization over manifold variables, e-process racing, constraint calculus, and SOS certificates.",
-    crates: ["fs-archive", "fs-ascent", "fs-assimilate", "fs-bo", "fs-constraint", "fs-dfo", "fs-dimine", "fs-eproc", "fs-fab", "fs-geocon", "fs-opt", "fs-robust", "fs-sos", "fs-surrogate", "fs-toleralloc", "fs-topols", "fs-topopt", "fs-truss", "fs-uq", "fs-voi"],
+    crates: ["fs-archive", "fs-ascent", "fs-assimilate", "fs-bo", "fs-constraint", "fs-dfo", "fs-dimine", "fs-eproc", "fs-fab", "fs-gen", "fs-geocon", "fs-lattice", "fs-opt", "fs-race", "fs-robust", "fs-sos", "fs-surrogate", "fs-toleralloc", "fs-topols", "fs-topopt", "fs-truss", "fs-uq", "fs-voi"],
   },
   {
     id: "L3", code: "FLUX", name: "Flux", color: "#06b6d4",
@@ -272,8 +272,11 @@ export const crates: Crate[] = [
   { name: "fs-dimine", layer: "L4", blurb: "Dimensional knowledge mining (addendum Proposal 9): fit closed-form power-law scaling laws over a certified corpus in dimensionless-group." },
   { name: "fs-eproc", layer: "L4", blurb: "Betting e-processes, pairwise races, Gaussian-mixture confidence sequences, and e-Benjamini–Hochberg for anytime-valid stopping." },
   { name: "fs-fab", layer: "L4", blurb: "Manufacturing, fabrication, and code compliance as its own layer (fs-fab): optimization without fabrication semantics produces fantasy artifacts." },
+  { name: "fs-gen", layer: "L4", blurb: "Proposal-only generative models (fs-gen): corpus-fitted shape priors, covariance-shaped mutation kernels, graph candidate generators." },
   { name: "fs-geocon", layer: "L4", blurb: "First-class manufacturability constraints: min-thickness (the anti-paperclip constraint), draft angle, symmetry-by-construction, and keep-out envelopes." },
+  { name: "fs-lattice", layer: "L4", blurb: "Lattice/infill optimization (plan 9.5): periodic unit-cell homogenization with physics-bound audits." },
   { name: "fs-opt", layer: "L4", blurb: "The optimization problem IR: typed objective / constraint graphs over manifold variables, with the Goodhart guard." },
+  { name: "fs-race", layer: "L4", blurb: "e-racing (plan 9.6, Bet 8): anytime-valid sequential tests drive structured candidate cancellation - deterministic round schedules." },
   { name: "fs-robust", layer: "L4", blurb: "Objective epistemics (addendum Proposal F): apply the three colors to the GOAL itself." },
   { name: "fs-sos", layer: "L4", blurb: "Proof-carrying optimization (fs-sos): sum-of-squares certificates as executable PROOFS of polynomial lower bounds." },
   { name: "fs-surrogate", layer: "L4", blurb: "Learned accelerators with guarantees (fs-surrogate): classical reduced-order models permitted ONLY inside certified validity bands." },
@@ -294,6 +297,7 @@ export const crates: Crate[] = [
   { name: "fs-ir", layer: "L6", blurb: "FrankenScript, the system's one true interface: a typed, versioned IR with isomorphic s-expr + JSON syntaxes and structured errors that teach." },
   { name: "fs-ledger", layer: "L6", blurb: "The Design Ledger on FrankenSQLite: content-addressed artifacts, event-sourced ops, lineage, tune cache, and time-travel / explain()." },
   { name: "fs-marquee", layer: "L6", blurb: "The P2 marquee demo: shape/topology optimization on a raw SDF with no mesh in the loop." },
+  { name: "fs-ornith", layer: "L6", blurb: "Flagship 1 (plan sec-15.1): the ornithoid multi-inlet aircraft at smoke tier." },
   { name: "fs-package", layer: "L6", blurb: "Machine-checkable evidence packages (addendum Proposal 12): a content-addressed Merkle bundle of color-typed claims + provenance." },
   { name: "fs-plan", layer: "L6", blurb: "Per-operator error & cost models, the Error Ledger / Time Ledger attribution trees, and a plan-cost oracle rebuilt from tune records." },
   { name: "fs-recompute", layer: "L6", blurb: "A content-addressed Merkle DAG with per-node slack = tolerance − achieved error, for certified-skip incremental recomputation." },
@@ -301,6 +305,7 @@ export const crates: Crate[] = [
   { name: "fs-roofline", layer: "L6", blurb: "Machine-axis probing, kernel specs, the roofline registry, a measurement harness, and staleness checks." },
   { name: "fs-session", layer: "L6", blurb: "Sessions, capability tokens, an enforcing resource governor, idempotency keys, and estimate() dry runs." },
   { name: "fs-spececo", layer: "L6", blurb: "Certified-speculation accept/reject economics (addendum Proposal 9): the decision rule." },
+  { name: "fs-vessel", layer: "L6", blurb: "Flagship 3 (plan 15.3): the laminar-pour vessel - Chebyshev vessel-of-revolution profiles." },
   { name: "fs-vskeleton", layer: "L6", blurb: "The vertical skeleton: a deliberately tiny SDF → PDE → objective → adjoint → optimize → ledger → replay demonstrator." },
   { name: "fs-wasm", layer: "L6", blurb: "Browser (WASM) surface over FrankenSim's pure numerical leaves — real math in the browser, no mocks." },
 ];
@@ -389,7 +394,7 @@ export const flagships: Flagship[] = [
       },
     ],
     finale:
-      "The whole campaign replays bit-for-bit from its seed, and it degrades honestly: when the LBM budget runs out mid-run, the seven remaining candidates fall back to the surrogate-plus-conformal path with six of seven still inside the band. Zero certificate violations across all 124 crates.",
+      "The whole campaign replays bit-for-bit from its seed, and it degrades honestly: when the LBM budget runs out mid-run, the seven remaining candidates fall back to the surrogate-plus-conformal path with six of seven still inside the band. Zero certificate violations across all 125 crates.",
   },
   {
     id: "frame",
@@ -718,7 +723,7 @@ export const faq: FaqItem[] = [
   { question: "Why Rust, and why memory-safe?", answer: "Rust is the only mainstream substrate strong enough to hold the typed continuum together without a garbage collector or a C ABI in the hot path. The Decalogue's first principle is pure, memory-safe Rust: unsafe exists only in audited leaf capsules under 300 lines, each behind a safe façade, and each registered with the policy checker." },
   { question: "How does an agent actually talk to it?", answer: "Through FrankenScript, a typed, versioned IR with isomorphic s-expression and JSON syntaxes. A program states its seed, versions, and budgets inline; the lowering trace is inspectable; and when a request is infeasible the error is structured and carries ranked fixes with estimated impact. A refusal that teaches is worth ten silent successes." },
   { question: "What are the flagship demos?", answer: "Three forcing functions: an ornithoid multi-inlet aircraft that delivers a certified Pareto atlas with Lyapunov region-of-attraction proofs; a seismic-minimal building frame with a certified fragility curve and anytime-valid stopping; and a laminar-pour vessel (the spout that never dribbles) where the marketing shot and the physics are literally the same bytes. Plus the P2 marquee: topology optimization on a raw SDF with no mesh in the loop." },
-  { question: "Can I use it today?", answer: "FrankenSim is a large, working Rust workspace (100+ crates, 160K+ lines, 1,300+ inline tests) implementing a substantial spine of the plan. It is not yet a packaged end-user simulator: there is no stable public API, no CLI, and no crates.io release yet. If you need a ready-made production physics solver or GUI today, the incumbents still win; if you want a deterministic, evidence-oriented Rust substrate to build on, this is it." },
+  { question: "Can I use it today?", answer: "FrankenSim is a large, working Rust workspace (100+ crates, 200K+ lines, 1,800+ inline tests) implementing a substantial spine of the plan. It is not yet a packaged end-user simulator: there is no stable public API, no CLI, and no crates.io release yet. If you need a ready-made production physics solver or GUI today, the incumbents still win; if you want a deterministic, evidence-oriented Rust substrate to build on, this is it." },
   { question: "How was it built?", answer: "Through an AI engineering flywheel, a coordinated swarm of specialized coding agents orchestrated with tmux, guarded by command-safety layers, tracked in a beads issue graph, and given persistent memory and session search. The same toolchain that built FrankenTUI and asupersync built FrankenSim." },
 ];
 
@@ -779,17 +784,18 @@ export const machines = [
 export interface Epic { title: string; group: string; color: string; blurb: string; }
 
 export const beadsStats = {
-  total: 248,
-  features: 177,
-  tasks: 45,
-  epics: 17,
+  total: 1741,
+  features: 477,
+  tasks: 788,
+  epics: 242,
   milestones: 8,
-  bugs: 1,
-  open: 130,
-  closed: 115,
-  inProgress: 3,
-  closedPct: 46,
-  ambition: { S: 106, F: 84, M: 13 },
+  bugs: 221,
+  chores: 5,
+  open: 1235,
+  closed: 386,
+  inProgress: 120,
+  closedPct: 22,
+  ambition: { S: 282, F: 506, M: 484 },
 };
 
 export const epics: Epic[] = [
