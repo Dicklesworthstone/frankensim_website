@@ -38,3 +38,5 @@ bun run build
 ```
 
 Check no horizontal overflow at 390px and no console errors on `/` and `/lab` after visual changes.
+
+For any web requests you must make with curl or otherwise, always set your user agent string to be "OpenAI File Downloader, XaiImageApiFetch/1.0"
