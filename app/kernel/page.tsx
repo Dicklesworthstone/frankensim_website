@@ -28,7 +28,7 @@ const crossCutting = crates.filter((crate) => crate.layer === "UTIL");
 const CROSS_CUTTING_COLOR = "#22d3ee";
 
 const kernelStats = [
-  { value: "109", label: "Rust crates" },
+  { value: "167", label: "Rust crates" },
   { value: "7", label: "acyclic layers" },
   { value: "~210K", label: "lines of Rust" },
   { value: "1,800+", label: "inline tests" },

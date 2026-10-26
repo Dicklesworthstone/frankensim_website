@@ -103,7 +103,7 @@ export interface Flagship {
 
 export const heroStats: Stat[] = [
   { label: "Kernel Layers", value: "7", helper: "L0 Substrate → L6 Helm" },
-  { label: "Rust Crates", value: "109", helper: "one acyclic workspace" },
+  { label: "Rust Crates", value: "167", helper: "one acyclic workspace" },
   { label: "Lines of Rust", value: "213K", helper: "pure, memory-safe, Franken-only deps" },
   { label: "Inline Tests", value: "1838", helper: "+ 241 conformance suites" },
 ];
