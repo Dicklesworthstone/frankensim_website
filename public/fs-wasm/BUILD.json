@@ -1,0 +1,36 @@
+{
+  "schema": "frankensim-website-fs-wasm-build-v1",
+  "source": {
+    "repo": "https://github.com/Dicklesworthstone/frankensim",
+    "commit": "c45e5a3723b8e1a7927580c34d3466a4b049d465",
+    "crate": "crates/fs-wasm",
+    "closure_check": "Every fs-* crate in fs-wasm's wasm32-unknown-unknown normal dependency graph (108 crates, from cargo tree -e normal) was byte-identical to this commit in the build tree. Sibling Franken repositories (asupersync, franken_numpy, frankenscipy, frankensqlite, frankentorch, franken_networkx) came from the build host's checkouts, pinned by the lockfile below."
+  },
+  "build": {
+    "toolchain": "rustc 1.99.0-nightly (3659db0d3 2026-07-05), nightly-2026-07-06",
+    "command": "cargo build --lib --release --target wasm32-unknown-unknown --locked --offline",
+    "lockfile": {
+      "md5": "76c8d4e553fdb7aa0bf04a4067e9fefc",
+      "note": "The committed crates/fs-wasm/Cargo.lock (md5 1c12ecf1b715cb077bf6f54867fd8c10) is stale against the sibling repositories and refuses --locked. The build used a copy extended by `cargo metadata --offline` (CARGO_RESOLVER_LOCKFILE_PATH); the committed lock was not changed."
+    },
+    "bindgen": "wasm-bindgen 0.2.126 --target web --out-name fs_wasm",
+    "wasm_opt": "not run"
+  },
+  "artifacts": {
+    "fs_wasm_bg.wasm": {
+      "bytes": 4564952,
+      "sha256": "9ef57d10b4f4380cc99e7b16cf3da5ee012155f2aca9f274bff248e56f5a1209"
+    },
+    "fs_wasm.js": {
+      "bytes": 47190,
+      "sha256": "7e5f45e1b61a053a785441d3d58ec0cfe6d8253de8ceec9b2a34522e1d767467"
+    }
+  },
+  "deployed": {
+    "at": "2026-11-26T01:30:18Z",
+    "website_commit": "273b022cded0708df504c754d9fc5645d8a9cd01",
+    "served_check": "https://frankensim.org/fs-wasm/fs_wasm_bg.wasm fetched after the deploy: 4564952 bytes, sha256 equal to the artifact above."
+  },
+  "rebuild_check": "2026-11-26 01:57-02:03Z: the same command and lockfile, run again in the same cargo target directory, recompiled 70 crates (fs-wasm among them), reused the rest, and produced byte-identical fs_wasm_bg.wasm and fs_wasm.js (both sha256 above). This is not a clean-room reproduction from an empty target directory.",
+  "tests": "Not a suite receipt. fs-wasm's own workspace is outside frankensim's suite-receipt.json (bead frankensim-vxnd3). Before shipping, these ran on this build: cargo test --release --lib flagships::tests in fs-wasm, and the site's headless-Chrome smoke (/flagships 3 ok 0 failed; /lab 41 calls ok 0 failed; /e2e 0 failed)."
+}
