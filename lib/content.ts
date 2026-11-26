@@ -747,7 +747,7 @@ export const changelog: ChangelogEntry[] = [
   { period: "Addendum", title: "The Epistemic Engine", items: [
     "The three-color ledger, falsifier pairing, the Goodhart guard, and tombstones",
     "Incremental recomputation with certified skip; version control for physics",
-    "Certified speculation, the sole research bet: an equilibrated-flux verifier, today on a 1D testbed and on linear conduction over tetrahedral meshes",
+    "Certified speculation, the sole research bet: an equilibrated-flux verifier, today on a 1D testbed and on linear conduction over tetrahedral meshes, where the default frankensim binary reports a verified interval for a region's mean temperature",
   ]},
 ];
 
