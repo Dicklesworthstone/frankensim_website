@@ -111,7 +111,7 @@ const CONCEPTS: Concept[] = [
     title: <><Tooltip term="Certified Speculation">Certified speculation</Tooltip></>,
     body: (
       <>
-        <p>The single research bet. Cheap, possibly-wrong proposers (a surrogate, a coarse solve, an ML guess) fire candidate answers at high rate. A cheap certified verifier, an equilibrated-flux a-posteriori test, either stamps a candidate <strong style={{ color: "#22d3ee" }}>verified</strong> or fails closed. Today fs-verify runs that test on a one-dimensional elliptic testbed; the bound for the conduction quantity of interest is open work.</p>
+        <p>The single research bet. Cheap, possibly-wrong proposers (a surrogate, a coarse solve, an ML guess) fire candidate answers at high rate. A cheap certified verifier, an equilibrated-flux a-posteriori test, either stamps a candidate <strong style={{ color: "#22d3ee" }}>verified</strong> or fails closed. Today fs-verify runs that test on a one-dimensional testbed and on linear conduction over conforming tetrahedral meshes. The frankensim CLI, built with its thermal-verification feature, uses it to report a verified interval for a region&apos;s mean temperature. A bound on the maximum temperature, which the cooling requirement checks, is open work.</p>
         <p>Machine learning proposes; certified numerics disposes. Most candidates are screened for pennies; only survivors pay for the expensive confirmation.</p>
       </>
     ),

@@ -361,7 +361,9 @@ export default function EpistemicsPage() {
               a-posteriori accept test) checks whether the candidate actually satisfies the
               governing equations to tolerance. If it passes, it is stamped{" "}
               <span style={{ color: VERIFIED }}>verified</span>. If it does not, it is rejected. Today
-              fs-verify runs this test on a one-dimensional elliptic testbed; the conduction bound is open work.
+              fs-verify runs this test on a one-dimensional testbed and on linear conduction over conforming
+              tetrahedral meshes, where it bounds a region&apos;s mean temperature. A bound on the maximum
+              temperature is open work.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <div className="rounded-xl border p-4" style={{ borderColor: `${ESTIMATED}33` }}>
