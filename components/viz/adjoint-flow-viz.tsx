@@ -548,7 +548,7 @@ export default function AdjointFlowViz() {
           }}
         >
           <CheckCircle2 size={12} />
-          gradient checks gate every merge
+          gradients checked against finite differences
         </span>
       </div>
 

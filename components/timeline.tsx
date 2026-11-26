@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ChangelogEntry } from "@/lib/content";
+import { phaseStatusOf, type ChangelogEntry } from "@/lib/content";
 import { SyncContainer } from "./sync-elements";
+
+// A period reads "done" only when its phase's milestone bead is closed.
+const STATUS_LABEL = {
+  done: { text: "milestone closed", className: "text-emerald-400/80" },
+  active: { text: "in progress · milestone open", className: "text-amber-400/80" },
+  planned: { text: "planned", className: "text-slate-500" },
+} as const;
 
 export default function Timeline({ items }: { items: ChangelogEntry[] }) {
   return (
@@ -11,6 +18,8 @@ export default function Timeline({ items }: { items: ChangelogEntry[] }) {
 
       <div className="space-y-12 md:space-y-24">
         {items.map((item, index) => {
+          const phaseStatus = phaseStatusOf(item.period);
+          const status = phaseStatus ? STATUS_LABEL[phaseStatus] : null;
           return (
             <motion.div
               key={item.period}
@@ -30,6 +39,11 @@ export default function Timeline({ items }: { items: ChangelogEntry[] }) {
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/60 group-hover:text-cyan-400 transition-colors">
                     {item.period}
                   </span>
+                  {status && (
+                    <span className={`mt-2 block text-[10px] font-black uppercase tracking-[0.2em] ${status.className}`}>
+                      {status.text}
+                    </span>
+                  )}
                 </div>
 
                 <div className="lg:col-span-9">

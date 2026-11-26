@@ -413,9 +413,10 @@ export default function ArchitecturePage() {
           <p className="leading-relaxed text-slate-400">
             Gradients are <span className="font-semibold text-blue-300">adjoint-native</span>: FrankenSim
             differentiates through the converged solution via the implicit function theorem, not by unrolling
-            solver iterations. Sensitivities are exact and cheap, the same matrix-free apply serves the forward
-            and adjoint passes, and a <span className="text-slate-200">gradient check gates every merge</span>.
-            Differentiability is a build requirement, not an afterthought.
+            solver iterations. Sensitivities are exact to the converged solve and cheap, the same matrix-free
+            apply serves the forward and adjoint passes, and the{" "}
+            <span className="text-slate-200">test suites check gradients against finite differences</span>.
+            Differentiability is designed in, not an afterthought.
           </p>
         </div>
       </SectionShell>
@@ -442,7 +443,7 @@ export default function ArchitecturePage() {
             </h2>
           </GlitchText>
           <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-slate-400">
-            Ten commitments the architecture is built to keep. Every crate, every merge gate, and every refusal
+            Ten commitments the architecture is built to keep. Every crate, every test tier, and every refusal
             traces back to one of them.
           </p>
         </div>

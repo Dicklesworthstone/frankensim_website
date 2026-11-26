@@ -223,7 +223,7 @@ export default function GauntletViz() {
         className="w-full"
         style={{ maxHeight: 520 }}
         role="img"
-        aria-label="The Gauntlet: a six-tier correctness pipeline G0 to G5 that gates every merge; a build steps through each gate which proves its own check, and a triggered regression makes G1's order-of-accuracy slope drift so the build fails and the pipeline halts"
+        aria-label="The Gauntlet: a six-tier correctness pipeline G0 to G5 (an illustration; today the tiers run as test suites and per-lane CI, not as a merge gate); a build steps through each gate which proves its own check, and a triggered regression makes G1's order-of-accuracy slope drift so the build fails and the pipeline halts"
       >
         <defs>
           <filter id="g-glow" x="-40%" y="-40%" width="180%" height="180%">

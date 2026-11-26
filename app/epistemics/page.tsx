@@ -80,7 +80,7 @@ const GAUNTLET_TIERS = [
   { id: "G2", color: VALIDATED, name: "Canonical benchmarks", desc: "Lid-driven cavity, Taylor–Green, NAFEMS: the problems the field already agreed on the answers to." },
   { id: "G3", color: VALIDATED, name: "Metamorphic tests", desc: "Relations that must hold even when the exact answer is unknown: refine, rotate, rescale, and check the invariant." },
   { id: "G4", color: ESTIMATED, name: "Chaos & cancellation storms", desc: "Inject cancellation mid-solve, starve budgets, race speculators. Correctness must survive the storm; resources must never leak." },
-  { id: "G5", color: ESTIMATED, name: "Determinism & cross-ISA", desc: "Bit-identical across runs, thread counts, and instruction sets. Any divergence is a diff, not a shrug." },
+  { id: "G5", color: ESTIMATED, name: "Determinism & cross-ISA", desc: "Bit-identical across runs and thread counts; across instruction sets on declared platforms only (best-effort elsewhere). Any divergence is a diff, not a shrug." },
 ];
 
 const explicitIcons: Record<string, LucideIcon> = {
@@ -360,7 +360,8 @@ export default function EpistemicsPage() {
               Then a cheap, independent verifier (an equilibrated-flux <span className="text-white font-semibold">Prager–Synge</span>{" "}
               a-posteriori accept test) checks whether the candidate actually satisfies the
               governing equations to tolerance. If it passes, it is stamped{" "}
-              <span style={{ color: VERIFIED }}>verified</span>. If it does not, it is rejected.
+              <span style={{ color: VERIFIED }}>verified</span>. If it does not, it is rejected. Today
+              fs-verify runs this test on a one-dimensional elliptic testbed; the conduction bound is open work.
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <div className="rounded-xl border p-4" style={{ borderColor: `${ESTIMATED}33` }}>
@@ -433,7 +434,7 @@ export default function EpistemicsPage() {
         icon="bug"
         eyebrow="Correctness Program"
         title="The Gauntlet"
-        kicker="Certificates are only as good as the thing that issues them. The Gauntlet is six graded tiers that every merge must survive, and the discipline of certifying the certifiers so the judge is never above the law."
+        kicker="Certificates are only as good as the thing that issues them. The Gauntlet is six graded tiers of tests (today run as crate test suites and per-lane CI on each push, not yet a gate that blocks a commit), and the discipline of certifying the certifiers so the judge is never above the law."
       >
         <div className="space-y-8">
           <SyncContainer withPulse={true} accentColor={VERIFIED} className="p-1 md:p-2 bg-black/40">

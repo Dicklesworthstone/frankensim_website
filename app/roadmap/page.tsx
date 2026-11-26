@@ -50,8 +50,12 @@ export default function RoadmapPage() {
           </GlitchText>
           <p className="mt-8 max-w-2xl text-lg md:text-xl font-medium leading-relaxed text-slate-400">
             The plan runs in phases, PV → P6. Each gate is a Gauntlet state, not a date;
-            nothing Moonshot is allowed to gate anything Solid. The vertical skeleton, Bedrock,
-            and Geometry are proven; the first optimization is landing now.
+            nothing Moonshot is allowed to gate anything Solid. Done, by closed milestone:{" "}
+            {phases
+              .filter((p) => p.status === "done")
+              .map((p) => p.name)
+              .join(", ")}
+            . The later phases are in progress.
           </p>
         </div>
       </section>
@@ -102,8 +106,8 @@ export default function RoadmapPage() {
         id="graph"
         icon="gitCompare"
         eyebrow="The Project Graph"
-        title="248 Issues, One DAG"
-        kicker="The build is tracked as a dependency graph of beads. Nearly half is already closed; the foundations are done, and the flywheel research bets are the frontier."
+        title={`${beadsStats.total} Issues, One DAG`}
+        kicker={`The build is tracked as a dependency graph of beads, ${beadsStats.closedPct}% of it closed. A phase above reads done only when its milestone bead is closed; the flywheel research bets are the frontier.`}
       >
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {[
@@ -130,12 +134,16 @@ export default function RoadmapPage() {
           <div className="flex h-3 w-full overflow-hidden rounded-full border border-white/5">
             <div style={{ width: `${(beadsStats.closed / beadsStats.total) * 100}%`, background: "#10b981" }} title={`${beadsStats.closed} closed`} />
             <div style={{ width: `${(beadsStats.inProgress / beadsStats.total) * 100}%`, background: "#f59e0b" }} title={`${beadsStats.inProgress} in progress`} />
+            <div style={{ width: `${(beadsStats.blocked / beadsStats.total) * 100}%`, background: "#ef4444" }} title={`${beadsStats.blocked} blocked`} />
             <div style={{ width: `${(beadsStats.open / beadsStats.total) * 100}%`, background: "#1e2a33" }} title={`${beadsStats.open} open`} />
+            <div style={{ width: `${(beadsStats.deferred / beadsStats.total) * 100}%`, background: "#334155" }} title={`${beadsStats.deferred} deferred`} />
           </div>
           <div className="mt-2 flex flex-wrap gap-4 text-[11px] font-mono text-slate-500">
             <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: "#10b981" }} /> {beadsStats.closed} closed</span>
             <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: "#f59e0b" }} /> {beadsStats.inProgress} in progress</span>
+            <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: "#ef4444" }} /> {beadsStats.blocked} blocked</span>
             <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: "#1e2a33" }} /> {beadsStats.open} open</span>
+            <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: "#334155" }} /> {beadsStats.deferred} deferred</span>
             <span className="ml-auto flex items-center gap-3">
               <span>ambition: <span className="text-cyan-300">[S] {beadsStats.ambition.S}</span></span>
               <span className="text-lime-300">[F] {beadsStats.ambition.F}</span>

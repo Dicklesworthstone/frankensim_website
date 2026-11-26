@@ -24,7 +24,7 @@ import { SyncContainer } from "@/components/sync-elements";
 import { Magnetic, BorderBeam } from "@/components/motion-wrapper";
 import { Tooltip } from "@/components/tooltip";
 import {
-  siteConfig, heroStats, heroStat, features, codeExample, codeExampleStudy, changelog,
+  siteConfig, heroStats, heroStat, features, codeExample, codeExampleStudy, changelog, phases,
 } from "@/lib/content";
 
 /* ---- lazy viz (client-only) ---- */
@@ -101,7 +101,7 @@ const CONCEPTS: Concept[] = [
     body: (
       <>
         <p>To get the gradient of an objective with respect to thousands of design parameters, FrankenSim solves the physics forward once, then solves a single adjoint problem via the implicit function theorem, not by unrolling solver iterations.</p>
-        <p>The full gradient comes back at roughly the cost of one extra solve, regardless of parameter count. Gradient checks gate every merge, so the derivatives are always exact.</p>
+        <p>The full gradient comes back at roughly the cost of one extra solve, regardless of parameter count. The test suites check adjoint gradients against finite differences (fs-ad's gradcheck, fs-adjoint's verifier).</p>
       </>
     ),
     Viz: AdjointFlowViz,
@@ -111,7 +111,7 @@ const CONCEPTS: Concept[] = [
     title: <><Tooltip term="Certified Speculation">Certified speculation</Tooltip></>,
     body: (
       <>
-        <p>The single research bet. Cheap, possibly-wrong proposers (a surrogate, a coarse solve, an ML guess) fire candidate answers at high rate. A cheap certified verifier, an equilibrated-flux a-posteriori test, either stamps a candidate <strong style={{ color: "#22d3ee" }}>verified</strong> or fails closed.</p>
+        <p>The single research bet. Cheap, possibly-wrong proposers (a surrogate, a coarse solve, an ML guess) fire candidate answers at high rate. A cheap certified verifier, an equilibrated-flux a-posteriori test, either stamps a candidate <strong style={{ color: "#22d3ee" }}>verified</strong> or fails closed. Today fs-verify runs that test on a one-dimensional elliptic testbed; the bound for the conduction quantity of interest is open work.</p>
         <p>Machine learning proposes; certified numerics disposes. Most candidates are screened for pennies; only survivors pay for the expensive confirmation.</p>
       </>
     ),
@@ -134,7 +134,7 @@ const CONCEPTS: Concept[] = [
     body: (
       <>
         <p>The forcing function for the whole geometry-physics bridge: a density field evolves to minimize compliance under a volume fraction, its physics computed by CutFEM directly on the level set.</p>
-        <p>A grey blob resolves into a classic cantilever truss, and every iterate carries a composed error certificate, with the mesh-step counter pinned at zero.</p>
+        <p>The P2 milestone, still open, asks for this: a grey blob resolves into a classic cantilever truss, every iterate carries a composed error certificate, and the mesh-step counter stays pinned at zero.</p>
       </>
     ),
     Viz: TopoptSdfViz,
@@ -174,11 +174,11 @@ const CONCEPTS: Concept[] = [
   },
   {
     badge: "The Gauntlet", icon: ShieldCheck, accent: "#a3e635",
-    title: <>Nothing merges without <Tooltip term="The Gauntlet">proof</Tooltip></>,
+    title: <>Correctness in six <Tooltip term="The Gauntlet">graded tiers</Tooltip></>,
     body: (
       <>
-        <p>Six graded tiers gate every merge: property laws, manufactured-solution order verification, canonical benchmarks, metamorphic tests, chaos and cancellation storms, and cross-ISA determinism audits.</p>
-        <p>If the observed convergence slope drifts more than 0.2 from theory, the build fails. Repository policy is code too: the layer direction and the Franken-only dependency rule are enforced mechanically.</p>
+        <p>Six graded tiers of tests: property laws, manufactured-solution order verification, canonical benchmarks, metamorphic tests, chaos and cancellation storms, and cross-ISA determinism audits. They run as crate test suites and as per-lane CI workflows on each push; no gate yet blocks a commit that fails them.</p>
+        <p>If the observed convergence slope drifts more than 0.2 from theory, the order test fails. Repository policy is code too: the layer direction and the Franken-only dependency rule are checked mechanically by the workspace's xtask.</p>
       </>
     ),
     Viz: GauntletViz,
@@ -415,7 +415,10 @@ export default function HomePage() {
         icon="clock"
         eyebrow="The Build Log"
         title="Gauntlet-Gated"
-        kicker="Each phase gate is a Gauntlet state, not a date. The vertical skeleton, Bedrock, and Geometry are proven; the first optimization is landing now."
+        kicker={`Each phase gate is a Gauntlet state, not a date. Done, by closed milestone: ${phases
+          .filter((p) => p.status === "done")
+          .map((p) => p.name)
+          .join(", ")}. The later phases are in progress.`}
       >
         <Timeline items={changelog.slice(0, 4)} />
         <div className="mt-10 flex justify-center">
@@ -477,7 +480,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-col items-center gap-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
               <Shield className="h-3 w-3 text-cyan-400" />
-              MIT License &middot; Pure Safe Rust
+              MIT License with OpenAI/Anthropic Rider &middot; Pure Rust
             </div>
             <Link
               href="/getting-started"

@@ -281,7 +281,7 @@ export default function DeterminismViz() {
             Determinism is a feature, not an accident
           </h3>
           <p className="mt-0.5 font-mono text-[11px]" style={{ color: MUTED }}>
-            fixed-shape reduction trees → bit-identical across runs, threads, ISAs
+            fixed-shape reduction trees → bit-identical across runs and threads (ISAs best-effort)
           </p>
         </div>
         <div className="flex items-center gap-1.5 rounded-full border px-3 py-1" style={{ borderColor: BORDER }}>

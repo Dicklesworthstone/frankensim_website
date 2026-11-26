@@ -45,6 +45,11 @@ export interface ComparisonRow {
   scipy: string;
 }
 export interface ChangelogEntry { period: string; title: string; items: string[]; }
+
+/** A changelog period's roadmap status: its phase's `status`, which compute-beads-stats.mjs takes from the MILESTONE bead. */
+export function phaseStatusOf(period: string): "done" | "active" | "planned" | undefined {
+  return phases.find((p) => p.id === period)?.status;
+}
 export interface GlossaryTerm { term: string; short: string; long: string; }
 export interface FaqItem { question: string; answer: string; }
 
@@ -122,7 +127,7 @@ export function heroStat(label: string): string {
 export const principles: Principle[] = [
   { id: "P1", title: "Pure, memory-safe Rust", body: "One language, Franken-constellation dependencies only. Unsafe lives only in audited leaf capsules under 300 lines, each behind a safe façade." },
   { id: "P2", title: "Determinism is a feature", body: "Bit-identical across runs, thread counts, and (best-effort) ISAs, delivered by fixed-shape reduction trees, counter-based RNG keyed by logical identity, and compensated summation." },
-  { id: "P3", title: "Differentiable or certifiable", body: "Every operator is differentiable, certifiable, or ideally both. Gradients are checked at the merge gate; error bounds are first-class." },
+  { id: "P3", title: "Differentiable or certifiable", body: "Every operator is differentiable, certifiable, or ideally both. Gradients are checked against finite differences in the test suites; error bounds are first-class." },
   { id: "P4", title: "Budgets first", body: "Every operation takes an accuracy / time / memory budget. The Error Ledger and Time Ledger compose them end-to-end and attribute every digit and every second." },
   { id: "P5", title: "Structure over brute force", body: "Exact discrete de Rham (d∘d = 0), symplectic integrators, power-conserving ports. Preserve the math instead of resolving it away." },
   { id: "P6", title: "Matrix-free & roofline-honest", body: "Kernels ship their arithmetic-intensity analysis against machine peak. No dense assembly where a matrix-free apply will do." },
@@ -392,8 +397,8 @@ export const crates: Crate[] = [
 export const features: Feature[] = [
   { title: "Certificates ride inside values", icon: "shield", category: "Evidence", description: "Every result is an Evidence<T>: a value plus four uncertainty slices (numerical, statistical, model-form, sensitivity) that compose conservatively. The value carries a proof of its own bound." },
   { title: "The three-color type system", icon: "layers", category: "Epistemics", description: "Every quantity is verified (interval-certified), validated (anchored to experiment), or estimated. Type-checked composition means an estimate can never be laundered into a certificate." },
-  { title: "Determinism by construction", icon: "gitCommit", category: "Substrate", description: "Bit-identical across runs, thread counts, and ISAs. Fixed-shape reduction trees, counter-based RNG keyed by logical identity, and compensated summation make reproducibility a side effect." },
-  { title: "Adjoint-native gradients", icon: "activity", category: "Differentiation", description: "Differentiate through the solution via the implicit function theorem, not through solver iterations. Gradient checks are a merge gate, not an afterthought." },
+  { title: "Determinism by construction", icon: "gitCommit", category: "Substrate", description: "Bit-identical across runs and thread counts, best-effort across ISAs. Fixed-shape reduction trees, counter-based RNG keyed by logical identity, and compensated summation make reproducibility a side effect." },
+  { title: "Adjoint-native gradients", icon: "activity", category: "Differentiation", description: "Differentiate through the solution via the implicit function theorem, not through solver iterations. The test suites check gradients against finite differences." },
   { title: "Geometry as Region + Chart", icon: "boxes", category: "Morph", description: "A Region is abstract; Charts (SDF, mesh, F-rep, NURBS, voxel) present it. The Rep Router solves a Pareto shortest path over conversions, respecting your error budget and emitting a certificate." },
   { title: "CutFEM on a raw SDF", icon: "grid", category: "Flux", description: "FEM-grade physics directly on a level set (ghost penalty, Nitsche BCs, certified cut cells) with zero meshing in the loop. The marquee bridge between geometry and physics." },
   { title: "Anytime-valid statistics", icon: "lineChart", category: "Ascent", description: "e-processes and confidence sequences give valid inference under continuous peeking and optional stopping. Race candidate designs and stop the moment the evidence is decisive." },
@@ -608,19 +613,19 @@ export const phases: Phase[] = [
   { id: "P0", name: "Bedrock", status: "done",
     scope: "Substrate, two-lane executor, alloc, la, sparse, fft, ivl, rand, ledger v0.",
     exit: "G0 + G4 green; GEMM / SpMV / FFT within 80% of targets on both ISAs; deterministic mode bit-stable." },
-  { id: "P1", name: "Geometry + Eyes", status: "done",
+  { id: "P1", name: "Geometry + Eyes", status: "active",
     scope: "geom, SDF / F-rep / mesh charts, Rep Router v1, dual contouring, Delaunay, the Lumen preview tracer.",
     exit: "Chart round-trips certified; watertightness vs. a ray-parity oracle; sphere-traced turntables at target ray rates." },
-  { id: "P2", name: "Elasticity + First Optimization", status: "done",
+  { id: "P2", name: "Elasticity + First Optimization", status: "active",
     scope: "FEEC elasticity, CutFEM-on-SDF, matrix-free p-MG + AMG, adjoints, SIMP.",
     exit: "Marquee demo: topology optimization on a raw SDF (no mesh in the loop) with a composed error certificate." },
-  { id: "P3", name: "Fluids I", status: "done",
+  { id: "P3", name: "Fluids I", status: "active",
     scope: "LBM (cumulant, sparse, free-surface), the lattice-scaling assistant, thermal, non-Newtonian.",
     exit: "Cavity / TGV / cylinder benchmarks green; GLUP/s targets met; the first spout pours end-to-end." },
-  { id: "P4", name: "Structures at Scale", status: "done",
+  { id: "P4", name: "Structures at Scale", status: "active",
     scope: "IGA + Kirchhoff–Love shells, fiber beams, ground-structure PDHG, Kanai–Tajimi + MLMC + e-stop.",
     exit: "Frame flagship v1: fragility with anytime-valid stopping; the NAFEMS shell suite green." },
-  { id: "P5", name: "Aero Stack", status: "done",
+  { id: "P5", name: "Aero Stack", status: "active",
     scope: "BEM + FMM + Kutta, vortex particles, Dirac coupling, SE(3) integrators, Koopman surrogates.",
     exit: "Ornithoid flagship v1: a live, e-raced Pareto front." },
   { id: "P6", name: "Certificates & Self-Optimization", status: "active",
@@ -637,7 +642,7 @@ export const comparisonData: ComparisonRow[] = [
   { feature: "Evidence inside values", frankensim: "Certified<T>", comsol: "No", openfoam: "No", scipy: "No" },
   { feature: "Error bounds cross tools", frankensim: "Composed ledger", comsol: "Per-solver", openfoam: "Manual", scipy: "None" },
   { feature: "Provenance / replay", frankensim: "Content-addressed", comsol: "Project file", openfoam: "Case dir", scipy: "Ad hoc" },
-  { feature: "Determinism", frankensim: "Bit-identical", comsol: "Best-effort", openfoam: "MPI-dependent", scipy: "BLAS-dependent" },
+  { feature: "Determinism", frankensim: "Bit-identical (runs, threads)", comsol: "Best-effort", openfoam: "MPI-dependent", scipy: "BLAS-dependent" },
   { feature: "Cancellation", frankensim: "≤ 200 µs, structured", comsol: "Kill process", openfoam: "Kill process", scipy: "Kill process" },
   { feature: "Geometry ↔ physics", frankensim: "CutFEM on SDF", comsol: "Mesh required", openfoam: "Mesh required", scipy: "External" },
   { feature: "Gradients", frankensim: "Adjoint-native", comsol: "Add-on", openfoam: "adjoint solver", scipy: "autograd (external)" },
@@ -736,13 +741,13 @@ export const changelog: ChangelogEntry[] = [
   ]},
   { period: "P2", title: "Elasticity + First Optimization", items: [
     "FEEC elasticity, CutFEM-on-SDF, matrix-free p-multigrid + smoothed-aggregation AMG",
-    "Adjoint-native gradients with a merge-gate gradient check; SIMP density fields",
+    "Adjoint-native gradients, checked against finite differences in the test suites; SIMP density fields",
     "The marquee: topology optimization on a raw SDF with a composed error certificate",
   ]},
   { period: "Addendum", title: "The Epistemic Engine", items: [
     "The three-color ledger, falsifier pairing, the Goodhart guard, and tombstones",
     "Incremental recomputation with certified skip; version control for physics",
-    "Certified speculation, the sole research bet, verified by equilibrated-flux bounds",
+    "Certified speculation, the sole research bet: an equilibrated-flux verifier, today on a 1D elliptic testbed",
   ]},
 ];
 
@@ -758,18 +763,18 @@ export const glossaryTerms: GlossaryTerm[] = [
   { term: "The Three Colors", short: "verified / validated / estimated", long: "FrankenSim's epistemic type system. A quantity is verified (its bounds are proven by interval-certified numerics), validated (anchored to experimental data within a stated regime), or estimated (best-effort). Composition is type-checked so an estimate can never be laundered into a certificate, and a validated value auto-demotes to estimated the instant it leaves its regime." },
   { term: "The Five Explicits", short: "units, seeds, budgets, versions, capabilities", long: "The five things that are never implicit in FrankenSim. Every operation states its units, its random seeds, its accuracy/time/memory budgets, the versions of the kernels it used, and the capabilities it was granted. This is what makes the system safe for an agent swarm to drive." },
   { term: "The Decalogue", short: "The ten non-negotiable principles", long: "P1–P10: pure safe Rust; determinism as a feature; differentiable-or-certifiable; budgets first; structure over brute force; matrix-free and roofline-honest; cancellation-correct; one data model; provenance-complete; agent-first ergonomics." },
-  { term: "The Gauntlet", short: "The tiered correctness program (G0–G5)", long: "The graded suite every merge must pass: G0 property and algebraic-law tests; G1 manufactured solutions and order verification (the build fails if the observed convergence slope deviates from theory by more than 0.2); G2 canonical benchmarks; G3 metamorphic tests; G4 chaos and cancellation storms; G5 determinism and cross-ISA divergence audits, plus certifying the certifiers." },
+  { term: "The Gauntlet", short: "The tiered correctness program (G0–G5)", long: "The graded test program, run as crate test suites and per-lane CI workflows on each push (no gate yet blocks a commit that fails it): G0 property and algebraic-law tests; G1 manufactured solutions and order verification (the order test fails if the observed convergence slope deviates from theory by more than 0.2); G2 canonical benchmarks; G3 metamorphic tests; G4 chaos and cancellation storms; G5 determinism and cross-ISA divergence audits, plus certifying the certifiers." },
   { term: "FrankenScript", short: "The one true interface (typed IR)", long: "The typed, versioned intermediate representation that agents and humans use to drive FrankenSim. It has isomorphic s-expression and JSON syntaxes, an inspectable lowering trace, and structured errors that include ranked fixes. A refusal that teaches." },
   { term: "The Design Ledger", short: "The FrankenSQLite system of record", long: "Built on FrankenSQLite: content-addressed artifacts, event-sourced operations (the Five Explicits), lineage, metrics, a tune cache, and tombstones, all with time-travel, forkable worlds, and explain(artifact). It makes a six-month campaign a database you can query instead of a directory you fear." },
   { term: "Error Ledger / Time Ledger", short: "End-to-end attribution of error and seconds", long: "Two attribution trees that compose per-operator error and cost models across an entire plan, so every digit of uncertainty and every second of wall-clock can be traced to the operation that produced it." },
   { term: "Two-Lane Executor", short: "Latency lane + throughput lane", long: "The heart of L0. A latency lane (async orchestration, ledger I/O, progress) runs alongside a throughput lane (a work-stealing fork-join pool whose units of work are tiles), targeting a bounded latency-to-cancel of ≤ 200 µs and supporting speculative races and resumable solvers." },
   { term: "Tile", short: "The unit of scheduling and determinism", long: "The atomic unit of work in the throughput lane: a cache-aligned block whose lifetime is a cancellation scope and whose reduction shape is fixed, making parallel results deterministic and cancellation prompt." },
   { term: "Cx", short: "The execution context", long: "The capability context threaded through every operation. Cx carries the cancel token, the arena, the Philox key, the budget, and the ledger handle, so nothing about how a computation runs is implicit." },
-  { term: "Certified Speculation", short: "Untrusted proposers, a certified verifier", long: "The system's single research bet: cheap, possibly-wrong proposers (surrogates, coarse solves, ML) generate candidate answers, and a cheap certified verifier (an equilibrated-flux, a-posteriori accept test) either stamps a candidate verified or fails closed. Machine learning proposes; certified numerics disposes." },
+  { term: "Certified Speculation", short: "Untrusted proposers, a certified verifier", long: "The system's single research bet: cheap, possibly-wrong proposers (surrogates, coarse solves, ML) generate candidate answers, and a cheap certified verifier (an equilibrated-flux, a-posteriori accept test) either stamps a candidate verified or fails closed. Machine learning proposes; certified numerics disposes. Today fs-verify runs the test on a one-dimensional elliptic testbed; the conduction bound is open work." },
   { term: "CutFEM-on-SDF", short: "FEM-grade physics on a level set", long: "The marquee bridge between geometry and physics: finite-element accuracy computed directly on a signed distance field, with certified cut cells, ghost penalty, and Nitsche boundary conditions. No body-fitted meshing in the loop." },
   { term: "The Sheaf View", short: "Watertightness as a vanishing cocycle", long: "Gluing is modeled with a cellular sheaf: watertightness of a surface is the vanishing of an interface cocycle (H¹ = 0), and merge conflicts classify as coboundary (auto-fixable) or harmonic (structural)." },
   { term: "FEEC", short: "Finite Element Exterior Calculus", long: "The physics formalism: cochains on complexes with exact integer incidence (d∘d = 0 to the bit), Whitney forms, and Hodge stars, giving a discrete de Rham complex that preserves grad → curl → div identities to machine precision." },
-  { term: "Adjoint", short: "Differentiate through the solution", long: "FrankenSim computes gradients via the implicit function theorem, differentiating through the converged solution rather than unrolling solver iterations. Sensitivities are exact and cheap, and gradient checks gate every merge." },
+  { term: "Adjoint", short: "Differentiate through the solution", long: "FrankenSim computes gradients via the implicit function theorem, differentiating through the converged solution rather than unrolling solver iterations. Sensitivities are exact to the converged solve and cheap, and the test suites check them against finite differences." },
   { term: "DWR", short: "Dual-Weighted Residual", long: "Goal-oriented adaptivity: refinement is driven by the residual weighted by the adjoint of the actual quantity of interest, so effort is spent where it changes the answer you care about." },
   { term: "e-process", short: "Anytime-valid evidence", long: "A betting martingale that stays statistically valid no matter when you stop or how often you peek. FrankenSim uses e-processes and confidence sequences to race candidate designs and stop the instant the evidence is decisive, under optional stopping." },
   { term: "Roofline-honest", short: "Every kernel states its intensity", long: "Each kernel ships its arithmetic-intensity analysis against measured machine peak, so its performance claim is a fraction of a roof rather than a bare number, and the targets are stated so they can be failed." },
@@ -793,7 +798,7 @@ export const faq: FaqItem[] = [
   { question: "What does 'it returns proofs, not just numbers' mean?", answer: "Every result is an Evidence<T>: a value plus a proven interval bound, a provenance hash, an adjoint hook, and a cancellation scope. Quantities are typed verified, validated, or estimated, and composition is checked so an estimate can never wear the badge of a certificate. A false certificate is worse than an ordinary wrong answer: it is a wrong answer wearing a badge, so the type system exists to prevent exactly that." },
   { question: "Is FrankenSim faster than the incumbents?", answer: "The plan states illustrative, failable targets: GEMM ≥ 75% of peak, SpMV ≥ 85% of STREAM bandwidth, LBM ≥ 1.0 GLUP/s on an M4 Max, and sphere-traced SDF rays ≥ 80 Mray/s, all measured with a roofline harness against real machine peak on both Apple Silicon and 96-core Threadripper. Speed is necessary but not the pitch: the pitch is justified belief at minimum cost." },
   { question: "Who is it for?", answer: "AI coding agents and swarms are the primary operator; the whole system is designed around the Five Explicits so a fleet can drive it safely. It also targets simulation-infrastructure engineers who want a deterministic, evidence-oriented Rust substrate, and design-optimization users producing optimal artifacts (aircraft, seismic frames, vessels) at lowest cost." },
-  { question: "How is correctness actually enforced?", answer: "By the Gauntlet (G0–G5), which gates every merge: property tests, manufactured-solution order verification that fails the build if the convergence slope drifts more than 0.2 from theory, canonical benchmarks, metamorphic tests, chaos and cancellation storms, and determinism / cross-ISA audits. Repository policy is code too: xtask mechanically enforces the acyclic layer direction, Franken-only dependencies, contract presence, and unsafe-capsule registration." },
+  { question: "How is correctness actually enforced?", answer: "By the Gauntlet (G0–G5), run as crate test suites and per-lane CI workflows on each push; no gate yet blocks a commit that fails it. Its tiers: property tests, manufactured-solution order verification that fails if the convergence slope drifts more than 0.2 from theory, canonical benchmarks, metamorphic tests, chaos and cancellation storms, and determinism / cross-ISA audits. Repository policy is code too: xtask mechanically enforces the acyclic layer direction, Franken-only dependencies, contract presence, and unsafe-capsule registration." },
   { question: "What makes the architecture different from a COMSOL-style platform?", answer: "Composition as a first-class certified operation. Incumbents assume a human absorbs the seams between solvers; FrankenSim makes the seam itself a typed, certified value. Merely-decent kernels with impeccable epistemics can beat excellent kernels with folklore epistemics in the verticals that need certification-by-analysis." },
   { question: "Why Rust, and why memory-safe?", answer: "Rust is the only mainstream substrate strong enough to hold the typed continuum together without a garbage collector or a C ABI in the hot path. The Decalogue's first principle is pure, memory-safe Rust: unsafe exists only in audited leaf capsules under 300 lines, each behind a safe façade, and each registered with the policy checker." },
   { question: "How does an agent actually talk to it?", answer: "Through FrankenScript, a typed, versioned IR with isomorphic s-expression and JSON syntaxes. A program states its seed, versions, and budgets inline; the lowering trace is inspectable; and when a request is infeasible the error is structured and carries ranked fixes with estimated impact. A refusal that teaches is worth ten silent successes." },
@@ -859,18 +864,20 @@ export const machines = [
 export interface Epic { title: string; group: string; color: string; blurb: string; }
 
 export const beadsStats = {
-  total: 1741,
-  features: 477,
-  tasks: 788,
-  epics: 242,
+  total: 4433,
+  features: 936,
+  tasks: 2306,
+  epics: 488,
   milestones: 8,
-  bugs: 221,
-  chores: 5,
-  open: 1235,
-  closed: 386,
-  inProgress: 120,
-  closedPct: 22,
-  ambition: { S: 282, F: 506, M: 484 },
+  bugs: 674,
+  chores: 20,
+  open: 1197,
+  closed: 1843,
+  inProgress: 156,
+  blocked: 51,
+  deferred: 1186,
+  closedPct: 42,
+  ambition: { S: 363, F: 517, M: 501 },
 };
 
 export const epics: Epic[] = [
