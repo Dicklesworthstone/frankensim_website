@@ -24,7 +24,7 @@ import { SyncContainer } from "@/components/sync-elements";
 import { Magnetic, BorderBeam } from "@/components/motion-wrapper";
 import { Tooltip } from "@/components/tooltip";
 import {
-  siteConfig, heroStats, heroStat, features, codeExample, codeExampleStudy, changelog, phases,
+  siteConfig, heroStats, heroStat, features, codeExample, codeExampleStudy, changelog, phases, liveDemos,
 } from "@/lib/content";
 
 /* ---- lazy viz (client-only) ---- */
@@ -294,6 +294,31 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-6 mb-20 md:mb-28 mt-4 md:mt-0">
         <StatsGrid stats={heroStats} />
       </div>
+
+      {/* Live demos: separate deployments, so plain anchors rather than next/link */}
+      <SectionShell
+        id="demos"
+        icon="play"
+        eyebrow="Run it"
+        title="Live Demos"
+        kicker="Pages built on FrankenSim crates, each its own deployment beside this site."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
+          {liveDemos.map((demo) => (
+            <a
+              key={demo.href}
+              href={demo.href}
+              className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6 transition-colors hover:border-cyan-400/40 hover:bg-white/[0.04]"
+            >
+              <span className="flex items-center justify-between gap-3 text-base md:text-lg font-bold text-white">
+                {demo.title}
+                <ArrowRight className="h-4 w-4 shrink-0 text-slate-500 transition-colors group-hover:text-cyan-400" />
+              </span>
+              <span className="mt-2 block text-sm leading-relaxed text-slate-400">{demo.line}</span>
+            </a>
+          ))}
+        </div>
+      </SectionShell>
 
       {/* ================================================================
           2. THE CONTINUUM — concept walkthrough

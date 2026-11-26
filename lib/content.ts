@@ -31,6 +31,44 @@ export const navItems = [
   { href: "/glossary", label: "Glossary" },
 ];
 
+/**
+ * Live demos served beside this site. Each line paraphrases that page's own title and
+ * description (or, for the Flyer, its README). They are separate deployments, not Next.js
+ * routes, so they are linked with plain anchors.
+ */
+export const liveDemos = [
+  {
+    title: "First Flight: Wright Flyer",
+    href: "https://wright-flyer.vercel.app/",
+    line: "The Wright Flyer simulation in fs-flyer, compiled to WebAssembly and stepped in a Worker, with a three.js front end.",
+  },
+  {
+    title: "Struck",
+    href: "/music/",
+    line: "A drum kit and a concert grand simulated from geometry, materials and contact, graded against real recordings.",
+  },
+  {
+    title: "Industrial Steam Turbine",
+    href: "/turbine/",
+    line: "A 50 MW turbine-generator stepped live in the browser: IAPWS-IF97 steam, a coupled plant graph, rotor critical speeds and a 2-D thermal field.",
+  },
+  {
+    title: "Kitchen Lab",
+    href: "/kitchen-lab/",
+    line: "Five commercial kitchens in 3D, with the heat, the hot air and the cold storage computed live.",
+  },
+  {
+    title: "Chronomètre Souverain",
+    href: "/chronometer/",
+    line: "A 1-minute tourbillon pocket watch simulated from physical law: heat it, freeze it, oil it, magnetize it and listen to it tick.",
+  },
+  {
+    title: "Instrument tests",
+    href: "/instrument-tests/",
+    line: "Instruments computed from physics, played next to real recordings, with spectrograms, measured pitch and the grading behind every verdict.",
+  },
+];
+
 // ---------------------------------------------------------------------------
 //  Types
 // ---------------------------------------------------------------------------
