@@ -4,7 +4,7 @@ import { ArrowRight, Boxes, GitBranch, ShieldCheck } from "lucide-react";
 import SectionShell from "@/components/section-shell";
 import GlitchText from "@/components/glitch-text";
 import { SyncContainer } from "@/components/sync-elements";
-import { layers, crates, crossCuttingCrates } from "@/lib/content";
+import { layers, crates, crossCuttingCrates, heroStat } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "The Kernel — FrankenSim",
@@ -27,12 +27,16 @@ const crossCutting = crates.filter((crate) => crate.layer === "UTIL");
 
 const CROSS_CUTTING_COLOR = "#22d3ee";
 
+// Crates, lines and tests come from heroStats, which scripts/compute-stats.mjs derives from the Rust source, so this
+// page and the home page show the same numbers.
 const kernelStats = [
-  { value: "167", label: "Rust crates" },
+  { value: heroStat("Rust Crates"), label: "Rust crates" },
   { value: "7", label: "acyclic layers" },
-  { value: "~210K", label: "lines of Rust" },
-  { value: "1,800+", label: "inline tests" },
-  { value: "125", label: "CONTRACT.md contracts" },
+  { value: heroStat("Lines of Rust"), label: "lines of Rust" },
+  { value: Number(heroStat("Inline Tests")).toLocaleString("en-US"), label: "inline tests" },
+  // Not in heroStats: counted 2026-11-26 on frankensim c45e5a3723, 176 of the 177 atlas crates carry a CONTRACT.md
+  // (fs-vkplate has none).
+  { value: "176", label: "CONTRACT.md contracts" },
   { value: "0", label: "non-Franken runtime deps" },
 ];
 
@@ -65,7 +69,7 @@ export default function KernelPage() {
           </GlitchText>
 
           <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
-            One acyclic Rust workspace, roughly 210K lines, depending on the
+            One acyclic Rust workspace, {heroStat("Lines of Rust")} lines, depending on the
             Franken constellation and nothing else. Every layer points strictly
             downward, and <span className="text-white">unsafe</span> is confined
             to audited leaf capsules under 300 lines, each sealed behind a safe

@@ -9,12 +9,16 @@ import SectionShell from "@/components/section-shell";
 import GlitchText from "@/components/glitch-text";
 import { SyncContainer } from "@/components/sync-elements";
 import RustCodeBlock from "@/components/rust-code-block";
-import { faq, codeExample, codeExampleStudy, fiveExplicits, siteConfig } from "@/lib/content";
+import { faq, codeExample, codeExampleStudy, fiveExplicits, siteConfig, heroStat } from "@/lib/content";
+
+// Computed by scripts/compute-stats.mjs; the typed "100+ crates, 200K+ lines, 1,800+ tests" had gone stale.
+const CRATES = heroStat("Rust Crates");
+const LINES = heroStat("Lines of Rust");
+const TESTS = Number(heroStat("Inline Tests")).toLocaleString("en-US");
 
 export const metadata: Metadata = {
   title: "Get Started",
-  description:
-    "FrankenSim is a large, working Rust workspace: 100+ crates, 200K+ lines, 1,800+ tests, though not yet a packaged simulator. No stable public API, no CLI, no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.",
+  description: `FrankenSim is a large, working Rust workspace: ${CRATES} crates, ${LINES} lines, ${TESTS} inline tests, though not yet a packaged simulator. The frankensim command-line binary builds from source; there is no stable public API and no crates.io release. Build it from source, run the vertical-skeleton demo, and read the plan.`,
 };
 
 /* ------------------------------------------------------------------ */
@@ -120,16 +124,16 @@ export default function GettingStartedPage() {
 
           <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-slate-400">
             An honest status: FrankenSim is a large, working Rust workspace of{" "}
-            <span className="text-slate-200">100+ crates, 200K+ lines, 1,800+ tests</span>, but it is not yet a
-            packaged simulator. There is no stable public API, no CLI, and no crates.io release. You build it
-            from source and read the plan.
+            <span className="text-slate-200">{CRATES} crates, {LINES} lines, {TESTS} inline tests</span>, but it is
+            not yet a packaged simulator. The <code>frankensim</code> command-line binary builds from source, but
+            there is no stable public API and no crates.io release. You build it from source and read the plan.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             {[
-              { label: "100+ crates" },
-              { label: "200K+ lines of Rust" },
-              { label: "1,800+ inline tests" },
+              { label: `${CRATES} crates` },
+              { label: `${LINES} lines of Rust` },
+              { label: `${TESTS} inline tests` },
               { label: "Pure, memory-safe Rust" },
             ].map((chip) => (
               <span

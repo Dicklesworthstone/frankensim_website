@@ -2,11 +2,14 @@
 
 import { Github, Twitter, ArrowUp, Activity } from "lucide-react";
 import Link from "next/link";
-import { siteConfig, navItems } from "@/lib/content";
+import { siteConfig, navItems, heroStat } from "@/lib/content";
 import { SyncContainer } from "./sync-elements";
 import { Magnetic } from "./motion-wrapper";
 import GlitchText from "./glitch-text";
 import { motion, useReducedMotion } from "framer-motion";
+
+// Computed by scripts/compute-stats.mjs into heroStats; a typed count here had gone stale (54 against 177).
+const CRATE_COUNT = heroStat("Rust Crates");
 
 const socialLinks = [
   { href: siteConfig.social.github, icon: Github, label: "GitHub" },
@@ -68,7 +71,7 @@ export default function SiteFooter() {
                  </div>
                  <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">
                     <Activity className="h-3 w-3" />
-                    <span>Kernel v0.0.1 · 54 Crates</span>
+                    <span>Kernel v0.0.1 · {CRATE_COUNT} Crates</span>
                  </div>
               </div>
             </div>

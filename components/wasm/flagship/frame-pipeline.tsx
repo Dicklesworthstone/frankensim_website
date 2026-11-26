@@ -319,6 +319,9 @@ const STAGES = [
 
 const DEFAULT_SEED = 90210;
 
+/** The layout LP's material volume, physical m³ under the stage's 1 N load (about 1e-7 m³). */
+const fmtVolume = (v: number) => `${v.toExponential(2)} m³`;
+
 /* ------------------------------------------------------------------ */
 
 export default function FramePipeline() {
@@ -346,7 +349,7 @@ export default function FramePipeline() {
   const revealStartRef = useRef<number | null>(null);
   const revealRef = useRef(0);
 
-  const volRef = useEasedText<HTMLSpanElement>(data?.volumePhys ?? 0, reduced, (v) => v.toFixed(2), {
+  const volRef = useEasedText<HTMLSpanElement>(data?.volumePhys ?? 0, reduced, fmtVolume, {
     enabled: !!data,
     inViewRef,
   });
@@ -372,6 +375,12 @@ export default function FramePipeline() {
           const raw = await call<Float64Array>("run_frame", seed);
           const ms = performance.now() - t0;
           if (tokenRef.current !== token) return;
+          // A refused stage returns only the 12-value header, its offsets NaN.
+          if (raw.length <= 12 || !Number.isFinite(raw[3])) {
+            throw new Error(
+              `run_frame refused seed ${seed}: a stage's checked solve refused its input (for example, a story drift past the hinge concrete's admitted strain). Try another seed.`,
+            );
+          }
           setData(decode(raw, ms));
         } catch (e) {
           if (tokenRef.current === token) setError(e instanceof Error ? e.message : String(e));
@@ -579,7 +588,7 @@ export default function FramePipeline() {
             material volume
           </div>
           <div className="font-mono text-[15px] font-black tabular-nums md:text-base" style={{ color: CYAN_GLOW }}>
-            <span ref={volRef}>{data ? data.volumePhys.toFixed(2) : "—"}</span>
+            <span ref={volRef}>{data ? fmtVolume(data.volumePhys) : "—"}</span>
           </div>
         </div>
         <div className="rounded-lg border px-2.5 py-2" style={{ borderColor: `${EMERALD}33`, background: "rgba(255,255,255,0.02)" }}>
@@ -1378,7 +1387,7 @@ function stageMetric(d: FrameData, stage: number): StageMetric {
             PDHG duality gap <span style={{ color: d.certifiedOptimal ? EMERALD : AMBER }}>{d.gap.toExponential(1)}</span>{" "}
             {d.certifiedOptimal ? "< 1e-3 → certified near-optimal" : "iterating"} <span style={{ color: MUTED }}>│</span>{" "}
             <span style={{ color: CYAN_GLOW }}>{d.members.filter((m) => m.survivor).length}</span> survivors of {d.M} candidates ·
-            volume <span style={{ color: CYAN_GLOW }}>{d.volumePhys.toFixed(2)}</span>
+            volume <span style={{ color: CYAN_GLOW }}>{fmtVolume(d.volumePhys)}</span> (1 N load)
           </>
         ),
       };

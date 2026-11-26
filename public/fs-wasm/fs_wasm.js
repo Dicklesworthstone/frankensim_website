@@ -1,3 +1,217 @@
+/* @ts-self-types="./fs_wasm.d.ts" */
+
+/**
+ * JS result of a fallible brownian export. `envelope` is always present.
+ * `values` is empty only when `envelope` is a refusal; a successful call
+ * always has length `n_particles * (steps + 1) >= 2`.
+ */
+export class BrownianJs {
+    static __wrap(ptr) {
+        const obj = Object.create(BrownianJs.prototype);
+        obj.__wbg_ptr = ptr;
+        BrownianJsFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        BrownianJsFinalization.unregister(this);
+        return ptr;
+    }
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_brownianjs_free(ptr, 0);
+    }
+    /**
+     * @returns {string}
+     */
+    get envelope() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.brownianjs_envelope(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {Float64Array}
+     */
+    get values() {
+        const ret = wasm.brownianjs_values(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+}
+if (Symbol.dispose) BrownianJs.prototype[Symbol.dispose] = BrownianJs.prototype.free;
+
+/**
+ * JS result of `diffusion1d_frames`. Empty `values` only when `envelope`
+ * names a refusal; the empty buffer is not itself the refusal.
+ */
+export class Diffusion1dJs {
+    static __wrap(ptr) {
+        const obj = Object.create(Diffusion1dJs.prototype);
+        obj.__wbg_ptr = ptr;
+        Diffusion1dJsFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        Diffusion1dJsFinalization.unregister(this);
+        return ptr;
+    }
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_diffusion1djs_free(ptr, 0);
+    }
+    /**
+     * @returns {string}
+     */
+    get envelope() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.diffusion1djs_envelope(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {Float64Array}
+     */
+    get values() {
+        const ret = wasm.diffusion1djs_values(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+}
+if (Symbol.dispose) Diffusion1dJs.prototype[Symbol.dispose] = Diffusion1dJs.prototype.free;
+
+/**
+ * JS result of `philox_normals`. Empty `values` only when `envelope` names
+ * a refusal or budget miss; the empty buffer is not itself the refusal.
+ */
+export class PhiloxNormalsJs {
+    static __wrap(ptr) {
+        const obj = Object.create(PhiloxNormalsJs.prototype);
+        obj.__wbg_ptr = ptr;
+        PhiloxNormalsJsFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        PhiloxNormalsJsFinalization.unregister(this);
+        return ptr;
+    }
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_philoxnormalsjs_free(ptr, 0);
+    }
+    /**
+     * @returns {string}
+     */
+    get envelope() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.philoxnormalsjs_envelope(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {Float64Array}
+     */
+    get values() {
+        const ret = wasm.philoxnormalsjs_values(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+}
+if (Symbol.dispose) PhiloxNormalsJs.prototype[Symbol.dispose] = PhiloxNormalsJs.prototype.free;
+
+/**
+ * Admit-or-refuse JSON without packing the sample buffer as JSON numbers.
+ * @param {number} n_particles
+ * @param {number} steps
+ * @param {number} step_kernel
+ * @param {bigint} seed
+ * @param {number} diffusion
+ * @param {number} dt
+ * @returns {string}
+ */
+export function admit_brownian_frames(n_particles, steps, step_kernel, seed, diffusion, dt) {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.admit_brownian_frames(n_particles, steps, step_kernel, seed, diffusion, dt);
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
+}
+
+/**
+ * @param {number} n
+ * @param {number} frames
+ * @param {number} steps_per_frame
+ * @param {number} diffusion
+ * @param {number} dx
+ * @param {number} dt
+ * @param {number} profile
+ * @returns {string}
+ */
+export function admit_diffusion1d_frames(n, frames, steps_per_frame, diffusion, dx, dt, profile) {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.admit_diffusion1d_frames(n, frames, steps_per_frame, diffusion, dx, dt, profile);
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
+}
+
+/**
+ * @param {bigint} seed
+ * @param {number} stream_kernel
+ * @param {number} tile
+ * @param {bigint} start_index
+ * @param {number} count
+ * @returns {string}
+ */
+export function admit_philox_normals(seed, stream_kernel, tile, start_index, count) {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.admit_philox_normals(seed, stream_kernel, tile, start_index, count);
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
+}
+
 /**
  * @param {number} max_iters
  * @param {number} delta
@@ -33,6 +247,23 @@ export function betti_shapes(shape) {
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
+}
+
+/**
+ * One-shot frames. Refusals travel in `envelope`; `values` is then empty
+ * because the envelope names the refusal, not because the buffer is the
+ * refusal.
+ * @param {number} n_particles
+ * @param {number} steps
+ * @param {number} step_kernel
+ * @param {bigint} seed
+ * @param {number} diffusion
+ * @param {number} dt
+ * @returns {BrownianJs}
+ */
+export function brownian_frames(n_particles, steps, step_kernel, seed, diffusion, dt) {
+    const ret = wasm.brownian_frames(n_particles, steps, step_kernel, seed, diffusion, dt);
+    return BrownianJs.__wrap(ret);
 }
 
 /**
@@ -105,6 +336,90 @@ export function cyclic_symmetry(n, stiffness) {
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
+}
+
+/**
+ * Material-indexed absorbed and transmitted collimated-beam power.
+ * @param {Float64Array} mass_field
+ * @param {Uint32Array} cell_materials
+ * @param {number} nx
+ * @param {number} ny
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} irradiance_w_m2_nm
+ * @param {boolean} irradiance_per_column
+ * @param {Float64Array} quadrature_weights_nm
+ * @param {boolean} positive_z
+ * @returns {Float64Array}
+ */
+export function deposit_vessel_indexed_spectral_beam(mass_field, cell_materials, nx, ny, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, irradiance_w_m2_nm, irradiance_per_column, quadrature_weights_nm, positive_z) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(cell_materials, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ptr4 = passArrayF64ToWasm0(irradiance_w_m2_nm, wasm.__wbindgen_malloc);
+    const len4 = WASM_VECTOR_LEN;
+    const ptr5 = passArrayF64ToWasm0(quadrature_weights_nm, wasm.__wbindgen_malloc);
+    const len5 = WASM_VECTOR_LEN;
+    const ret = wasm.deposit_vessel_indexed_spectral_beam(ptr0, len0, ptr1, len1, nx, ny, ptr2, len2, ptr3, len3, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr4, len4, irradiance_per_column, ptr5, len5, positive_z);
+    var v7 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v7;
+}
+
+/**
+ * Original-cell absorbed and transmitted beam power, with explicit irradiance units.
+ * @param {Float64Array} mass_field
+ * @param {number} nx
+ * @param {number} ny
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} irradiance_w_m2_nm
+ * @param {boolean} irradiance_per_column
+ * @param {Float64Array} quadrature_weights_nm
+ * @param {boolean} positive_z
+ * @returns {Float64Array}
+ */
+export function deposit_vessel_spectral_beam(mass_field, nx, ny, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, irradiance_w_m2_nm, irradiance_per_column, quadrature_weights_nm, positive_z) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(irradiance_w_m2_nm, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ptr4 = passArrayF64ToWasm0(quadrature_weights_nm, wasm.__wbindgen_malloc);
+    const len4 = WASM_VECTOR_LEN;
+    const ret = wasm.deposit_vessel_spectral_beam(ptr0, len0, nx, ny, ptr1, len1, ptr2, len2, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr3, len3, irradiance_per_column, ptr4, len4, positive_z);
+    var v6 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v6;
+}
+
+/**
+ * @param {number} n
+ * @param {number} frames
+ * @param {number} steps_per_frame
+ * @param {number} diffusion
+ * @param {number} dx
+ * @param {number} dt
+ * @param {number} profile
+ * @returns {Diffusion1dJs}
+ */
+export function diffusion1d_frames(n, frames, steps_per_frame, diffusion, dx, dt, profile) {
+    const ret = wasm.diffusion1d_frames(n, frames, steps_per_frame, diffusion, dx, dt, profile);
+    return Diffusion1dJs.__wrap(ret);
 }
 
 /**
@@ -225,11 +540,11 @@ export function gp_regression(n_train, samples) {
 
 /**
  * @param {number} match_tol
- * @param {number} simplify_tol
+ * @param {number} simplify_radius_threshold
  * @returns {Float64Array}
  */
-export function grammarforge(match_tol, simplify_tol) {
-    const ret = wasm.grammarforge(match_tol, simplify_tol);
+export function grammarforge(match_tol, simplify_radius_threshold) {
+    const ret = wasm.grammarforge(match_tol, simplify_radius_threshold);
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
@@ -418,6 +733,19 @@ export function orr_sommerfeld_max_growth(re, alpha, n) {
 }
 
 /**
+ * @param {bigint} seed
+ * @param {number} stream_kernel
+ * @param {number} tile
+ * @param {bigint} start_index
+ * @param {number} count
+ * @returns {PhiloxNormalsJs}
+ */
+export function philox_normals(seed, stream_kernel, tile, start_index, count) {
+    const ret = wasm.philox_normals(seed, stream_kernel, tile, start_index, count);
+    return PhiloxNormalsJs.__wrap(ret);
+}
+
+/**
  * @param {number} n
  * @returns {Float64Array}
  */
@@ -426,6 +754,26 @@ export function poisson2d(n) {
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
+}
+
+/**
+ * Prepare mass-mixture coefficient rows for the indexed vessel renderer.
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} component_absorption_m2_kg
+ * @param {Float64Array} mixture_mass_weights
+ * @returns {Float64Array}
+ */
+export function prepare_vessel_spectral_absorption_mixtures(wavelengths_nm, component_absorption_m2_kg, mixture_mass_weights) {
+    const ptr0 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(component_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(mixture_mass_weights, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ret = wasm.prepare_vessel_spectral_absorption_mixtures(ptr0, len0, ptr1, len1, ptr2, len2);
+    var v4 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v4;
 }
 
 /**
@@ -467,6 +815,215 @@ export function randomized_svd(n, rank, seed) {
 }
 
 /**
+ * Physical radiance through captured mass and an explicit material map.
+ * @param {Float64Array} mass_field
+ * @param {Uint32Array} cell_materials
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} background_w_m2_sr_nm
+ * @param {boolean} background_per_column
+ * @returns {Float64Array}
+ */
+export function render_vessel_indexed_spectral_radiance(mass_field, cell_materials, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, background_w_m2_sr_nm, background_per_column) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(cell_materials, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ptr4 = passArrayF64ToWasm0(background_w_m2_sr_nm, wasm.__wbindgen_malloc);
+    const len4 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_indexed_spectral_radiance(ptr0, len0, ptr1, len1, nx, ny, resolution, ptr2, len2, ptr3, len3, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr4, len4, background_per_column);
+    var v6 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v6;
+}
+
+/**
+ * Spectral SI absorption using explicit original cell material indices.
+ * @param {Float64Array} mass_field
+ * @param {Uint32Array} cell_materials
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @returns {Float64Array}
+ */
+export function render_vessel_indexed_spectral_transmittance(mass_field, cell_materials, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(cell_materials, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_indexed_spectral_transmittance(ptr0, len0, ptr1, len1, nx, ny, resolution, ptr2, len2, ptr3, len3, density_unit_kg_m3, lattice_spacing_m, slab_depth_m);
+    var v5 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v5;
+}
+
+/**
+ * Approximate visible XYZ through captured mass and an explicit material map.
+ * @param {Float64Array} mass_field
+ * @param {Uint32Array} cell_materials
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} background_w_m2_sr_nm
+ * @param {boolean} background_per_column
+ * @param {Float64Array} quadrature_weights_nm
+ * @returns {Float64Array}
+ */
+export function render_vessel_indexed_spectral_xyz(mass_field, cell_materials, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, background_w_m2_sr_nm, background_per_column, quadrature_weights_nm) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(cell_materials, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ptr4 = passArrayF64ToWasm0(background_w_m2_sr_nm, wasm.__wbindgen_malloc);
+    const len4 = WASM_VECTOR_LEN;
+    const ptr5 = passArrayF64ToWasm0(quadrature_weights_nm, wasm.__wbindgen_malloc);
+    const len5 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_indexed_spectral_xyz(ptr0, len0, ptr1, len1, nx, ny, resolution, ptr2, len2, ptr3, len3, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr4, len4, background_per_column, ptr5, len5);
+    var v7 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v7;
+}
+
+/**
+ * Physical radiance through captured mass, with explicit illumination layout.
+ * @param {Float64Array} mass_field
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} background_w_m2_sr_nm
+ * @param {boolean} background_per_column
+ * @returns {Float64Array}
+ */
+export function render_vessel_spectral_radiance(mass_field, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, background_w_m2_sr_nm, background_per_column) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(background_w_m2_sr_nm, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_spectral_radiance(ptr0, len0, nx, ny, resolution, ptr1, len1, ptr2, len2, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr3, len3, background_per_column);
+    var v5 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v5;
+}
+
+/**
+ * Spectral SI absorption of an existing captured mass frame.
+ * @param {Float64Array} mass_field
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @returns {Float64Array}
+ */
+export function render_vessel_spectral_transmittance(mass_field, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_spectral_transmittance(ptr0, len0, nx, ny, resolution, ptr1, len1, ptr2, len2, density_unit_kg_m3, lattice_spacing_m, slab_depth_m);
+    var v4 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v4;
+}
+
+/**
+ * Approximate visible XYZ with explicit source radiance and quadrature.
+ * @param {Float64Array} mass_field
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {Float64Array} wavelengths_nm
+ * @param {Float64Array} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @param {Float64Array} background_w_m2_sr_nm
+ * @param {boolean} background_per_column
+ * @param {Float64Array} quadrature_weights_nm
+ * @returns {Float64Array}
+ */
+export function render_vessel_spectral_xyz(mass_field, nx, ny, resolution, wavelengths_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, background_w_m2_sr_nm, background_per_column, quadrature_weights_nm) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(wavelengths_nm, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(mass_absorption_m2_kg, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(background_w_m2_sr_nm, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ptr4 = passArrayF64ToWasm0(quadrature_weights_nm, wasm.__wbindgen_malloc);
+    const len4 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_spectral_xyz(ptr0, len0, nx, ny, resolution, ptr1, len1, ptr2, len2, density_unit_kg_m3, lattice_spacing_m, slab_depth_m, ptr3, len3, background_per_column, ptr4, len4);
+    var v6 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v6;
+}
+
+/**
+ * Monochromatic SI absorption of an existing captured mass frame.
+ * @param {Float64Array} mass_field
+ * @param {number} nx
+ * @param {number} ny
+ * @param {number} resolution
+ * @param {number} wavelength_nm
+ * @param {number} mass_absorption_m2_kg
+ * @param {number} density_unit_kg_m3
+ * @param {number} lattice_spacing_m
+ * @param {number} slab_depth_m
+ * @returns {Float64Array}
+ */
+export function render_vessel_transmittance(mass_field, nx, ny, resolution, wavelength_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m) {
+    const ptr0 = passArrayF64ToWasm0(mass_field, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.render_vessel_transmittance(ptr0, len0, nx, ny, resolution, wavelength_nm, mass_absorption_m2_kg, density_unit_kg_m3, lattice_spacing_m, slab_depth_m);
+    var v2 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v2;
+}
+
+/**
  * @param {number} radius
  * @returns {Float64Array}
  */
@@ -486,6 +1043,43 @@ export function run_frame(seed) {
     var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
     return v1;
+}
+
+/**
+ * @param {number} blowing_pressure_pa
+ * @returns {Float64Array}
+ */
+export function run_instrument_reed(blowing_pressure_pa) {
+    const ret = wasm.run_instrument_reed(blowing_pressure_pa);
+    var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v1;
+}
+
+/**
+ * Physical SI film study; JavaScript receives a typed-array result or an error.
+ * @param {Float64Array} section_rows
+ * @param {Float64Array} width_scales
+ * @param {Float64Array} fluid_rows
+ * @param {Float64Array} settings
+ * @returns {Float64Array}
+ */
+export function run_laminar_vessel(section_rows, width_scales, fluid_rows, settings) {
+    const ptr0 = passArrayF64ToWasm0(section_rows, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArrayF64ToWasm0(width_scales, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArrayF64ToWasm0(fluid_rows, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passArrayF64ToWasm0(settings, wasm.__wbindgen_malloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ret = wasm.run_laminar_vessel(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
+    if (ret[3]) {
+        throw takeFromExternrefTable0(ret[2]);
+    }
+    var v5 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+    return v5;
 }
 
 /**
@@ -619,6 +1213,11 @@ function __wbg_get_imports() {
         __wbg___wbindgen_throw_344f42d3211c4765: function(arg0, arg1) {
             throw new Error(getStringFromWasm0(arg0, arg1));
         },
+        __wbindgen_cast_0000000000000001: function(arg0, arg1) {
+            // Cast intrinsic for `Ref(String) -> Externref`.
+            const ret = getStringFromWasm0(arg0, arg1);
+            return ret;
+        },
         __wbindgen_init_externref_table: function() {
             const table = wasm.__wbindgen_externrefs;
             const offset = table.grow(4);
@@ -634,6 +1233,16 @@ function __wbg_get_imports() {
         "./fs_wasm_bg.js": import0,
     };
 }
+
+const BrownianJsFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_brownianjs_free(ptr, 1));
+const Diffusion1dJsFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_diffusion1djs_free(ptr, 1));
+const PhiloxNormalsJsFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_philoxnormalsjs_free(ptr, 1));
 
 function getArrayF64FromWasm0(ptr, len) {
     ptr = ptr >>> 0;
@@ -652,12 +1261,40 @@ function getStringFromWasm0(ptr, len) {
     return decodeText(ptr >>> 0, len);
 }
 
+let cachedUint32ArrayMemory0 = null;
+function getUint32ArrayMemory0() {
+    if (cachedUint32ArrayMemory0 === null || cachedUint32ArrayMemory0.byteLength === 0) {
+        cachedUint32ArrayMemory0 = new Uint32Array(wasm.memory.buffer);
+    }
+    return cachedUint32ArrayMemory0;
+}
+
 let cachedUint8ArrayMemory0 = null;
 function getUint8ArrayMemory0() {
     if (cachedUint8ArrayMemory0 === null || cachedUint8ArrayMemory0.byteLength === 0) {
         cachedUint8ArrayMemory0 = new Uint8Array(wasm.memory.buffer);
     }
     return cachedUint8ArrayMemory0;
+}
+
+function passArray32ToWasm0(arg, malloc) {
+    const ptr = malloc(arg.length * 4, 4) >>> 0;
+    getUint32ArrayMemory0().set(arg, ptr / 4);
+    WASM_VECTOR_LEN = arg.length;
+    return ptr;
+}
+
+function passArrayF64ToWasm0(arg, malloc) {
+    const ptr = malloc(arg.length * 8, 8) >>> 0;
+    getFloat64ArrayMemory0().set(arg, ptr / 8);
+    WASM_VECTOR_LEN = arg.length;
+    return ptr;
+}
+
+function takeFromExternrefTable0(idx) {
+    const value = wasm.__wbindgen_externrefs.get(idx);
+    wasm.__externref_table_dealloc(idx);
+    return value;
 }
 
 let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
@@ -674,12 +1311,15 @@ function decodeText(ptr, len) {
     return cachedTextDecoder.decode(getUint8ArrayMemory0().subarray(ptr, ptr + len));
 }
 
+let WASM_VECTOR_LEN = 0;
+
 let wasmModule, wasmInstance, wasm;
 function __wbg_finalize_init(instance, module) {
     wasmInstance = instance;
     wasm = instance.exports;
     wasmModule = module;
     cachedFloat64ArrayMemory0 = null;
+    cachedUint32ArrayMemory0 = null;
     cachedUint8ArrayMemory0 = null;
     wasm.__wbindgen_start();
     return wasm;

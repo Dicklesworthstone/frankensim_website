@@ -257,7 +257,10 @@ const records = included.map((c) => {
     blurb = c.name;
     derived++;
   }
-  return { name: c.name, layer: c.layer || "UTIL", blurb };
+  // A crate tagged layer = "TOOL" (fs-evidence-runner) sits outside the L0–L6 stack like the UTIL crates; without
+  // this it was counted in the total but rendered in no section, and the re-parse check refused the file.
+  const layer = !c.layer || c.layer === "TOOL" ? "UTIL" : c.layer;
+  return { name: c.name, layer, blurb };
 });
 
 const byLayer = new Map();
